@@ -5,6 +5,11 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 // Export members:
+export { AclArgs, AclState } from "./acl";
+export type Acl = import("./acl").Acl;
+export const Acl: typeof import("./acl").Acl = null as any;
+utilities.lazyLoad(exports, ["Acl"], () => require("./acl"));
+
 export { AWSCloudWatchLogsIntegrationArgs, AWSCloudWatchLogsIntegrationState } from "./awscloudWatchLogsIntegration";
 export type AWSCloudWatchLogsIntegration = import("./awscloudWatchLogsIntegration").AWSCloudWatchLogsIntegration;
 export const AWSCloudWatchLogsIntegration: typeof import("./awscloudWatchLogsIntegration").AWSCloudWatchLogsIntegration = null as any;
@@ -76,6 +81,8 @@ const _module = {
                 return new AWSCloudWatchLogsIntegration(name, <any>undefined, { urn })
             case "eventstorecloud:index/aWSCloudWatchMetricsIntegration:AWSCloudWatchMetricsIntegration":
                 return new AWSCloudWatchMetricsIntegration(name, <any>undefined, { urn })
+            case "eventstorecloud:index/acl:Acl":
+                return new Acl(name, <any>undefined, { urn })
             case "eventstorecloud:index/integration:Integration":
                 return new Integration(name, <any>undefined, { urn })
             case "eventstorecloud:index/managedCluster:ManagedCluster":
@@ -95,6 +102,7 @@ const _module = {
 };
 pulumi.runtime.registerResourceModule("eventstorecloud", "index/aWSCloudWatchLogsIntegration", _module)
 pulumi.runtime.registerResourceModule("eventstorecloud", "index/aWSCloudWatchMetricsIntegration", _module)
+pulumi.runtime.registerResourceModule("eventstorecloud", "index/acl", _module)
 pulumi.runtime.registerResourceModule("eventstorecloud", "index/integration", _module)
 pulumi.runtime.registerResourceModule("eventstorecloud", "index/managedCluster", _module)
 pulumi.runtime.registerResourceModule("eventstorecloud", "index/network", _module)

@@ -48,7 +48,7 @@ namespace Pulumi.EventStoreCloud
         /// Address space of the network in CIDR block notation
         /// </summary>
         [Output("cidrBlock")]
-        public Output<string> CidrBlock { get; private set; } = null!;
+        public Output<string?> CidrBlock { get; private set; } = null!;
 
         /// <summary>
         /// Human-friendly name for the network
@@ -61,6 +61,12 @@ namespace Pulumi.EventStoreCloud
         /// </summary>
         [Output("projectId")]
         public Output<string> ProjectId { get; private set; } = null!;
+
+        /// <summary>
+        /// Whether the network is able to be accessed from the public internet
+        /// </summary>
+        [Output("publicAccess")]
+        public Output<bool?> PublicAccess { get; private set; } = null!;
 
         /// <summary>
         /// Provider region in which to provision the network
@@ -124,8 +130,8 @@ namespace Pulumi.EventStoreCloud
         /// <summary>
         /// Address space of the network in CIDR block notation
         /// </summary>
-        [Input("cidrBlock", required: true)]
-        public Input<string> CidrBlock { get; set; } = null!;
+        [Input("cidrBlock")]
+        public Input<string>? CidrBlock { get; set; }
 
         /// <summary>
         /// Human-friendly name for the network
@@ -138,6 +144,12 @@ namespace Pulumi.EventStoreCloud
         /// </summary>
         [Input("projectId", required: true)]
         public Input<string> ProjectId { get; set; } = null!;
+
+        /// <summary>
+        /// Whether the network is able to be accessed from the public internet
+        /// </summary>
+        [Input("publicAccess")]
+        public Input<bool>? PublicAccess { get; set; }
 
         /// <summary>
         /// Provider region in which to provision the network
@@ -176,6 +188,12 @@ namespace Pulumi.EventStoreCloud
         /// </summary>
         [Input("projectId")]
         public Input<string>? ProjectId { get; set; }
+
+        /// <summary>
+        /// Whether the network is able to be accessed from the public internet
+        /// </summary>
+        [Input("publicAccess")]
+        public Input<bool>? PublicAccess { get; set; }
 
         /// <summary>
         /// Provider region in which to provision the network

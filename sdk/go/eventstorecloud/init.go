@@ -25,6 +25,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &AWSCloudWatchLogsIntegration{}
 	case "eventstorecloud:index/aWSCloudWatchMetricsIntegration:AWSCloudWatchMetricsIntegration":
 		r = &AWSCloudWatchMetricsIntegration{}
+	case "eventstorecloud:index/acl:Acl":
+		r = &Acl{}
 	case "eventstorecloud:index/integration:Integration":
 		r = &Integration{}
 	case "eventstorecloud:index/managedCluster:ManagedCluster":
@@ -76,6 +78,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"eventstorecloud",
 		"index/aWSCloudWatchMetricsIntegration",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"eventstorecloud",
+		"index/acl",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

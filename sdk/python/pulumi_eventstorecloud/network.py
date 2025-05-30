@@ -14,37 +14,30 @@ __all__ = ['NetworkArgs', 'Network']
 @pulumi.input_type
 class NetworkArgs:
     def __init__(__self__, *,
-                 cidr_block: pulumi.Input[str],
                  project_id: pulumi.Input[str],
                  region: pulumi.Input[str],
                  resource_provider: pulumi.Input[str],
-                 name: Optional[pulumi.Input[str]] = None):
+                 cidr_block: Optional[pulumi.Input[str]] = None,
+                 name: Optional[pulumi.Input[str]] = None,
+                 public_access: Optional[pulumi.Input[bool]] = None):
         """
         The set of arguments for constructing a Network resource.
-        :param pulumi.Input[str] cidr_block: Address space of the network in CIDR block notation
         :param pulumi.Input[str] project_id: Project ID
         :param pulumi.Input[str] region: Provider region in which to provision the network
         :param pulumi.Input[str] resource_provider: Cloud Provider in which to provision the network.
+        :param pulumi.Input[str] cidr_block: Address space of the network in CIDR block notation
         :param pulumi.Input[str] name: Human-friendly name for the network
+        :param pulumi.Input[bool] public_access: Whether the network is able to be accessed from the public internet
         """
-        pulumi.set(__self__, "cidr_block", cidr_block)
         pulumi.set(__self__, "project_id", project_id)
         pulumi.set(__self__, "region", region)
         pulumi.set(__self__, "resource_provider", resource_provider)
+        if cidr_block is not None:
+            pulumi.set(__self__, "cidr_block", cidr_block)
         if name is not None:
             pulumi.set(__self__, "name", name)
-
-    @property
-    @pulumi.getter(name="cidrBlock")
-    def cidr_block(self) -> pulumi.Input[str]:
-        """
-        Address space of the network in CIDR block notation
-        """
-        return pulumi.get(self, "cidr_block")
-
-    @cidr_block.setter
-    def cidr_block(self, value: pulumi.Input[str]):
-        pulumi.set(self, "cidr_block", value)
+        if public_access is not None:
+            pulumi.set(__self__, "public_access", public_access)
 
     @property
     @pulumi.getter(name="projectId")
@@ -83,6 +76,18 @@ class NetworkArgs:
         pulumi.set(self, "resource_provider", value)
 
     @property
+    @pulumi.getter(name="cidrBlock")
+    def cidr_block(self) -> Optional[pulumi.Input[str]]:
+        """
+        Address space of the network in CIDR block notation
+        """
+        return pulumi.get(self, "cidr_block")
+
+    @cidr_block.setter
+    def cidr_block(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "cidr_block", value)
+
+    @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
@@ -94,6 +99,18 @@ class NetworkArgs:
     def name(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "name", value)
 
+    @property
+    @pulumi.getter(name="publicAccess")
+    def public_access(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether the network is able to be accessed from the public internet
+        """
+        return pulumi.get(self, "public_access")
+
+    @public_access.setter
+    def public_access(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "public_access", value)
+
 
 @pulumi.input_type
 class _NetworkState:
@@ -101,6 +118,7 @@ class _NetworkState:
                  cidr_block: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
+                 public_access: Optional[pulumi.Input[bool]] = None,
                  region: Optional[pulumi.Input[str]] = None,
                  resource_provider: Optional[pulumi.Input[str]] = None):
         """
@@ -108,6 +126,7 @@ class _NetworkState:
         :param pulumi.Input[str] cidr_block: Address space of the network in CIDR block notation
         :param pulumi.Input[str] name: Human-friendly name for the network
         :param pulumi.Input[str] project_id: Project ID
+        :param pulumi.Input[bool] public_access: Whether the network is able to be accessed from the public internet
         :param pulumi.Input[str] region: Provider region in which to provision the network
         :param pulumi.Input[str] resource_provider: Cloud Provider in which to provision the network.
         """
@@ -117,6 +136,8 @@ class _NetworkState:
             pulumi.set(__self__, "name", name)
         if project_id is not None:
             pulumi.set(__self__, "project_id", project_id)
+        if public_access is not None:
+            pulumi.set(__self__, "public_access", public_access)
         if region is not None:
             pulumi.set(__self__, "region", region)
         if resource_provider is not None:
@@ -159,6 +180,18 @@ class _NetworkState:
         pulumi.set(self, "project_id", value)
 
     @property
+    @pulumi.getter(name="publicAccess")
+    def public_access(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether the network is able to be accessed from the public internet
+        """
+        return pulumi.get(self, "public_access")
+
+    @public_access.setter
+    def public_access(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "public_access", value)
+
+    @property
     @pulumi.getter
     def region(self) -> Optional[pulumi.Input[str]]:
         """
@@ -191,6 +224,7 @@ class Network(pulumi.CustomResource):
                  cidr_block: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
+                 public_access: Optional[pulumi.Input[bool]] = None,
                  region: Optional[pulumi.Input[str]] = None,
                  resource_provider: Optional[pulumi.Input[str]] = None,
                  __props__=None):
@@ -222,6 +256,7 @@ class Network(pulumi.CustomResource):
         :param pulumi.Input[str] cidr_block: Address space of the network in CIDR block notation
         :param pulumi.Input[str] name: Human-friendly name for the network
         :param pulumi.Input[str] project_id: Project ID
+        :param pulumi.Input[bool] public_access: Whether the network is able to be accessed from the public internet
         :param pulumi.Input[str] region: Provider region in which to provision the network
         :param pulumi.Input[str] resource_provider: Cloud Provider in which to provision the network.
         """
@@ -272,6 +307,7 @@ class Network(pulumi.CustomResource):
                  cidr_block: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[str]] = None,
+                 public_access: Optional[pulumi.Input[bool]] = None,
                  region: Optional[pulumi.Input[str]] = None,
                  resource_provider: Optional[pulumi.Input[str]] = None,
                  __props__=None):
@@ -283,13 +319,12 @@ class Network(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = NetworkArgs.__new__(NetworkArgs)
 
-            if cidr_block is None and not opts.urn:
-                raise TypeError("Missing required property 'cidr_block'")
             __props__.__dict__["cidr_block"] = cidr_block
             __props__.__dict__["name"] = name
             if project_id is None and not opts.urn:
                 raise TypeError("Missing required property 'project_id'")
             __props__.__dict__["project_id"] = project_id
+            __props__.__dict__["public_access"] = public_access
             if region is None and not opts.urn:
                 raise TypeError("Missing required property 'region'")
             __props__.__dict__["region"] = region
@@ -309,6 +344,7 @@ class Network(pulumi.CustomResource):
             cidr_block: Optional[pulumi.Input[str]] = None,
             name: Optional[pulumi.Input[str]] = None,
             project_id: Optional[pulumi.Input[str]] = None,
+            public_access: Optional[pulumi.Input[bool]] = None,
             region: Optional[pulumi.Input[str]] = None,
             resource_provider: Optional[pulumi.Input[str]] = None) -> 'Network':
         """
@@ -321,6 +357,7 @@ class Network(pulumi.CustomResource):
         :param pulumi.Input[str] cidr_block: Address space of the network in CIDR block notation
         :param pulumi.Input[str] name: Human-friendly name for the network
         :param pulumi.Input[str] project_id: Project ID
+        :param pulumi.Input[bool] public_access: Whether the network is able to be accessed from the public internet
         :param pulumi.Input[str] region: Provider region in which to provision the network
         :param pulumi.Input[str] resource_provider: Cloud Provider in which to provision the network.
         """
@@ -331,13 +368,14 @@ class Network(pulumi.CustomResource):
         __props__.__dict__["cidr_block"] = cidr_block
         __props__.__dict__["name"] = name
         __props__.__dict__["project_id"] = project_id
+        __props__.__dict__["public_access"] = public_access
         __props__.__dict__["region"] = region
         __props__.__dict__["resource_provider"] = resource_provider
         return Network(resource_name, opts=opts, __props__=__props__)
 
     @property
     @pulumi.getter(name="cidrBlock")
-    def cidr_block(self) -> pulumi.Output[str]:
+    def cidr_block(self) -> pulumi.Output[Optional[str]]:
         """
         Address space of the network in CIDR block notation
         """
@@ -358,6 +396,14 @@ class Network(pulumi.CustomResource):
         Project ID
         """
         return pulumi.get(self, "project_id")
+
+    @property
+    @pulumi.getter(name="publicAccess")
+    def public_access(self) -> pulumi.Output[Optional[bool]]:
+        """
+        Whether the network is able to be accessed from the public internet
+        """
+        return pulumi.get(self, "public_access")
 
     @property
     @pulumi.getter

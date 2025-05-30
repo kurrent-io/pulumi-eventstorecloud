@@ -21,26 +21,30 @@ class ManagedClusterArgs:
                  project_id: pulumi.Input[str],
                  server_version: pulumi.Input[str],
                  topology: pulumi.Input[str],
+                 acl_id: Optional[pulumi.Input[str]] = None,
                  disk_iops: Optional[pulumi.Input[int]] = None,
                  disk_throughput: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  projection_level: Optional[pulumi.Input[str]] = None,
                  protected: Optional[pulumi.Input[bool]] = None,
+                 public_access: Optional[pulumi.Input[bool]] = None,
                  server_version_tag: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a ManagedCluster resource.
         :param pulumi.Input[int] disk_size: Size of the data disks, in gigabytes
         :param pulumi.Input[str] disk_type: Storage class of the data disks (find the list of valid values below)
-        :param pulumi.Input[str] instance_type: Instance type of the managed cluster (find the list of valid values below)
+        :param pulumi.Input[str] instance_type: Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
         :param pulumi.Input[str] network_id: ID of the network in which the managed cluster exists
         :param pulumi.Input[str] project_id: ID of the project in which the managed cluster exists
         :param pulumi.Input[str] server_version: Server version to provision (find the list of valid values below)
         :param pulumi.Input[str] topology: Topology of the managed cluster (`single-node` or `three-node-multi-zone`)
+        :param pulumi.Input[str] acl_id: ID of the ACL if using public access
         :param pulumi.Input[int] disk_iops: Number of IOPS for storage, required if disk_type is `gp3`
         :param pulumi.Input[int] disk_throughput: Throughput in MB/s for storage, required if disk_type is `gp3`
         :param pulumi.Input[str] name: Name of the managed cluster
         :param pulumi.Input[str] projection_level: Determines whether to run no projections, system projections only, or system and user projections (find the list of valid values below) Defaults to `off`.
         :param pulumi.Input[bool] protected: Protection from an accidental cluster deletion Defaults to `false`.
+        :param pulumi.Input[bool] public_access: If true, the cluster is provisioned with a public endpoint
         :param pulumi.Input[str] server_version_tag: Server version tag to provision (find the list of valid values below). A higher server*version*tag will prompt an upgrade.
         """
         pulumi.set(__self__, "disk_size", disk_size)
@@ -50,6 +54,8 @@ class ManagedClusterArgs:
         pulumi.set(__self__, "project_id", project_id)
         pulumi.set(__self__, "server_version", server_version)
         pulumi.set(__self__, "topology", topology)
+        if acl_id is not None:
+            pulumi.set(__self__, "acl_id", acl_id)
         if disk_iops is not None:
             pulumi.set(__self__, "disk_iops", disk_iops)
         if disk_throughput is not None:
@@ -60,6 +66,8 @@ class ManagedClusterArgs:
             pulumi.set(__self__, "projection_level", projection_level)
         if protected is not None:
             pulumi.set(__self__, "protected", protected)
+        if public_access is not None:
+            pulumi.set(__self__, "public_access", public_access)
         if server_version_tag is not None:
             pulumi.set(__self__, "server_version_tag", server_version_tag)
 
@@ -91,7 +99,7 @@ class ManagedClusterArgs:
     @pulumi.getter(name="instanceType")
     def instance_type(self) -> pulumi.Input[str]:
         """
-        Instance type of the managed cluster (find the list of valid values below)
+        Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
         """
         return pulumi.get(self, "instance_type")
 
@@ -146,6 +154,18 @@ class ManagedClusterArgs:
     @topology.setter
     def topology(self, value: pulumi.Input[str]):
         pulumi.set(self, "topology", value)
+
+    @property
+    @pulumi.getter(name="aclId")
+    def acl_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        ID of the ACL if using public access
+        """
+        return pulumi.get(self, "acl_id")
+
+    @acl_id.setter
+    def acl_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "acl_id", value)
 
     @property
     @pulumi.getter(name="diskIops")
@@ -208,6 +228,18 @@ class ManagedClusterArgs:
         pulumi.set(self, "protected", value)
 
     @property
+    @pulumi.getter(name="publicAccess")
+    def public_access(self) -> Optional[pulumi.Input[bool]]:
+        """
+        If true, the cluster is provisioned with a public endpoint
+        """
+        return pulumi.get(self, "public_access")
+
+    @public_access.setter
+    def public_access(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "public_access", value)
+
+    @property
     @pulumi.getter(name="serverVersionTag")
     def server_version_tag(self) -> Optional[pulumi.Input[str]]:
         """
@@ -223,6 +255,7 @@ class ManagedClusterArgs:
 @pulumi.input_type
 class _ManagedClusterState:
     def __init__(__self__, *,
+                 acl_id: Optional[pulumi.Input[str]] = None,
                  disk_iops: Optional[pulumi.Input[int]] = None,
                  disk_size: Optional[pulumi.Input[int]] = None,
                  disk_throughput: Optional[pulumi.Input[int]] = None,
@@ -234,6 +267,7 @@ class _ManagedClusterState:
                  project_id: Optional[pulumi.Input[str]] = None,
                  projection_level: Optional[pulumi.Input[str]] = None,
                  protected: Optional[pulumi.Input[bool]] = None,
+                 public_access: Optional[pulumi.Input[bool]] = None,
                  region: Optional[pulumi.Input[str]] = None,
                  resource_provider: Optional[pulumi.Input[str]] = None,
                  server_version: Optional[pulumi.Input[str]] = None,
@@ -241,23 +275,27 @@ class _ManagedClusterState:
                  topology: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering ManagedCluster resources.
+        :param pulumi.Input[str] acl_id: ID of the ACL if using public access
         :param pulumi.Input[int] disk_iops: Number of IOPS for storage, required if disk_type is `gp3`
         :param pulumi.Input[int] disk_size: Size of the data disks, in gigabytes
         :param pulumi.Input[int] disk_throughput: Throughput in MB/s for storage, required if disk_type is `gp3`
         :param pulumi.Input[str] disk_type: Storage class of the data disks (find the list of valid values below)
         :param pulumi.Input[str] dns_name: DNS address of the cluster
-        :param pulumi.Input[str] instance_type: Instance type of the managed cluster (find the list of valid values below)
+        :param pulumi.Input[str] instance_type: Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
         :param pulumi.Input[str] name: Name of the managed cluster
         :param pulumi.Input[str] network_id: ID of the network in which the managed cluster exists
         :param pulumi.Input[str] project_id: ID of the project in which the managed cluster exists
         :param pulumi.Input[str] projection_level: Determines whether to run no projections, system projections only, or system and user projections (find the list of valid values below) Defaults to `off`.
         :param pulumi.Input[bool] protected: Protection from an accidental cluster deletion Defaults to `false`.
+        :param pulumi.Input[bool] public_access: If true, the cluster is provisioned with a public endpoint
         :param pulumi.Input[str] region: Region in which the cluster was created. Determined by the region of the Network
         :param pulumi.Input[str] resource_provider: Provider in which the cluster was created. Determined by the provider of the Network.
         :param pulumi.Input[str] server_version: Server version to provision (find the list of valid values below)
         :param pulumi.Input[str] server_version_tag: Server version tag to provision (find the list of valid values below). A higher server*version*tag will prompt an upgrade.
         :param pulumi.Input[str] topology: Topology of the managed cluster (`single-node` or `three-node-multi-zone`)
         """
+        if acl_id is not None:
+            pulumi.set(__self__, "acl_id", acl_id)
         if disk_iops is not None:
             pulumi.set(__self__, "disk_iops", disk_iops)
         if disk_size is not None:
@@ -280,6 +318,8 @@ class _ManagedClusterState:
             pulumi.set(__self__, "projection_level", projection_level)
         if protected is not None:
             pulumi.set(__self__, "protected", protected)
+        if public_access is not None:
+            pulumi.set(__self__, "public_access", public_access)
         if region is not None:
             pulumi.set(__self__, "region", region)
         if resource_provider is not None:
@@ -290,6 +330,18 @@ class _ManagedClusterState:
             pulumi.set(__self__, "server_version_tag", server_version_tag)
         if topology is not None:
             pulumi.set(__self__, "topology", topology)
+
+    @property
+    @pulumi.getter(name="aclId")
+    def acl_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        ID of the ACL if using public access
+        """
+        return pulumi.get(self, "acl_id")
+
+    @acl_id.setter
+    def acl_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "acl_id", value)
 
     @property
     @pulumi.getter(name="diskIops")
@@ -355,7 +407,7 @@ class _ManagedClusterState:
     @pulumi.getter(name="instanceType")
     def instance_type(self) -> Optional[pulumi.Input[str]]:
         """
-        Instance type of the managed cluster (find the list of valid values below)
+        Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
         """
         return pulumi.get(self, "instance_type")
 
@@ -424,6 +476,18 @@ class _ManagedClusterState:
         pulumi.set(self, "protected", value)
 
     @property
+    @pulumi.getter(name="publicAccess")
+    def public_access(self) -> Optional[pulumi.Input[bool]]:
+        """
+        If true, the cluster is provisioned with a public endpoint
+        """
+        return pulumi.get(self, "public_access")
+
+    @public_access.setter
+    def public_access(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "public_access", value)
+
+    @property
     @pulumi.getter
     def region(self) -> Optional[pulumi.Input[str]]:
         """
@@ -489,6 +553,7 @@ class ManagedCluster(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 acl_id: Optional[pulumi.Input[str]] = None,
                  disk_iops: Optional[pulumi.Input[int]] = None,
                  disk_size: Optional[pulumi.Input[int]] = None,
                  disk_throughput: Optional[pulumi.Input[int]] = None,
@@ -499,6 +564,7 @@ class ManagedCluster(pulumi.CustomResource):
                  project_id: Optional[pulumi.Input[str]] = None,
                  projection_level: Optional[pulumi.Input[str]] = None,
                  protected: Optional[pulumi.Input[bool]] = None,
+                 public_access: Optional[pulumi.Input[bool]] = None,
                  server_version: Optional[pulumi.Input[str]] = None,
                  server_version_tag: Optional[pulumi.Input[str]] = None,
                  topology: Optional[pulumi.Input[str]] = None,
@@ -538,16 +604,18 @@ class ManagedCluster(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[str] acl_id: ID of the ACL if using public access
         :param pulumi.Input[int] disk_iops: Number of IOPS for storage, required if disk_type is `gp3`
         :param pulumi.Input[int] disk_size: Size of the data disks, in gigabytes
         :param pulumi.Input[int] disk_throughput: Throughput in MB/s for storage, required if disk_type is `gp3`
         :param pulumi.Input[str] disk_type: Storage class of the data disks (find the list of valid values below)
-        :param pulumi.Input[str] instance_type: Instance type of the managed cluster (find the list of valid values below)
+        :param pulumi.Input[str] instance_type: Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
         :param pulumi.Input[str] name: Name of the managed cluster
         :param pulumi.Input[str] network_id: ID of the network in which the managed cluster exists
         :param pulumi.Input[str] project_id: ID of the project in which the managed cluster exists
         :param pulumi.Input[str] projection_level: Determines whether to run no projections, system projections only, or system and user projections (find the list of valid values below) Defaults to `off`.
         :param pulumi.Input[bool] protected: Protection from an accidental cluster deletion Defaults to `false`.
+        :param pulumi.Input[bool] public_access: If true, the cluster is provisioned with a public endpoint
         :param pulumi.Input[str] server_version: Server version to provision (find the list of valid values below)
         :param pulumi.Input[str] server_version_tag: Server version tag to provision (find the list of valid values below). A higher server*version*tag will prompt an upgrade.
         :param pulumi.Input[str] topology: Topology of the managed cluster (`single-node` or `three-node-multi-zone`)
@@ -606,6 +674,7 @@ class ManagedCluster(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 acl_id: Optional[pulumi.Input[str]] = None,
                  disk_iops: Optional[pulumi.Input[int]] = None,
                  disk_size: Optional[pulumi.Input[int]] = None,
                  disk_throughput: Optional[pulumi.Input[int]] = None,
@@ -616,6 +685,7 @@ class ManagedCluster(pulumi.CustomResource):
                  project_id: Optional[pulumi.Input[str]] = None,
                  projection_level: Optional[pulumi.Input[str]] = None,
                  protected: Optional[pulumi.Input[bool]] = None,
+                 public_access: Optional[pulumi.Input[bool]] = None,
                  server_version: Optional[pulumi.Input[str]] = None,
                  server_version_tag: Optional[pulumi.Input[str]] = None,
                  topology: Optional[pulumi.Input[str]] = None,
@@ -628,6 +698,7 @@ class ManagedCluster(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = ManagedClusterArgs.__new__(ManagedClusterArgs)
 
+            __props__.__dict__["acl_id"] = acl_id
             __props__.__dict__["disk_iops"] = disk_iops
             if disk_size is None and not opts.urn:
                 raise TypeError("Missing required property 'disk_size'")
@@ -648,6 +719,7 @@ class ManagedCluster(pulumi.CustomResource):
             __props__.__dict__["project_id"] = project_id
             __props__.__dict__["projection_level"] = projection_level
             __props__.__dict__["protected"] = protected
+            __props__.__dict__["public_access"] = public_access
             if server_version is None and not opts.urn:
                 raise TypeError("Missing required property 'server_version'")
             __props__.__dict__["server_version"] = server_version
@@ -668,6 +740,7 @@ class ManagedCluster(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            acl_id: Optional[pulumi.Input[str]] = None,
             disk_iops: Optional[pulumi.Input[int]] = None,
             disk_size: Optional[pulumi.Input[int]] = None,
             disk_throughput: Optional[pulumi.Input[int]] = None,
@@ -679,6 +752,7 @@ class ManagedCluster(pulumi.CustomResource):
             project_id: Optional[pulumi.Input[str]] = None,
             projection_level: Optional[pulumi.Input[str]] = None,
             protected: Optional[pulumi.Input[bool]] = None,
+            public_access: Optional[pulumi.Input[bool]] = None,
             region: Optional[pulumi.Input[str]] = None,
             resource_provider: Optional[pulumi.Input[str]] = None,
             server_version: Optional[pulumi.Input[str]] = None,
@@ -691,17 +765,19 @@ class ManagedCluster(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[str] acl_id: ID of the ACL if using public access
         :param pulumi.Input[int] disk_iops: Number of IOPS for storage, required if disk_type is `gp3`
         :param pulumi.Input[int] disk_size: Size of the data disks, in gigabytes
         :param pulumi.Input[int] disk_throughput: Throughput in MB/s for storage, required if disk_type is `gp3`
         :param pulumi.Input[str] disk_type: Storage class of the data disks (find the list of valid values below)
         :param pulumi.Input[str] dns_name: DNS address of the cluster
-        :param pulumi.Input[str] instance_type: Instance type of the managed cluster (find the list of valid values below)
+        :param pulumi.Input[str] instance_type: Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
         :param pulumi.Input[str] name: Name of the managed cluster
         :param pulumi.Input[str] network_id: ID of the network in which the managed cluster exists
         :param pulumi.Input[str] project_id: ID of the project in which the managed cluster exists
         :param pulumi.Input[str] projection_level: Determines whether to run no projections, system projections only, or system and user projections (find the list of valid values below) Defaults to `off`.
         :param pulumi.Input[bool] protected: Protection from an accidental cluster deletion Defaults to `false`.
+        :param pulumi.Input[bool] public_access: If true, the cluster is provisioned with a public endpoint
         :param pulumi.Input[str] region: Region in which the cluster was created. Determined by the region of the Network
         :param pulumi.Input[str] resource_provider: Provider in which the cluster was created. Determined by the provider of the Network.
         :param pulumi.Input[str] server_version: Server version to provision (find the list of valid values below)
@@ -712,6 +788,7 @@ class ManagedCluster(pulumi.CustomResource):
 
         __props__ = _ManagedClusterState.__new__(_ManagedClusterState)
 
+        __props__.__dict__["acl_id"] = acl_id
         __props__.__dict__["disk_iops"] = disk_iops
         __props__.__dict__["disk_size"] = disk_size
         __props__.__dict__["disk_throughput"] = disk_throughput
@@ -723,12 +800,21 @@ class ManagedCluster(pulumi.CustomResource):
         __props__.__dict__["project_id"] = project_id
         __props__.__dict__["projection_level"] = projection_level
         __props__.__dict__["protected"] = protected
+        __props__.__dict__["public_access"] = public_access
         __props__.__dict__["region"] = region
         __props__.__dict__["resource_provider"] = resource_provider
         __props__.__dict__["server_version"] = server_version
         __props__.__dict__["server_version_tag"] = server_version_tag
         __props__.__dict__["topology"] = topology
         return ManagedCluster(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter(name="aclId")
+    def acl_id(self) -> pulumi.Output[Optional[str]]:
+        """
+        ID of the ACL if using public access
+        """
+        return pulumi.get(self, "acl_id")
 
     @property
     @pulumi.getter(name="diskIops")
@@ -774,7 +860,7 @@ class ManagedCluster(pulumi.CustomResource):
     @pulumi.getter(name="instanceType")
     def instance_type(self) -> pulumi.Output[str]:
         """
-        Instance type of the managed cluster (find the list of valid values below)
+        Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
         """
         return pulumi.get(self, "instance_type")
 
@@ -817,6 +903,14 @@ class ManagedCluster(pulumi.CustomResource):
         Protection from an accidental cluster deletion Defaults to `false`.
         """
         return pulumi.get(self, "protected")
+
+    @property
+    @pulumi.getter(name="publicAccess")
+    def public_access(self) -> pulumi.Output[Optional[bool]]:
+        """
+        If true, the cluster is provisioned with a public endpoint
+        """
+        return pulumi.get(self, "public_access")
 
     @property
     @pulumi.getter

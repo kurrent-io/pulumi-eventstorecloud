@@ -59,7 +59,7 @@ export class Network extends pulumi.CustomResource {
     /**
      * Address space of the network in CIDR block notation
      */
-    public readonly cidrBlock!: pulumi.Output<string>;
+    public readonly cidrBlock!: pulumi.Output<string | undefined>;
     /**
      * Human-friendly name for the network
      */
@@ -68,6 +68,10 @@ export class Network extends pulumi.CustomResource {
      * Project ID
      */
     public readonly projectId!: pulumi.Output<string>;
+    /**
+     * Whether the network is able to be accessed from the public internet
+     */
+    public readonly publicAccess!: pulumi.Output<boolean | undefined>;
     /**
      * Provider region in which to provision the network
      */
@@ -93,13 +97,11 @@ export class Network extends pulumi.CustomResource {
             resourceInputs["cidrBlock"] = state ? state.cidrBlock : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
             resourceInputs["projectId"] = state ? state.projectId : undefined;
+            resourceInputs["publicAccess"] = state ? state.publicAccess : undefined;
             resourceInputs["region"] = state ? state.region : undefined;
             resourceInputs["resourceProvider"] = state ? state.resourceProvider : undefined;
         } else {
             const args = argsOrState as NetworkArgs | undefined;
-            if ((!args || args.cidrBlock === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'cidrBlock'");
-            }
             if ((!args || args.projectId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'projectId'");
             }
@@ -112,6 +114,7 @@ export class Network extends pulumi.CustomResource {
             resourceInputs["cidrBlock"] = args ? args.cidrBlock : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["projectId"] = args ? args.projectId : undefined;
+            resourceInputs["publicAccess"] = args ? args.publicAccess : undefined;
             resourceInputs["region"] = args ? args.region : undefined;
             resourceInputs["resourceProvider"] = args ? args.resourceProvider : undefined;
         }
@@ -137,6 +140,10 @@ export interface NetworkState {
      */
     projectId?: pulumi.Input<string>;
     /**
+     * Whether the network is able to be accessed from the public internet
+     */
+    publicAccess?: pulumi.Input<boolean>;
+    /**
      * Provider region in which to provision the network
      */
     region?: pulumi.Input<string>;
@@ -153,7 +160,7 @@ export interface NetworkArgs {
     /**
      * Address space of the network in CIDR block notation
      */
-    cidrBlock: pulumi.Input<string>;
+    cidrBlock?: pulumi.Input<string>;
     /**
      * Human-friendly name for the network
      */
@@ -162,6 +169,10 @@ export interface NetworkArgs {
      * Project ID
      */
     projectId: pulumi.Input<string>;
+    /**
+     * Whether the network is able to be accessed from the public internet
+     */
+    publicAccess?: pulumi.Input<boolean>;
     /**
      * Provider region in which to provision the network
      */
