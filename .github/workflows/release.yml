@@ -9,34 +9,35 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Unshallow to restore tags
         run: git fetch --prune --unshallow
       - name: Set up Go
-        uses: actions/setup-go@v1
+        uses: actions/setup-go@v5
         with:
-          go-version: 1.23.x
+          go-version-file: sdk/go.mod
       - name: Set up .NET
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '6.0.x'
+          dotnet-version: '9.0.x'
       - name: Set up NodeJS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           registry-url: 'https://registry.npmjs.org'
           always-auth: true
       - name: Install pulumictl
-        run: curl -L https://github.com/pulumi/pulumictl/releases/download/v0.0.46/pulumictl-v0.0.46-linux-amd64.tar.gz | sudo tar zxv -C /usr/bin -f- pulumictl
+        run: curl -L https://github.com/pulumi/pulumictl/releases/download/v0.0.49/pulumictl-v0.0.49-linux-amd64.tar.gz | sudo tar zxv -C /usr/bin -f- pulumictl
       - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v2
+        uses: goreleaser/goreleaser-action@v6
         with:
+          distribution: goreleaser
           version: latest
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Push NuGet package
         run: |
-          dotnet nuget push nuget/**/*.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
+          dotnet nuget push nuget/**/*.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.PULUMI_NUGET_KEY }}
       - name: Publish NPM package
         run: (cd ${{ github.workspace }}/sdk/nodejs/bin && yarn publish --access public)
         env:

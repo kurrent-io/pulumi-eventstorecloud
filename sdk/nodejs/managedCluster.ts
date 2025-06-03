@@ -71,6 +71,10 @@ export class ManagedCluster extends pulumi.CustomResource {
     }
 
     /**
+     * ID of the ACL if using public access
+     */
+    public readonly aclId!: pulumi.Output<string | undefined>;
+    /**
      * Number of IOPS for storage, required if diskType is `gp3`
      */
     public readonly diskIops!: pulumi.Output<number | undefined>;
@@ -91,7 +95,7 @@ export class ManagedCluster extends pulumi.CustomResource {
      */
     public /*out*/ readonly dnsName!: pulumi.Output<string>;
     /**
-     * Instance type of the managed cluster (find the list of valid values below)
+     * Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
      */
     public readonly instanceType!: pulumi.Output<string>;
     /**
@@ -114,6 +118,10 @@ export class ManagedCluster extends pulumi.CustomResource {
      * Protection from an accidental cluster deletion Defaults to `false`.
      */
     public readonly protected!: pulumi.Output<boolean | undefined>;
+    /**
+     * If true, the cluster is provisioned with a public endpoint
+     */
+    public readonly publicAccess!: pulumi.Output<boolean | undefined>;
     /**
      * Region in which the cluster was created. Determined by the region of the Network
      */
@@ -148,6 +156,7 @@ export class ManagedCluster extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as ManagedClusterState | undefined;
+            resourceInputs["aclId"] = state ? state.aclId : undefined;
             resourceInputs["diskIops"] = state ? state.diskIops : undefined;
             resourceInputs["diskSize"] = state ? state.diskSize : undefined;
             resourceInputs["diskThroughput"] = state ? state.diskThroughput : undefined;
@@ -159,6 +168,7 @@ export class ManagedCluster extends pulumi.CustomResource {
             resourceInputs["projectId"] = state ? state.projectId : undefined;
             resourceInputs["projectionLevel"] = state ? state.projectionLevel : undefined;
             resourceInputs["protected"] = state ? state.protected : undefined;
+            resourceInputs["publicAccess"] = state ? state.publicAccess : undefined;
             resourceInputs["region"] = state ? state.region : undefined;
             resourceInputs["resourceProvider"] = state ? state.resourceProvider : undefined;
             resourceInputs["serverVersion"] = state ? state.serverVersion : undefined;
@@ -187,6 +197,7 @@ export class ManagedCluster extends pulumi.CustomResource {
             if ((!args || args.topology === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'topology'");
             }
+            resourceInputs["aclId"] = args ? args.aclId : undefined;
             resourceInputs["diskIops"] = args ? args.diskIops : undefined;
             resourceInputs["diskSize"] = args ? args.diskSize : undefined;
             resourceInputs["diskThroughput"] = args ? args.diskThroughput : undefined;
@@ -197,6 +208,7 @@ export class ManagedCluster extends pulumi.CustomResource {
             resourceInputs["projectId"] = args ? args.projectId : undefined;
             resourceInputs["projectionLevel"] = args ? args.projectionLevel : undefined;
             resourceInputs["protected"] = args ? args.protected : undefined;
+            resourceInputs["publicAccess"] = args ? args.publicAccess : undefined;
             resourceInputs["serverVersion"] = args ? args.serverVersion : undefined;
             resourceInputs["serverVersionTag"] = args ? args.serverVersionTag : undefined;
             resourceInputs["topology"] = args ? args.topology : undefined;
@@ -213,6 +225,10 @@ export class ManagedCluster extends pulumi.CustomResource {
  * Input properties used for looking up and filtering ManagedCluster resources.
  */
 export interface ManagedClusterState {
+    /**
+     * ID of the ACL if using public access
+     */
+    aclId?: pulumi.Input<string>;
     /**
      * Number of IOPS for storage, required if diskType is `gp3`
      */
@@ -234,7 +250,7 @@ export interface ManagedClusterState {
      */
     dnsName?: pulumi.Input<string>;
     /**
-     * Instance type of the managed cluster (find the list of valid values below)
+     * Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
      */
     instanceType?: pulumi.Input<string>;
     /**
@@ -257,6 +273,10 @@ export interface ManagedClusterState {
      * Protection from an accidental cluster deletion Defaults to `false`.
      */
     protected?: pulumi.Input<boolean>;
+    /**
+     * If true, the cluster is provisioned with a public endpoint
+     */
+    publicAccess?: pulumi.Input<boolean>;
     /**
      * Region in which the cluster was created. Determined by the region of the Network
      */
@@ -284,6 +304,10 @@ export interface ManagedClusterState {
  */
 export interface ManagedClusterArgs {
     /**
+     * ID of the ACL if using public access
+     */
+    aclId?: pulumi.Input<string>;
+    /**
      * Number of IOPS for storage, required if diskType is `gp3`
      */
     diskIops?: pulumi.Input<number>;
@@ -300,7 +324,7 @@ export interface ManagedClusterArgs {
      */
     diskType: pulumi.Input<string>;
     /**
-     * Instance type of the managed cluster (find the list of valid values below)
+     * Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
      */
     instanceType: pulumi.Input<string>;
     /**
@@ -323,6 +347,10 @@ export interface ManagedClusterArgs {
      * Protection from an accidental cluster deletion Defaults to `false`.
      */
     protected?: pulumi.Input<boolean>;
+    /**
+     * If true, the cluster is provisioned with a public endpoint
+     */
+    publicAccess?: pulumi.Input<boolean>;
     /**
      * Server version to provision (find the list of valid values below)
      */

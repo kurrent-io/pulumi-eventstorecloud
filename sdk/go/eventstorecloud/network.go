@@ -58,11 +58,13 @@ type Network struct {
 	pulumi.CustomResourceState
 
 	// Address space of the network in CIDR block notation
-	CidrBlock pulumi.StringOutput `pulumi:"cidrBlock"`
+	CidrBlock pulumi.StringPtrOutput `pulumi:"cidrBlock"`
 	// Human-friendly name for the network
 	Name pulumi.StringOutput `pulumi:"name"`
 	// Project ID
 	ProjectId pulumi.StringOutput `pulumi:"projectId"`
+	// Whether the network is able to be accessed from the public internet
+	PublicAccess pulumi.BoolPtrOutput `pulumi:"publicAccess"`
 	// Provider region in which to provision the network
 	Region pulumi.StringOutput `pulumi:"region"`
 	// Cloud Provider in which to provision the network.
@@ -76,9 +78,6 @@ func NewNetwork(ctx *pulumi.Context,
 		return nil, errors.New("missing one or more required arguments")
 	}
 
-	if args.CidrBlock == nil {
-		return nil, errors.New("invalid value for required argument 'CidrBlock'")
-	}
 	if args.ProjectId == nil {
 		return nil, errors.New("invalid value for required argument 'ProjectId'")
 	}
@@ -117,6 +116,8 @@ type networkState struct {
 	Name *string `pulumi:"name"`
 	// Project ID
 	ProjectId *string `pulumi:"projectId"`
+	// Whether the network is able to be accessed from the public internet
+	PublicAccess *bool `pulumi:"publicAccess"`
 	// Provider region in which to provision the network
 	Region *string `pulumi:"region"`
 	// Cloud Provider in which to provision the network.
@@ -130,6 +131,8 @@ type NetworkState struct {
 	Name pulumi.StringPtrInput
 	// Project ID
 	ProjectId pulumi.StringPtrInput
+	// Whether the network is able to be accessed from the public internet
+	PublicAccess pulumi.BoolPtrInput
 	// Provider region in which to provision the network
 	Region pulumi.StringPtrInput
 	// Cloud Provider in which to provision the network.
@@ -142,11 +145,13 @@ func (NetworkState) ElementType() reflect.Type {
 
 type networkArgs struct {
 	// Address space of the network in CIDR block notation
-	CidrBlock string `pulumi:"cidrBlock"`
+	CidrBlock *string `pulumi:"cidrBlock"`
 	// Human-friendly name for the network
 	Name *string `pulumi:"name"`
 	// Project ID
 	ProjectId string `pulumi:"projectId"`
+	// Whether the network is able to be accessed from the public internet
+	PublicAccess *bool `pulumi:"publicAccess"`
 	// Provider region in which to provision the network
 	Region string `pulumi:"region"`
 	// Cloud Provider in which to provision the network.
@@ -156,11 +161,13 @@ type networkArgs struct {
 // The set of arguments for constructing a Network resource.
 type NetworkArgs struct {
 	// Address space of the network in CIDR block notation
-	CidrBlock pulumi.StringInput
+	CidrBlock pulumi.StringPtrInput
 	// Human-friendly name for the network
 	Name pulumi.StringPtrInput
 	// Project ID
 	ProjectId pulumi.StringInput
+	// Whether the network is able to be accessed from the public internet
+	PublicAccess pulumi.BoolPtrInput
 	// Provider region in which to provision the network
 	Region pulumi.StringInput
 	// Cloud Provider in which to provision the network.
@@ -255,8 +262,8 @@ func (o NetworkOutput) ToNetworkOutputWithContext(ctx context.Context) NetworkOu
 }
 
 // Address space of the network in CIDR block notation
-func (o NetworkOutput) CidrBlock() pulumi.StringOutput {
-	return o.ApplyT(func(v *Network) pulumi.StringOutput { return v.CidrBlock }).(pulumi.StringOutput)
+func (o NetworkOutput) CidrBlock() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.CidrBlock }).(pulumi.StringPtrOutput)
 }
 
 // Human-friendly name for the network
@@ -267,6 +274,11 @@ func (o NetworkOutput) Name() pulumi.StringOutput {
 // Project ID
 func (o NetworkOutput) ProjectId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Network) pulumi.StringOutput { return v.ProjectId }).(pulumi.StringOutput)
+}
+
+// Whether the network is able to be accessed from the public internet
+func (o NetworkOutput) PublicAccess() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.BoolPtrOutput { return v.PublicAccess }).(pulumi.BoolPtrOutput)
 }
 
 // Provider region in which to provision the network

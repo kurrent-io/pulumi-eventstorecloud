@@ -61,6 +61,12 @@ namespace Pulumi.EventStoreCloud
     public partial class ManagedCluster : global::Pulumi.CustomResource
     {
         /// <summary>
+        /// ID of the ACL if using public access
+        /// </summary>
+        [Output("aclId")]
+        public Output<string?> AclId { get; private set; } = null!;
+
+        /// <summary>
         /// Number of IOPS for storage, required if disk_type is `gp3`
         /// </summary>
         [Output("diskIops")]
@@ -91,7 +97,7 @@ namespace Pulumi.EventStoreCloud
         public Output<string> DnsName { get; private set; } = null!;
 
         /// <summary>
-        /// Instance type of the managed cluster (find the list of valid values below)
+        /// Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
         /// </summary>
         [Output("instanceType")]
         public Output<string> InstanceType { get; private set; } = null!;
@@ -125,6 +131,12 @@ namespace Pulumi.EventStoreCloud
         /// </summary>
         [Output("protected")]
         public Output<bool?> Protected { get; private set; } = null!;
+
+        /// <summary>
+        /// If true, the cluster is provisioned with a public endpoint
+        /// </summary>
+        [Output("publicAccess")]
+        public Output<bool?> PublicAccess { get; private set; } = null!;
 
         /// <summary>
         /// Region in which the cluster was created. Determined by the region of the Network
@@ -204,6 +216,12 @@ namespace Pulumi.EventStoreCloud
     public sealed class ManagedClusterArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// ID of the ACL if using public access
+        /// </summary>
+        [Input("aclId")]
+        public Input<string>? AclId { get; set; }
+
+        /// <summary>
         /// Number of IOPS for storage, required if disk_type is `gp3`
         /// </summary>
         [Input("diskIops")]
@@ -228,7 +246,7 @@ namespace Pulumi.EventStoreCloud
         public Input<string> DiskType { get; set; } = null!;
 
         /// <summary>
-        /// Instance type of the managed cluster (find the list of valid values below)
+        /// Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
         /// </summary>
         [Input("instanceType", required: true)]
         public Input<string> InstanceType { get; set; } = null!;
@@ -264,6 +282,12 @@ namespace Pulumi.EventStoreCloud
         public Input<bool>? Protected { get; set; }
 
         /// <summary>
+        /// If true, the cluster is provisioned with a public endpoint
+        /// </summary>
+        [Input("publicAccess")]
+        public Input<bool>? PublicAccess { get; set; }
+
+        /// <summary>
         /// Server version to provision (find the list of valid values below)
         /// </summary>
         [Input("serverVersion", required: true)]
@@ -289,6 +313,12 @@ namespace Pulumi.EventStoreCloud
 
     public sealed class ManagedClusterState : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// ID of the ACL if using public access
+        /// </summary>
+        [Input("aclId")]
+        public Input<string>? AclId { get; set; }
+
         /// <summary>
         /// Number of IOPS for storage, required if disk_type is `gp3`
         /// </summary>
@@ -320,7 +350,7 @@ namespace Pulumi.EventStoreCloud
         public Input<string>? DnsName { get; set; }
 
         /// <summary>
-        /// Instance type of the managed cluster (find the list of valid values below)
+        /// Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
         /// </summary>
         [Input("instanceType")]
         public Input<string>? InstanceType { get; set; }
@@ -354,6 +384,12 @@ namespace Pulumi.EventStoreCloud
         /// </summary>
         [Input("protected")]
         public Input<bool>? Protected { get; set; }
+
+        /// <summary>
+        /// If true, the cluster is provisioned with a public endpoint
+        /// </summary>
+        [Input("publicAccess")]
+        public Input<bool>? PublicAccess { get; set; }
 
         /// <summary>
         /// Region in which the cluster was created. Determined by the region of the Network

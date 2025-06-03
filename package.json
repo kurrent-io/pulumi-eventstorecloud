@@ -1,8 +1,8 @@
 {
     "name": "pulumi-eventstorecloud",
-    "version": "0.0.1",
-    "repository": "git@github.com/EventStore/pulumi-eventstorecloud",
-    "author": "Brock Shelton <brock.shelton@eventstore.com>",
+    "version": "0.2.18",
+    "repository": "git@github.com/kurrent-io/pulumi-eventstorecloud",
+    "author": "Kurrent Cloud Team <cloud@kurrent.io>",
     "license": "Apache-2.0",
     "dependencies": {
         "js-yaml": "^4.1.0",

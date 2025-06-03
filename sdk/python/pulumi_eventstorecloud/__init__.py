@@ -5,6 +5,7 @@
 from . import _utilities
 import typing
 # Export this package's modules as members:
+from .acl import *
 from .aws_cloud_watch_logs_integration import *
 from .aws_cloud_watch_metrics_integration import *
 from .get_network import *
@@ -41,6 +42,14 @@ _utilities.register(
   "fqn": "pulumi_eventstorecloud",
   "classes": {
    "eventstorecloud:index/aWSCloudWatchMetricsIntegration:AWSCloudWatchMetricsIntegration": "AWSCloudWatchMetricsIntegration"
+  }
+ },
+ {
+  "pkg": "eventstorecloud",
+  "mod": "index/acl",
+  "fqn": "pulumi_eventstorecloud",
+  "classes": {
+   "eventstorecloud:index/acl:Acl": "Acl"
   }
  },
  {

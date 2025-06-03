@@ -402,6 +402,84 @@
                 "type": "object"
             }
         },
+        "eventstorecloud:index/acl:Acl": {
+            "description": "Manages IP Access Lists\n",
+            "properties": {
+                "cidrBlocks": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "$ref": "pulumi.json#/Any"
+                        }
+                    },
+                    "description": "CIDR blocks allowed by the IP access list\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Human-friendly name for the Acl\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "Project ID\n"
+                }
+            },
+            "required": [
+                "cidrBlocks",
+                "name",
+                "projectId"
+            ],
+            "inputProperties": {
+                "cidrBlocks": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "$ref": "pulumi.json#/Any"
+                        }
+                    },
+                    "description": "CIDR blocks allowed by the IP access list\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Human-friendly name for the Acl\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "Project ID\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "cidrBlocks",
+                "projectId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Acl resources.\n",
+                "properties": {
+                    "cidrBlocks": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "$ref": "pulumi.json#/Any"
+                            }
+                        },
+                        "description": "CIDR blocks allowed by the IP access list\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Human-friendly name for the Acl\n"
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "Project ID\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
         "eventstorecloud:index/integration:Integration": {
             "description": "Manages integration resources, for example Slack or OpsGenie.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as eventstorecloud from \"@eventstore/pulumi-eventstorecloud\";\n\nconst opsgenieIssues = new eventstorecloud.Integration(\"opsgenieIssues\", {\n    projectId: _var.project_id,\n    description: \"create OpsGenie alerts from issues\",\n    data: {\n        sink: \"opsGenie\",\n        api_key: \"\u003csecret OpsGenie key here\u003e\",\n        source: \"issues\",\n    },\n});\nconst slackNotifications = new eventstorecloud.Integration(\"slackNotifications\", {\n    projectId: _var.project_id,\n    description: \"send Slack a message when a notification happens\",\n    data: {\n        sink: \"slack\",\n        token: \"\u003csecret token here\u003e\",\n        channel_id: \"#esc-cluster-notifications\",\n        source: \"notifications\",\n    },\n});\n```\n```python\nimport pulumi\nimport pulumi_eventstorecloud as eventstorecloud\n\nopsgenie_issues = eventstorecloud.Integration(\"opsgenieIssues\",\n    project_id=var[\"project_id\"],\n    description=\"create OpsGenie alerts from issues\",\n    data={\n        \"sink\": \"opsGenie\",\n        \"api_key\": \"\u003csecret OpsGenie key here\u003e\",\n        \"source\": \"issues\",\n    })\nslack_notifications = eventstorecloud.Integration(\"slackNotifications\",\n    project_id=var[\"project_id\"],\n    description=\"send Slack a message when a notification happens\",\n    data={\n        \"sink\": \"slack\",\n        \"token\": \"\u003csecret token here\u003e\",\n        \"channel_id\": \"#esc-cluster-notifications\",\n        \"source\": \"notifications\",\n    })\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing EventStoreCloud = Pulumi.EventStoreCloud;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var opsgenieIssues = new EventStoreCloud.Integration(\"opsgenieIssues\", new()\n    {\n        ProjectId = @var.Project_id,\n        Description = \"create OpsGenie alerts from issues\",\n        Data = \n        {\n            { \"sink\", \"opsGenie\" },\n            { \"api_key\", \"\u003csecret OpsGenie key here\u003e\" },\n            { \"source\", \"issues\" },\n        },\n    });\n\n    var slackNotifications = new EventStoreCloud.Integration(\"slackNotifications\", new()\n    {\n        ProjectId = @var.Project_id,\n        Description = \"send Slack a message when a notification happens\",\n        Data = \n        {\n            { \"sink\", \"slack\" },\n            { \"token\", \"\u003csecret token here\u003e\" },\n            { \"channel_id\", \"#esc-cluster-notifications\" },\n            { \"source\", \"notifications\" },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/EventStore/pulumi-eventstorecloud/sdk/go/eventstorecloud\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := eventstorecloud.NewIntegration(ctx, \"opsgenieIssues\", \u0026eventstorecloud.IntegrationArgs{\n\t\t\tProjectId:   pulumi.Any(_var.Project_id),\n\t\t\tDescription: pulumi.String(\"create OpsGenie alerts from issues\"),\n\t\t\tData: pulumi.AnyMap{\n\t\t\t\t\"sink\":    pulumi.Any(\"opsGenie\"),\n\t\t\t\t\"api_key\": pulumi.Any(\"\u003csecret OpsGenie key here\u003e\"),\n\t\t\t\t\"source\":  pulumi.Any(\"issues\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = eventstorecloud.NewIntegration(ctx, \"slackNotifications\", \u0026eventstorecloud.IntegrationArgs{\n\t\t\tProjectId:   pulumi.Any(_var.Project_id),\n\t\t\tDescription: pulumi.String(\"send Slack a message when a notification happens\"),\n\t\t\tData: pulumi.AnyMap{\n\t\t\t\t\"sink\":       pulumi.Any(\"slack\"),\n\t\t\t\t\"token\":      pulumi.Any(\"\u003csecret token here\u003e\"),\n\t\t\t\t\"channel_id\": pulumi.Any(\"#esc-cluster-notifications\"),\n\t\t\t\t\"source\":     pulumi.Any(\"notifications\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.eventstorecloud.Integration;\nimport com.pulumi.eventstorecloud.IntegrationArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var opsgenieIssues = new Integration(\"opsgenieIssues\", IntegrationArgs.builder()        \n            .projectId(var_.project_id())\n            .description(\"create OpsGenie alerts from issues\")\n            .data(Map.ofEntries(\n                Map.entry(\"sink\", \"opsGenie\"),\n                Map.entry(\"api_key\", \"\u003csecret OpsGenie key here\u003e\"),\n                Map.entry(\"source\", \"issues\")\n            ))\n            .build());\n\n        var slackNotifications = new Integration(\"slackNotifications\", IntegrationArgs.builder()        \n            .projectId(var_.project_id())\n            .description(\"send Slack a message when a notification happens\")\n            .data(Map.ofEntries(\n                Map.entry(\"sink\", \"slack\"),\n                Map.entry(\"token\", \"\u003csecret token here\u003e\"),\n                Map.entry(\"channel_id\", \"#esc-cluster-notifications\"),\n                Map.entry(\"source\", \"notifications\")\n            ))\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  opsgenieIssues:\n    type: eventstorecloud:Integration\n    properties:\n      projectId: ${var.project_id}\n      description: create OpsGenie alerts from issues\n      data:\n        sink: opsGenie\n        api_key: \u003csecret OpsGenie key here\u003e\n        source: issues\n  slackNotifications:\n    type: eventstorecloud:Integration\n    properties:\n      projectId: ${var.project_id}\n      description: send Slack a message when a notification happens\n      data:\n        sink: slack\n        token: \u003csecret token here\u003e\n        channel_id: '#esc-cluster-notifications'\n        source: notifications\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n\n\n```sh\n $ pulumi import eventstorecloud:index/integration:Integration opsgenie_issues project_id:integration_id\n```\n\n ",
             "properties": {
@@ -475,6 +553,10 @@
         "eventstorecloud:index/managedCluster:ManagedCluster": {
             "description": "Manages EventStoreDB instances and clusters in Event Store Cloud\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as eventstorecloud from \"@eventstore/pulumi-eventstorecloud\";\nimport * as eventstorecloud from \"@pulumi/eventstorecloud\";\n\nconst exampleProject = eventstorecloud.getProject({\n    name: \"Example Project\",\n});\nconst exampleNetwork = new eventstorecloud.Network(\"exampleNetwork\", {\n    projectId: eventstorecloud_project.example.id,\n    resourceProvider: \"aws\",\n    region: \"us-west-2\",\n    cidrBlock: \"172.21.0.0/16\",\n});\nconst exampleManagedCluster = new eventstorecloud.ManagedCluster(\"exampleManagedCluster\", {\n    projectId: exampleNetwork.projectId,\n    networkId: exampleNetwork.id,\n    topology: \"three-node-multi-zone\",\n    instanceType: \"F1\",\n    diskSize: 24,\n    diskType: \"gp3\",\n    diskIops: 3000,\n    diskThroughput: 125,\n    serverVersion: \"23.10\",\n});\n```\n```python\nimport pulumi\nimport pulumi_eventstorecloud as eventstorecloud\n\nexample_project = eventstorecloud.get_project(name=\"Example Project\")\nexample_network = eventstorecloud.Network(\"exampleNetwork\",\n    project_id=eventstorecloud_project[\"example\"][\"id\"],\n    resource_provider=\"aws\",\n    region=\"us-west-2\",\n    cidr_block=\"172.21.0.0/16\")\nexample_managed_cluster = eventstorecloud.ManagedCluster(\"exampleManagedCluster\",\n    project_id=example_network.project_id,\n    network_id=example_network.id,\n    topology=\"three-node-multi-zone\",\n    instance_type=\"F1\",\n    disk_size=24,\n    disk_type=\"gp3\",\n    disk_iops=3000,\n    disk_throughput=125,\n    server_version=\"23.10\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing EventStoreCloud = Pulumi.EventStoreCloud;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var exampleProject = EventStoreCloud.GetProject.Invoke(new()\n    {\n        Name = \"Example Project\",\n    });\n\n    var exampleNetwork = new EventStoreCloud.Network(\"exampleNetwork\", new()\n    {\n        ProjectId = eventstorecloud_project.Example.Id,\n        ResourceProvider = \"aws\",\n        Region = \"us-west-2\",\n        CidrBlock = \"172.21.0.0/16\",\n    });\n\n    var exampleManagedCluster = new EventStoreCloud.ManagedCluster(\"exampleManagedCluster\", new()\n    {\n        ProjectId = exampleNetwork.ProjectId,\n        NetworkId = exampleNetwork.Id,\n        Topology = \"three-node-multi-zone\",\n        InstanceType = \"F1\",\n        DiskSize = 24,\n        DiskType = \"gp3\",\n        DiskIops = 3000,\n        DiskThroughput = 125,\n        ServerVersion = \"23.10\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/EventStore/pulumi-eventstorecloud/sdk/go/eventstorecloud\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := eventstorecloud.LookupProject(ctx, \u0026eventstorecloud.LookupProjectArgs{\n\t\t\tName: \"Example Project\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\texampleNetwork, err := eventstorecloud.NewNetwork(ctx, \"exampleNetwork\", \u0026eventstorecloud.NetworkArgs{\n\t\t\tProjectId:        pulumi.Any(eventstorecloud_project.Example.Id),\n\t\t\tResourceProvider: pulumi.String(\"aws\"),\n\t\t\tRegion:           pulumi.String(\"us-west-2\"),\n\t\t\tCidrBlock:        pulumi.String(\"172.21.0.0/16\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = eventstorecloud.NewManagedCluster(ctx, \"exampleManagedCluster\", \u0026eventstorecloud.ManagedClusterArgs{\n\t\t\tProjectId:      exampleNetwork.ProjectId,\n\t\t\tNetworkId:      exampleNetwork.ID(),\n\t\t\tTopology:       pulumi.String(\"three-node-multi-zone\"),\n\t\t\tInstanceType:   pulumi.String(\"F1\"),\n\t\t\tDiskSize:       pulumi.Int(24),\n\t\t\tDiskType:       pulumi.String(\"gp3\"),\n\t\t\tDiskIops:       pulumi.Int(3000),\n\t\t\tDiskThroughput: pulumi.Int(125),\n\t\t\tServerVersion:  pulumi.String(\"23.10\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.eventstorecloud.EventstorecloudFunctions;\nimport com.pulumi.eventstorecloud.inputs.GetProjectArgs;\nimport com.pulumi.eventstorecloud.Network;\nimport com.pulumi.eventstorecloud.NetworkArgs;\nimport com.pulumi.eventstorecloud.ManagedCluster;\nimport com.pulumi.eventstorecloud.ManagedClusterArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var exampleProject = EventstorecloudFunctions.getProject(GetProjectArgs.builder()\n            .name(\"Example Project\")\n            .build());\n\n        var exampleNetwork = new Network(\"exampleNetwork\", NetworkArgs.builder()        \n            .projectId(eventstorecloud_project.example().id())\n            .resourceProvider(\"aws\")\n            .region(\"us-west-2\")\n            .cidrBlock(\"172.21.0.0/16\")\n            .build());\n\n        var exampleManagedCluster = new ManagedCluster(\"exampleManagedCluster\", ManagedClusterArgs.builder()        \n            .projectId(exampleNetwork.projectId())\n            .networkId(exampleNetwork.id())\n            .topology(\"three-node-multi-zone\")\n            .instanceType(\"F1\")\n            .diskSize(24)\n            .diskType(\"gp3\")\n            .diskIops(3000)\n            .diskThroughput(125)\n            .serverVersion(\"23.10\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  exampleNetwork:\n    type: eventstorecloud:Network\n    properties:\n      projectId: ${eventstorecloud_project.example.id}\n      resourceProvider: aws\n      region: us-west-2\n      cidrBlock: 172.21.0.0/16\n  exampleManagedCluster:\n    type: eventstorecloud:ManagedCluster\n    properties:\n      projectId: ${exampleNetwork.projectId}\n      networkId: ${exampleNetwork.id}\n      topology: three-node-multi-zone\n      instanceType: F1\n      diskSize: 24\n      diskType: gp3\n      diskIops: 3000\n      diskThroughput: 125\n      serverVersion: '23.10'\nvariables:\n  exampleProject:\n    fn::invoke:\n      Function: eventstorecloud:getProject\n      Arguments:\n        name: Example Project\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n\n\n```sh\n $ pulumi import eventstorecloud:index/managedCluster:ManagedCluster example project_id:cluster_id\n```\n\n ",
             "properties": {
+                "aclId": {
+                    "type": "string",
+                    "description": "ID of the ACL if using public access\n"
+                },
                 "diskIops": {
                     "type": "integer",
                     "description": "Number of IOPS for storage, required if disk_type is `gp3`\n"
@@ -497,7 +579,7 @@
                 },
                 "instanceType": {
                     "type": "string",
-                    "description": "Instance type of the managed cluster (find the list of valid values below)\n"
+                    "description": "Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.\n"
                 },
                 "name": {
                     "type": "string",
@@ -518,6 +600,10 @@
                 "protected": {
                     "type": "boolean",
                     "description": "Protection from an accidental cluster deletion Defaults to `false`.\n"
+                },
+                "publicAccess": {
+                    "type": "boolean",
+                    "description": "If true, the cluster is provisioned with a public endpoint\n"
                 },
                 "region": {
                     "type": "string",
@@ -555,6 +641,11 @@
                 "topology"
             ],
             "inputProperties": {
+                "aclId": {
+                    "type": "string",
+                    "description": "ID of the ACL if using public access\n",
+                    "willReplaceOnChanges": true
+                },
                 "diskIops": {
                     "type": "integer",
                     "description": "Number of IOPS for storage, required if disk_type is `gp3`\n"
@@ -573,8 +664,7 @@
                 },
                 "instanceType": {
                     "type": "string",
-                    "description": "Instance type of the managed cluster (find the list of valid values below)\n",
-                    "willReplaceOnChanges": true
+                    "description": "Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.\n"
                 },
                 "name": {
                     "type": "string",
@@ -598,6 +688,11 @@
                 "protected": {
                     "type": "boolean",
                     "description": "Protection from an accidental cluster deletion Defaults to `false`.\n"
+                },
+                "publicAccess": {
+                    "type": "boolean",
+                    "description": "If true, the cluster is provisioned with a public endpoint\n",
+                    "willReplaceOnChanges": true
                 },
                 "serverVersion": {
                     "type": "string",
@@ -625,6 +720,11 @@
             "stateInputs": {
                 "description": "Input properties used for looking up and filtering ManagedCluster resources.\n",
                 "properties": {
+                    "aclId": {
+                        "type": "string",
+                        "description": "ID of the ACL if using public access\n",
+                        "willReplaceOnChanges": true
+                    },
                     "diskIops": {
                         "type": "integer",
                         "description": "Number of IOPS for storage, required if disk_type is `gp3`\n"
@@ -647,8 +747,7 @@
                     },
                     "instanceType": {
                         "type": "string",
-                        "description": "Instance type of the managed cluster (find the list of valid values below)\n",
-                        "willReplaceOnChanges": true
+                        "description": "Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.\n"
                     },
                     "name": {
                         "type": "string",
@@ -672,6 +771,11 @@
                     "protected": {
                         "type": "boolean",
                         "description": "Protection from an accidental cluster deletion Defaults to `false`.\n"
+                    },
+                    "publicAccess": {
+                        "type": "boolean",
+                        "description": "If true, the cluster is provisioned with a public endpoint\n",
+                        "willReplaceOnChanges": true
                     },
                     "region": {
                         "type": "string",
@@ -713,6 +817,10 @@
                     "type": "string",
                     "description": "Project ID\n"
                 },
+                "publicAccess": {
+                    "type": "boolean",
+                    "description": "Whether the network is able to be accessed from the public internet\n"
+                },
                 "region": {
                     "type": "string",
                     "description": "Provider region in which to provision the network\n"
@@ -723,7 +831,6 @@
                 }
             },
             "required": [
-                "cidrBlock",
                 "name",
                 "projectId",
                 "region",
@@ -744,6 +851,11 @@
                     "description": "Project ID\n",
                     "willReplaceOnChanges": true
                 },
+                "publicAccess": {
+                    "type": "boolean",
+                    "description": "Whether the network is able to be accessed from the public internet\n",
+                    "willReplaceOnChanges": true
+                },
                 "region": {
                     "type": "string",
                     "description": "Provider region in which to provision the network\n",
@@ -756,7 +868,6 @@
                 }
             },
             "requiredInputs": [
-                "cidrBlock",
                 "projectId",
                 "region",
                 "resourceProvider"
@@ -776,6 +887,11 @@
                     "projectId": {
                         "type": "string",
                         "description": "Project ID\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "publicAccess": {
+                        "type": "boolean",
+                        "description": "Whether the network is able to be accessed from the public internet\n",
                         "willReplaceOnChanges": true
                     },
                     "region": {

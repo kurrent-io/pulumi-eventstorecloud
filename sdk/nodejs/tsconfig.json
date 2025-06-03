@@ -13,6 +13,7 @@
         "strict": true
     },
     "files": [
+        "acl.ts",
         "awscloudWatchLogsIntegration.ts",
         "awscloudWatchMetricsIntegration.ts",
         "config/index.ts",
