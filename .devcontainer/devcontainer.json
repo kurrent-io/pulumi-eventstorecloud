@@ -1,0 +1,29 @@
+{
+  "name": "Pulumi Builder",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers/features/go:1": {},
+    "ghcr.io/guiyomh/features/golangci-lint:0": {},
+    "ghcr.io/devcontainers/features/dotnet:2": {},
+    "ghcr.io/devcontainers/features/python:1": {},
+    "ghcr.io/devcontainers-community/npm-features/typescript:1": {},
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/jungaretti/features/make:1": {},
+    "ghcr.io/flexwie/devcontainer-features/pulumi:1": {},
+    "ghcr.io/stuartleeks/dev-container-features/shell-history:0": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "DavidAnson.vscode-markdownlint",
+        "bierner.markdown-preview-github-styles",
+        "esbenp.prettier-vscode",
+        "ms-vscode.makefile-tools",
+        "golang.go",
+        "github.vscode-github-actions",
+        "pulumi.pulumi-lsp-client"
+      ]
+    }
+  },
+  "postCreateCommand": "bash -c 'chmod +x ${PWD}/.devcontainer/setup.sh && ${PWD}/.devcontainer/setup.sh'"
+}
