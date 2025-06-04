@@ -1,6 +1,6 @@
-# Pulumi provider for Event Store Cloud
+# Pulumi provider for Kurrent Cloud (formerly Event Store Cloud)
 
-The Event Store Cloud provider allows you to manage resources in [Event Store Cloud](https://eventstore.com/cloud).
+The `eventstorecloud` provider allows you to manage resources in [Kurrent Cloud](https://www.kurrent.io/kurrent-cloud).
 
 ## Installing
 
@@ -12,47 +12,53 @@ For projects that use .NET and Go Pulumi SDK you have to install the provider be
 
 Use the following command to add the plugin to your environment:
 
-```
-pulumi plugin install resource eventstorecloud [version] \
-  --server https://github.com/EventStore/pulumi-eventstorecloud/releases/download/[version]
-```
-
-Example:
-
-```
-pulumi plugin install resource eventstorecloud v0.2.3 \
-  --server https://github.com/EventStore/pulumi-eventstorecloud/releases/download/v0.2.7
+```bash
+pulumi plugin install resource eventstorecloud --server github://api.github.com/kurrent-io
 ```
 
 ### Configuration
 
-The following configuration points are available for the `eventstorecloud` provider:
+The following configuration options are required for the `eventstorecloud` provider:
 
 - `eventstorecloud:organizationId` - the organization ID for an existing organization in Event Store Cloud
 - `eventstorecloud:token` - a valid refresh token for an Event Store Cloud account with admin access to the organization
 
+Alternatively, these values can be set via the `ESC_ORG_ID` and `ESC_TOKEN` environment variables.
 
 ### Node.js (Java/TypeScript)
 
 To use from JavaScript or TypeScript in Node.js, install using either `npm`:
 
-    $ npm install @eventstore/pulumi-eventstorecloud
+```bash
+npm install @eventstore/pulumi-eventstorecloud
+```
 
 or `yarn`:
 
-    $ yarn add @eventstore/pulumi-eventstorecloud
-
-### .NET
-
-Add the NuGet package `Pulumi.EventStoreCloud` to your Pulumi project, which uses the .NET Pulumi SDK.
-
-### Python
-
-[WIP]
+```bash
+yarn add @eventstore/pulumi-eventstorecloud
+```
 
 ### Go
 
 To use from Go, use `go get` to grab the latest version of the library
 
-    $ go get github.com/EventStore/pulumi-eventstorecloud/sdk/go/eventstorecloud
+```bash
+go get github.com/EventStore/pulumi-eventstorecloud/sdk/go/eventstorecloud
+```
 
+### .NET
+
+To use from .NET, install using `dotnet add package`:
+
+```bash
+dotnet add package Pulumi.EventStoreCloud
+```
+
+### Python
+
+\[WIP]
+
+## Reference
+
+For detailed reference documentation, please visit [the Pulumi registry](https://www.pulumi.com/registry/packages/eventstorecloud/).

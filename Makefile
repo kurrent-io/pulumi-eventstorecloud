@@ -103,6 +103,7 @@ lint_provider:: provider # lint the provider code
 cleanup:: # cleans up the temporary directory
 	rm -r $(WORKING_DIR)/bin
 	rm -f provider/cmd/${PROVIDER}/schema.go
+	rm -rf node_modules nuget
 
 help::
 	@grep '^[^.#]\+:\s\+.*#' Makefile | \
@@ -111,10 +112,11 @@ help::
 
 clean::
 	rm -rf sdk/{dotnet,nodejs,go,python}
+	rm -rf test/node_modules
 
 install_plugins::
 	[ -x $(shell which pulumi) ] || curl -fsSL https://get.pulumi.com | sh
-	pulumi plugin install resource random 4.6.0
+	pulumi plugin install resource random
 
 install_dotnet_sdk::
 	mkdir -p $(WORKING_DIR)/nuget
@@ -131,4 +133,3 @@ install_sdks:: install_dotnet_sdk install_python_sdk install_nodejs_sdk
 
 test::
 	cd examples && go test -v -tags=all -parallel ${TESTPARALLELISM} -timeout 2h
-
