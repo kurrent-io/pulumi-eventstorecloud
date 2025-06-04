@@ -55,7 +55,7 @@ get_os() {
     case $os in
         Linux) echo "linux";;
         Darwin) echo "darwin";;
-        *) echo "unknown";;
+        *) echo "Unsupported OS: ${os}" >&2 ; return 1;;
     esac
 }
 
@@ -65,7 +65,7 @@ get_arch() {
     case $arch in
         x86_64) echo "amd64";;
         aarch64 | arm64) echo "arm64";;
-        *) echo "unknown";;
+        *) echo "Unsupported architecture: ${arch}" >&2 ; return 1;;
     esac
 }
 
@@ -80,16 +80,9 @@ install_pulumictl() {
         return 1
     fi
 
-    os=$(get_os)
-    if [[ -z "${os}" ]] || [[ "${os}" == "unknown" ]]; then
-        echo "Unknown OS"
-        return 1
-    fi
-    arch=$(get_arch)
-    if [[ -z "${arch}" ]] || [[ "${arch}" == "unknown" ]]; then
-        echo "Unknown arch"
-        return 1
-    fi
+    os=$(get_os) || return 1
+    arch=$(get_arch) || return 1
+
     download_pulumictl_release "${dest_dir}" "${arch}" "${os}"
 
     filename="pulumictl-${os}-${arch}.tar.gz"

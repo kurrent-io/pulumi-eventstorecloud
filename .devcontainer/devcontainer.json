@@ -25,5 +25,5 @@
       ]
     }
   },
-  "postCreateCommand": "bash -c 'chmod +x ${PWD}/.devcontainer/setup.sh && ${PWD}/.devcontainer/setup.sh'"
+  "postCreateCommand": "${PWD}/.devcontainer/setup.sh"
 }
