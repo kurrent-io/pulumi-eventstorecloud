@@ -1,5 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
-import * as esc from "@eventstore/pulumi-eventstorecloud";
+import * as esc from "@kurrent-io/pulumi-kurrentcloud";
 import * as awsx from "@pulumi/awsx";
 import * as aws from "@pulumi/aws";
 

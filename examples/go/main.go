@@ -1,7 +1,7 @@
 package main
 
 import (
-	esc "github.com/EventStore/pulumi-eventstorecloud/sdk/go/eventstorecloud"
+	esc "github.com/EventStore/pulumi-eventstorecloud/sdk/go/kurrentcloud"
 	"github.com/pulumi/pulumi-gcp/sdk/v6/go/gcp/compute"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"

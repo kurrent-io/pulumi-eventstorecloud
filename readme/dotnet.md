@@ -1,1 +1,1 @@
-Add the NuGet package `Pulumi.EventStoreCloud` to your Pulumi project, which uses the .NET Pulumi SDK.
+Add the NuGet package `Pulumi.KurrentCloud` to your Pulumi project, which uses the .NET Pulumi SDK.
