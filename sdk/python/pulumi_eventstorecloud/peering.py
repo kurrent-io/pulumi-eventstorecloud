@@ -307,39 +307,7 @@ class Peering(pulumi.CustomResource):
                  routes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  __props__=None):
         """
-        Manages peering connections between Event Store Cloud VPCs and customer own VPCs
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_eventstorecloud as eventstorecloud
-
-        # Example for AWS
-        example_project = eventstorecloud.Project("exampleProject")
-        example_network = eventstorecloud.Network("exampleNetwork",
-            project_id=example_project.id,
-            resource_provider="aws",
-            region="us-west-2",
-            cidr_block="172.21.0.0/16")
-        example_peering = eventstorecloud.Peering("examplePeering",
-            project_id=example_network.project_id,
-            network_id=example_network.id,
-            peer_resource_provider=example_network.resource_provider,
-            peer_network_region=example_network.region,
-            peer_account_id="<Customer AWS Account ID>",
-            peer_network_id="<Customer VPC ID>",
-            routes=["<Address space of the customer VPC>"])
-        ```
-
-        ## Import
-
-        ```sh
-         $ pulumi import eventstorecloud:index/peering:Peering example project_id:peering_id
-        ```
-
-         ~> Keep in mind that additional operations might be required to activate the peering link. Check our [provisioning guidelines](https://developers.eventstore.com/cloud/provision/) for each of the supported cloud providers to know more.
-
+        Create a Peering resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] name: Human-friendly name for the network
@@ -358,39 +326,7 @@ class Peering(pulumi.CustomResource):
                  args: PeeringArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Manages peering connections between Event Store Cloud VPCs and customer own VPCs
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_eventstorecloud as eventstorecloud
-
-        # Example for AWS
-        example_project = eventstorecloud.Project("exampleProject")
-        example_network = eventstorecloud.Network("exampleNetwork",
-            project_id=example_project.id,
-            resource_provider="aws",
-            region="us-west-2",
-            cidr_block="172.21.0.0/16")
-        example_peering = eventstorecloud.Peering("examplePeering",
-            project_id=example_network.project_id,
-            network_id=example_network.id,
-            peer_resource_provider=example_network.resource_provider,
-            peer_network_region=example_network.region,
-            peer_account_id="<Customer AWS Account ID>",
-            peer_network_id="<Customer VPC ID>",
-            routes=["<Address space of the customer VPC>"])
-        ```
-
-        ## Import
-
-        ```sh
-         $ pulumi import eventstorecloud:index/peering:Peering example project_id:peering_id
-        ```
-
-         ~> Keep in mind that additional operations might be required to activate the peering link. Check our [provisioning guidelines](https://developers.eventstore.com/cloud/provision/) for each of the supported cloud providers to know more.
-
+        Create a Peering resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param PeeringArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

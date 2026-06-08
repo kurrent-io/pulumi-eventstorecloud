@@ -4,30 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * Manages VPC (network) resources in Event Store Cloud
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as eventstorecloud from "@eventstore/pulumi-eventstorecloud";
- *
- * const exampleProject = new eventstorecloud.Project("exampleProject", {});
- * const exampleNetwork = new eventstorecloud.Network("exampleNetwork", {
- *     projectId: exampleProject.id,
- *     resourceProvider: "aws",
- *     region: "us-west-2",
- *     cidrBlock: "172.21.0.0/16",
- * });
- * ```
- *
- * ## Import
- *
- * ```sh
- *  $ pulumi import eventstorecloud:index/network:Network example project_id:network_id
- * ```
- */
 export class Network extends pulumi.CustomResource {
     /**
      * Get an existing Network resource's state with the given name, ID, and optional extra

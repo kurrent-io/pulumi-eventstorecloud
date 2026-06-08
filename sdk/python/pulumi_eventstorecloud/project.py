@@ -67,23 +67,7 @@ class Project(pulumi.CustomResource):
                  name: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Manages projects within an organization in Event Store Cloud
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_eventstorecloud as eventstorecloud
-
-        chicken_window = eventstorecloud.Project("chickenWindow")
-        ```
-
-        ## Import
-
-        ```sh
-         $ pulumi import eventstorecloud:index/project:Project chicken_window project_id
-        ```
-
+        Create a Project resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] name: Human-friendly name for the project
@@ -95,23 +79,7 @@ class Project(pulumi.CustomResource):
                  args: Optional[ProjectArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Manages projects within an organization in Event Store Cloud
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_eventstorecloud as eventstorecloud
-
-        chicken_window = eventstorecloud.Project("chickenWindow")
-        ```
-
-        ## Import
-
-        ```sh
-         $ pulumi import eventstorecloud:index/project:Project chicken_window project_id
-        ```
-
+        Create a Project resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param ProjectArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

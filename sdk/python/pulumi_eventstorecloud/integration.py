@@ -130,39 +130,7 @@ class Integration(pulumi.CustomResource):
                  project_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Manages integration resources, for example Slack or OpsGenie.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_eventstorecloud as eventstorecloud
-
-        opsgenie_issues = eventstorecloud.Integration("opsgenieIssues",
-            project_id=var["project_id"],
-            description="create OpsGenie alerts from issues",
-            data={
-                "sink": "opsGenie",
-                "api_key": "<secret OpsGenie key here>",
-                "source": "issues",
-            })
-        slack_notifications = eventstorecloud.Integration("slackNotifications",
-            project_id=var["project_id"],
-            description="send Slack a message when a notification happens",
-            data={
-                "sink": "slack",
-                "token": "<secret token here>",
-                "channel_id": "#esc-cluster-notifications",
-                "source": "notifications",
-            })
-        ```
-
-        ## Import
-
-        ```sh
-         $ pulumi import eventstorecloud:index/integration:Integration opsgenie_issues project_id:integration_id
-        ```
-
+        Create a Integration resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Mapping[str, Any]] data: Data for the integration
@@ -176,39 +144,7 @@ class Integration(pulumi.CustomResource):
                  args: IntegrationArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Manages integration resources, for example Slack or OpsGenie.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_eventstorecloud as eventstorecloud
-
-        opsgenie_issues = eventstorecloud.Integration("opsgenieIssues",
-            project_id=var["project_id"],
-            description="create OpsGenie alerts from issues",
-            data={
-                "sink": "opsGenie",
-                "api_key": "<secret OpsGenie key here>",
-                "source": "issues",
-            })
-        slack_notifications = eventstorecloud.Integration("slackNotifications",
-            project_id=var["project_id"],
-            description="send Slack a message when a notification happens",
-            data={
-                "sink": "slack",
-                "token": "<secret token here>",
-                "channel_id": "#esc-cluster-notifications",
-                "source": "notifications",
-            })
-        ```
-
-        ## Import
-
-        ```sh
-         $ pulumi import eventstorecloud:index/integration:Integration opsgenie_issues project_id:integration_id
-        ```
-
+        Create a Integration resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param IntegrationArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

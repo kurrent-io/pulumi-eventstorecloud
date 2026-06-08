@@ -9,30 +9,6 @@ using Pulumi.Serialization;
 
 namespace Pulumi.EventStoreCloud
 {
-    /// <summary>
-    /// Manages projects within an organization in Event Store Cloud
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using EventStoreCloud = Pulumi.EventStoreCloud;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     var chickenWindow = new EventStoreCloud.Project("chickenWindow");
-    /// 
-    /// });
-    /// ```
-    /// 
-    /// ## Import
-    /// 
-    /// ```sh
-    ///  $ pulumi import eventstorecloud:index/project:Project chicken_window project_id
-    /// ```
-    /// </summary>
     [EventStoreCloudResourceType("eventstorecloud:index/project:Project")]
     public partial class Project : global::Pulumi.CustomResource
     {

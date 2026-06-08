@@ -9,53 +9,6 @@ using Pulumi.Serialization;
 
 namespace Pulumi.EventStoreCloud
 {
-    /// <summary>
-    /// Manages integration resources, for example Slack or OpsGenie.
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using EventStoreCloud = Pulumi.EventStoreCloud;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     var opsgenieIssues = new EventStoreCloud.Integration("opsgenieIssues", new()
-    ///     {
-    ///         ProjectId = @var.Project_id,
-    ///         Description = "create OpsGenie alerts from issues",
-    ///         Data = 
-    ///         {
-    ///             { "sink", "opsGenie" },
-    ///             { "api_key", "&lt;secret OpsGenie key here&gt;" },
-    ///             { "source", "issues" },
-    ///         },
-    ///     });
-    /// 
-    ///     var slackNotifications = new EventStoreCloud.Integration("slackNotifications", new()
-    ///     {
-    ///         ProjectId = @var.Project_id,
-    ///         Description = "send Slack a message when a notification happens",
-    ///         Data = 
-    ///         {
-    ///             { "sink", "slack" },
-    ///             { "token", "&lt;secret token here&gt;" },
-    ///             { "channel_id", "#esc-cluster-notifications" },
-    ///             { "source", "notifications" },
-    ///         },
-    ///     });
-    /// 
-    /// });
-    /// ```
-    /// 
-    /// ## Import
-    /// 
-    /// ```sh
-    ///  $ pulumi import eventstorecloud:index/integration:Integration opsgenie_issues project_id:integration_id
-    /// ```
-    /// </summary>
     [EventStoreCloudResourceType("eventstorecloud:index/integration:Integration")]
     public partial class Integration : global::Pulumi.CustomResource
     {

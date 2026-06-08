@@ -226,29 +226,7 @@ class ScheduledBackup(pulumi.CustomResource):
                  source_cluster_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Creates a new scheduled backup.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_eventstorecloud as eventstorecloud
-
-        daily = eventstorecloud.ScheduledBackup("daily",
-            project_id=eventstorecloud_project["example"]["id"],
-            schedule="0 12 * * */1",
-            description="Creates a backup once a day at 12:00",
-            source_cluster_id=eventstorecloud_managed_cluster["example"]["id"],
-            backup_description="{cluster} Daily Backup {datetime:RFC3339}",
-            max_backup_count=3)
-        ```
-
-        ## Import
-
-        ```sh
-         $ pulumi import eventstorecloud:index/scheduledBackup:ScheduledBackup daily project_id:backup_id
-        ```
-
+        Create a ScheduledBackup resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] backup_description: backup_description
@@ -265,29 +243,7 @@ class ScheduledBackup(pulumi.CustomResource):
                  args: ScheduledBackupArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Creates a new scheduled backup.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_eventstorecloud as eventstorecloud
-
-        daily = eventstorecloud.ScheduledBackup("daily",
-            project_id=eventstorecloud_project["example"]["id"],
-            schedule="0 12 * * */1",
-            description="Creates a backup once a day at 12:00",
-            source_cluster_id=eventstorecloud_managed_cluster["example"]["id"],
-            backup_description="{cluster} Daily Backup {datetime:RFC3339}",
-            max_backup_count=3)
-        ```
-
-        ## Import
-
-        ```sh
-         $ pulumi import eventstorecloud:index/scheduledBackup:ScheduledBackup daily project_id:backup_id
-        ```
-
+        Create a ScheduledBackup resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param ScheduledBackupArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

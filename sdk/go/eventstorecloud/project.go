@@ -11,39 +11,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// Manages projects within an organization in Event Store Cloud
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/EventStore/pulumi-eventstorecloud/sdk/go/eventstorecloud"
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := eventstorecloud.NewProject(ctx, "chickenWindow", nil)
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
-//
-// ## Import
-//
-// ```sh
-//
-//	$ pulumi import eventstorecloud:index/project:Project chicken_window project_id
-//
-// ```
 type Project struct {
 	pulumi.CustomResourceState
 

@@ -11,35 +11,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// Retrieves data for an existing `Network` resource
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/EventStore/pulumi-eventstorecloud/sdk/go/eventstorecloud"
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			example, err := eventstorecloud.LookupNetwork(ctx, &eventstorecloud.LookupNetworkArgs{
-//				Name:      "Example Network",
-//				ProjectId: _var.Project_id,
-//			}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			ctx.Export("networkCidr", example.CidrBlock)
-//			return nil
-//		})
-//	}
-//
-// ```
 func LookupNetwork(ctx *pulumi.Context, args *LookupNetworkArgs, opts ...pulumi.InvokeOption) (*LookupNetworkResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupNetworkResult
@@ -58,15 +29,12 @@ type LookupNetworkArgs struct {
 
 // A collection of values returned by getNetwork.
 type LookupNetworkResult struct {
-	// Address space of the network in CIDR block notation
 	CidrBlock string `pulumi:"cidrBlock"`
 	// The provider-assigned unique ID for this managed resource.
-	Id        string `pulumi:"id"`
-	Name      string `pulumi:"name"`
-	ProjectId string `pulumi:"projectId"`
-	// Provider region in which to provision the network
-	Region string `pulumi:"region"`
-	// Cloud Provider in which to provision the network.
+	Id               string `pulumi:"id"`
+	Name             string `pulumi:"name"`
+	ProjectId        string `pulumi:"projectId"`
+	Region           string `pulumi:"region"`
 	ResourceProvider string `pulumi:"resourceProvider"`
 }
 
@@ -108,7 +76,6 @@ func (o LookupNetworkResultOutput) ToLookupNetworkResultOutputWithContext(ctx co
 	return o
 }
 
-// Address space of the network in CIDR block notation
 func (o LookupNetworkResultOutput) CidrBlock() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupNetworkResult) string { return v.CidrBlock }).(pulumi.StringOutput)
 }
@@ -126,12 +93,10 @@ func (o LookupNetworkResultOutput) ProjectId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupNetworkResult) string { return v.ProjectId }).(pulumi.StringOutput)
 }
 
-// Provider region in which to provision the network
 func (o LookupNetworkResultOutput) Region() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupNetworkResult) string { return v.Region }).(pulumi.StringOutput)
 }
 
-// Cloud Provider in which to provision the network.
 func (o LookupNetworkResultOutput) ResourceProvider() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupNetworkResult) string { return v.ResourceProvider }).(pulumi.StringOutput)
 }

@@ -9,54 +9,6 @@ using Pulumi.Serialization;
 
 namespace Pulumi.EventStoreCloud
 {
-    /// <summary>
-    /// Manages EventStoreDB instances and clusters in Event Store Cloud
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using EventStoreCloud = Pulumi.EventStoreCloud;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     var exampleProject = EventStoreCloud.GetProject.Invoke(new()
-    ///     {
-    ///         Name = "Example Project",
-    ///     });
-    /// 
-    ///     var exampleNetwork = new EventStoreCloud.Network("exampleNetwork", new()
-    ///     {
-    ///         ProjectId = eventstorecloud_project.Example.Id,
-    ///         ResourceProvider = "aws",
-    ///         Region = "us-west-2",
-    ///         CidrBlock = "172.21.0.0/16",
-    ///     });
-    /// 
-    ///     var exampleManagedCluster = new EventStoreCloud.ManagedCluster("exampleManagedCluster", new()
-    ///     {
-    ///         ProjectId = exampleNetwork.ProjectId,
-    ///         NetworkId = exampleNetwork.Id,
-    ///         Topology = "three-node-multi-zone",
-    ///         InstanceType = "F1",
-    ///         DiskSize = 24,
-    ///         DiskType = "gp3",
-    ///         DiskIops = 3000,
-    ///         DiskThroughput = 125,
-    ///         ServerVersion = "23.10",
-    ///     });
-    /// 
-    /// });
-    /// ```
-    /// 
-    /// ## Import
-    /// 
-    /// ```sh
-    ///  $ pulumi import eventstorecloud:index/managedCluster:ManagedCluster example project_id:cluster_id
-    /// ```
-    /// </summary>
     [EventStoreCloudResourceType("eventstorecloud:index/managedCluster:ManagedCluster")]
     public partial class ManagedCluster : global::Pulumi.CustomResource
     {
@@ -97,7 +49,8 @@ namespace Pulumi.EventStoreCloud
         public Output<string> DnsName { get; private set; } = null!;
 
         /// <summary>
-        /// Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
+        /// Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a
+        /// resize operation.
         /// </summary>
         [Output("instanceType")]
         public Output<string> InstanceType { get; private set; } = null!;
@@ -121,13 +74,14 @@ namespace Pulumi.EventStoreCloud
         public Output<string> ProjectId { get; private set; } = null!;
 
         /// <summary>
-        /// Determines whether to run no projections, system projections only, or system and user projections (find the list of valid values below) Defaults to `off`.
+        /// Determines whether to run no projections, system projections only, or system and user projections (find the list of
+        /// valid values below)
         /// </summary>
         [Output("projectionLevel")]
         public Output<string?> ProjectionLevel { get; private set; } = null!;
 
         /// <summary>
-        /// Protection from an accidental cluster deletion Defaults to `false`.
+        /// Protection from an accidental cluster deletion
         /// </summary>
         [Output("protected")]
         public Output<bool?> Protected { get; private set; } = null!;
@@ -157,7 +111,8 @@ namespace Pulumi.EventStoreCloud
         public Output<string> ServerVersion { get; private set; } = null!;
 
         /// <summary>
-        /// Server version tag to provision (find the list of valid values below). A higher server*version*tag will prompt an upgrade.
+        /// Server version tag to provision (find the list of valid values below). A higher server_version_tag will prompt an
+        /// upgrade.
         /// </summary>
         [Output("serverVersionTag")]
         public Output<string> ServerVersionTag { get; private set; } = null!;
@@ -246,7 +201,8 @@ namespace Pulumi.EventStoreCloud
         public Input<string> DiskType { get; set; } = null!;
 
         /// <summary>
-        /// Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
+        /// Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a
+        /// resize operation.
         /// </summary>
         [Input("instanceType", required: true)]
         public Input<string> InstanceType { get; set; } = null!;
@@ -270,13 +226,14 @@ namespace Pulumi.EventStoreCloud
         public Input<string> ProjectId { get; set; } = null!;
 
         /// <summary>
-        /// Determines whether to run no projections, system projections only, or system and user projections (find the list of valid values below) Defaults to `off`.
+        /// Determines whether to run no projections, system projections only, or system and user projections (find the list of
+        /// valid values below)
         /// </summary>
         [Input("projectionLevel")]
         public Input<string>? ProjectionLevel { get; set; }
 
         /// <summary>
-        /// Protection from an accidental cluster deletion Defaults to `false`.
+        /// Protection from an accidental cluster deletion
         /// </summary>
         [Input("protected")]
         public Input<bool>? Protected { get; set; }
@@ -294,7 +251,8 @@ namespace Pulumi.EventStoreCloud
         public Input<string> ServerVersion { get; set; } = null!;
 
         /// <summary>
-        /// Server version tag to provision (find the list of valid values below). A higher server*version*tag will prompt an upgrade.
+        /// Server version tag to provision (find the list of valid values below). A higher server_version_tag will prompt an
+        /// upgrade.
         /// </summary>
         [Input("serverVersionTag")]
         public Input<string>? ServerVersionTag { get; set; }
@@ -350,7 +308,8 @@ namespace Pulumi.EventStoreCloud
         public Input<string>? DnsName { get; set; }
 
         /// <summary>
-        /// Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
+        /// Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a
+        /// resize operation.
         /// </summary>
         [Input("instanceType")]
         public Input<string>? InstanceType { get; set; }
@@ -374,13 +333,14 @@ namespace Pulumi.EventStoreCloud
         public Input<string>? ProjectId { get; set; }
 
         /// <summary>
-        /// Determines whether to run no projections, system projections only, or system and user projections (find the list of valid values below) Defaults to `off`.
+        /// Determines whether to run no projections, system projections only, or system and user projections (find the list of
+        /// valid values below)
         /// </summary>
         [Input("projectionLevel")]
         public Input<string>? ProjectionLevel { get; set; }
 
         /// <summary>
-        /// Protection from an accidental cluster deletion Defaults to `false`.
+        /// Protection from an accidental cluster deletion
         /// </summary>
         [Input("protected")]
         public Input<bool>? Protected { get; set; }
@@ -410,7 +370,8 @@ namespace Pulumi.EventStoreCloud
         public Input<string>? ServerVersion { get; set; }
 
         /// <summary>
-        /// Server version tag to provision (find the list of valid values below). A higher server*version*tag will prompt an upgrade.
+        /// Server version tag to provision (find the list of valid values below). A higher server_version_tag will prompt an
+        /// upgrade.
         /// </summary>
         [Input("serverVersionTag")]
         public Input<string>? ServerVersionTag { get; set; }

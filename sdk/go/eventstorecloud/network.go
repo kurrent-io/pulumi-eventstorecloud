@@ -12,48 +12,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// Manages VPC (network) resources in Event Store Cloud
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/EventStore/pulumi-eventstorecloud/sdk/go/eventstorecloud"
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			exampleProject, err := eventstorecloud.NewProject(ctx, "exampleProject", nil)
-//			if err != nil {
-//				return err
-//			}
-//			_, err = eventstorecloud.NewNetwork(ctx, "exampleNetwork", &eventstorecloud.NetworkArgs{
-//				ProjectId:        exampleProject.ID(),
-//				ResourceProvider: pulumi.String("aws"),
-//				Region:           pulumi.String("us-west-2"),
-//				CidrBlock:        pulumi.String("172.21.0.0/16"),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
-//
-// ## Import
-//
-// ```sh
-//
-//	$ pulumi import eventstorecloud:index/network:Network example project_id:network_id
-//
-// ```
 type Network struct {
 	pulumi.CustomResourceState
 

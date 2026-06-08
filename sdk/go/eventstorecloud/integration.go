@@ -12,60 +12,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// Manages integration resources, for example Slack or OpsGenie.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/EventStore/pulumi-eventstorecloud/sdk/go/eventstorecloud"
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := eventstorecloud.NewIntegration(ctx, "opsgenieIssues", &eventstorecloud.IntegrationArgs{
-//				ProjectId:   pulumi.Any(_var.Project_id),
-//				Description: pulumi.String("create OpsGenie alerts from issues"),
-//				Data: pulumi.AnyMap{
-//					"sink":    pulumi.Any("opsGenie"),
-//					"api_key": pulumi.Any("<secret OpsGenie key here>"),
-//					"source":  pulumi.Any("issues"),
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_, err = eventstorecloud.NewIntegration(ctx, "slackNotifications", &eventstorecloud.IntegrationArgs{
-//				ProjectId:   pulumi.Any(_var.Project_id),
-//				Description: pulumi.String("send Slack a message when a notification happens"),
-//				Data: pulumi.AnyMap{
-//					"sink":       pulumi.Any("slack"),
-//					"token":      pulumi.Any("<secret token here>"),
-//					"channel_id": pulumi.Any("#esc-cluster-notifications"),
-//					"source":     pulumi.Any("notifications"),
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
-//
-// ## Import
-//
-// ```sh
-//
-//	$ pulumi import eventstorecloud:index/integration:Integration opsgenie_issues project_id:integration_id
-//
-// ```
 type Integration struct {
 	pulumi.CustomResourceState
 

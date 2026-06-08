@@ -4,9 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * Manages IP Access Lists
- */
 export class Acl extends pulumi.CustomResource {
     /**
      * Get an existing Acl resource's state with the given name, ID, and optional extra

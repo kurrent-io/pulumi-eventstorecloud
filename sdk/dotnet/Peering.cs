@@ -9,55 +9,6 @@ using Pulumi.Serialization;
 
 namespace Pulumi.EventStoreCloud
 {
-    /// <summary>
-    /// Manages peering connections between Event Store Cloud VPCs and customer own VPCs
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using EventStoreCloud = Pulumi.EventStoreCloud;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     // Example for AWS
-    ///     var exampleProject = new EventStoreCloud.Project("exampleProject");
-    /// 
-    ///     var exampleNetwork = new EventStoreCloud.Network("exampleNetwork", new()
-    ///     {
-    ///         ProjectId = exampleProject.Id,
-    ///         ResourceProvider = "aws",
-    ///         Region = "us-west-2",
-    ///         CidrBlock = "172.21.0.0/16",
-    ///     });
-    /// 
-    ///     var examplePeering = new EventStoreCloud.Peering("examplePeering", new()
-    ///     {
-    ///         ProjectId = exampleNetwork.ProjectId,
-    ///         NetworkId = exampleNetwork.Id,
-    ///         PeerResourceProvider = exampleNetwork.ResourceProvider,
-    ///         PeerNetworkRegion = exampleNetwork.Region,
-    ///         PeerAccountId = "&lt;Customer AWS Account ID&gt;",
-    ///         PeerNetworkId = "&lt;Customer VPC ID&gt;",
-    ///         Routes = new[]
-    ///         {
-    ///             "&lt;Address space of the customer VPC&gt;",
-    ///         },
-    ///     });
-    /// 
-    /// });
-    /// ```
-    /// 
-    /// ## Import
-    /// 
-    /// ```sh
-    ///  $ pulumi import eventstorecloud:index/peering:Peering example project_id:peering_id
-    /// ```
-    /// 
-    ///  ~&gt; Keep in mind that additional operations might be required to activate the peering link. Check our [provisioning guidelines](https://developers.eventstore.com/cloud/provision/) for each of the supported cloud providers to know more.
-    /// </summary>
     [EventStoreCloudResourceType("eventstorecloud:index/peering:Peering")]
     public partial class Peering : global::Pulumi.CustomResource
     {

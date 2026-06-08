@@ -4,24 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * Manages projects within an organization in Event Store Cloud
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as eventstorecloud from "@eventstore/pulumi-eventstorecloud";
- *
- * const chickenWindow = new eventstorecloud.Project("chickenWindow", {});
- * ```
- *
- * ## Import
- *
- * ```sh
- *  $ pulumi import eventstorecloud:index/project:Project chicken_window project_id
- * ```
- */
 export class Project extends pulumi.CustomResource {
     /**
      * Get an existing Project resource's state with the given name, ID, and optional extra

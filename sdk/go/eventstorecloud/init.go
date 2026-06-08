@@ -31,6 +31,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &Integration{}
 	case "eventstorecloud:index/managedCluster:ManagedCluster":
 		r = &ManagedCluster{}
+	case "eventstorecloud:index/managedClusterReplicaset:ManagedClusterReplicaset":
+		r = &ManagedClusterReplicaset{}
 	case "eventstorecloud:index/network:Network":
 		r = &Network{}
 	case "eventstorecloud:index/peering:Peering":
@@ -93,6 +95,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"eventstorecloud",
 		"index/managedCluster",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"eventstorecloud",
+		"index/managedClusterReplicaset",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

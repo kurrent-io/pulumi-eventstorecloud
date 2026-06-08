@@ -21,7 +21,7 @@ import (
 	"unicode"
 
 	"github.com/EventStore/pulumi-eventstorecloud/provider/pkg/version"
-	"github.com/EventStore/terraform-provider-eventstorecloud/esc"
+	"github.com/kurrent-io/terraform-provider-kurrentcloud/v2/esc"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
@@ -98,11 +98,28 @@ func Provider() tfbridge.ProviderInfo {
 		GitHubOrg:            "EventStore",
 		Config:               map[string]*tfbridge.SchemaInfo{},
 		PreConfigureCallback: preConfigureCallback,
+		// The underlying Terraform provider (kurrentcloud v2) registers every resource under
+		// both the preferred kurrentcloud_* name and the deprecated eventstorecloud_* alias.
+		// To keep the existing Pulumi resource tokens stable we map the eventstorecloud_* names
+		// and ignore the duplicate kurrentcloud_* names. The replicaset resource is the sole
+		// exception: it only exists under the kurrentcloud_ name, so it is mapped explicitly below.
+		IgnoreMappings: []string{
+			"kurrentcloud_project",
+			"kurrentcloud_acl",
+			"kurrentcloud_network",
+			"kurrentcloud_peering",
+			"kurrentcloud_managed_cluster",
+			"kurrentcloud_scheduled_backup",
+			"kurrentcloud_integration",
+			"kurrentcloud_integration_awscloudwatch_logs",
+			"kurrentcloud_integration_awscloudwatch_metrics",
+		},
 		Resources: map[string]*tfbridge.ResourceInfo{
 			"eventstorecloud_project":                           {Tok: makeResource(mainMod, "Project")},
 			"eventstorecloud_network":                           {Tok: makeResource(mainMod, "Network")},
 			"eventstorecloud_peering":                           {Tok: makeResource(mainMod, "Peering")},
 			"eventstorecloud_managed_cluster":                   {Tok: makeResource(mainMod, "ManagedCluster")},
+			"kurrentcloud_managed_cluster_replicaset":           {Tok: makeResource(mainMod, "ManagedClusterReplicaset")},
 			"eventstorecloud_scheduled_backup":                  {Tok: makeResource(mainMod, "ScheduledBackup")},
 			"eventstorecloud_integration":                       {Tok: makeResource(mainMod, "Integration")},
 			"eventstorecloud_integration_awscloudwatch_logs":    {Tok: makeResource(mainMod, "AWSCloudWatchLogsIntegration")},

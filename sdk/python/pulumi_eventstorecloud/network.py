@@ -229,28 +229,7 @@ class Network(pulumi.CustomResource):
                  resource_provider: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Manages VPC (network) resources in Event Store Cloud
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_eventstorecloud as eventstorecloud
-
-        example_project = eventstorecloud.Project("exampleProject")
-        example_network = eventstorecloud.Network("exampleNetwork",
-            project_id=example_project.id,
-            resource_provider="aws",
-            region="us-west-2",
-            cidr_block="172.21.0.0/16")
-        ```
-
-        ## Import
-
-        ```sh
-         $ pulumi import eventstorecloud:index/network:Network example project_id:network_id
-        ```
-
+        Create a Network resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] cidr_block: Address space of the network in CIDR block notation
@@ -267,28 +246,7 @@ class Network(pulumi.CustomResource):
                  args: NetworkArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Manages VPC (network) resources in Event Store Cloud
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_eventstorecloud as eventstorecloud
-
-        example_project = eventstorecloud.Project("exampleProject")
-        example_network = eventstorecloud.Network("exampleNetwork",
-            project_id=example_project.id,
-            resource_provider="aws",
-            region="us-west-2",
-            cidr_block="172.21.0.0/16")
-        ```
-
-        ## Import
-
-        ```sh
-         $ pulumi import eventstorecloud:index/network:Network example project_id:network_id
-        ```
-
+        Create a Network resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param NetworkArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

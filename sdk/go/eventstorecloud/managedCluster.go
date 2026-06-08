@@ -12,80 +12,23 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// Manages EventStoreDB instances and clusters in Event Store Cloud
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/EventStore/pulumi-eventstorecloud/sdk/go/eventstorecloud"
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := eventstorecloud.LookupProject(ctx, &eventstorecloud.LookupProjectArgs{
-//				Name: "Example Project",
-//			}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			exampleNetwork, err := eventstorecloud.NewNetwork(ctx, "exampleNetwork", &eventstorecloud.NetworkArgs{
-//				ProjectId:        pulumi.Any(eventstorecloud_project.Example.Id),
-//				ResourceProvider: pulumi.String("aws"),
-//				Region:           pulumi.String("us-west-2"),
-//				CidrBlock:        pulumi.String("172.21.0.0/16"),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_, err = eventstorecloud.NewManagedCluster(ctx, "exampleManagedCluster", &eventstorecloud.ManagedClusterArgs{
-//				ProjectId:      exampleNetwork.ProjectId,
-//				NetworkId:      exampleNetwork.ID(),
-//				Topology:       pulumi.String("three-node-multi-zone"),
-//				InstanceType:   pulumi.String("F1"),
-//				DiskSize:       pulumi.Int(24),
-//				DiskType:       pulumi.String("gp3"),
-//				DiskIops:       pulumi.Int(3000),
-//				DiskThroughput: pulumi.Int(125),
-//				ServerVersion:  pulumi.String("23.10"),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
-//
-// ## Import
-//
-// ```sh
-//
-//	$ pulumi import eventstorecloud:index/managedCluster:ManagedCluster example project_id:cluster_id
-//
-// ```
 type ManagedCluster struct {
 	pulumi.CustomResourceState
 
 	// ID of the ACL if using public access
 	AclId pulumi.StringPtrOutput `pulumi:"aclId"`
-	// Number of IOPS for storage, required if diskType is `gp3`
+	// Number of IOPS for storage, required if disk_type is `gp3`
 	DiskIops pulumi.IntPtrOutput `pulumi:"diskIops"`
 	// Size of the data disks, in gigabytes
 	DiskSize pulumi.IntOutput `pulumi:"diskSize"`
-	// Throughput in MB/s for storage, required if diskType is `gp3`
+	// Throughput in MB/s for storage, required if disk_type is `gp3`
 	DiskThroughput pulumi.IntPtrOutput `pulumi:"diskThroughput"`
 	// Storage class of the data disks (find the list of valid values below)
 	DiskType pulumi.StringOutput `pulumi:"diskType"`
 	// DNS address of the cluster
 	DnsName pulumi.StringOutput `pulumi:"dnsName"`
-	// Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
+	// Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a
+	// resize operation.
 	InstanceType pulumi.StringOutput `pulumi:"instanceType"`
 	// Name of the managed cluster
 	Name pulumi.StringOutput `pulumi:"name"`
@@ -93,9 +36,10 @@ type ManagedCluster struct {
 	NetworkId pulumi.StringOutput `pulumi:"networkId"`
 	// ID of the project in which the managed cluster exists
 	ProjectId pulumi.StringOutput `pulumi:"projectId"`
-	// Determines whether to run no projections, system projections only, or system and user projections (find the list of valid values below) Defaults to `off`.
+	// Determines whether to run no projections, system projections only, or system and user projections (find the list of
+	// valid values below)
 	ProjectionLevel pulumi.StringPtrOutput `pulumi:"projectionLevel"`
-	// Protection from an accidental cluster deletion Defaults to `false`.
+	// Protection from an accidental cluster deletion
 	Protected pulumi.BoolPtrOutput `pulumi:"protected"`
 	// If true, the cluster is provisioned with a public endpoint
 	PublicAccess pulumi.BoolPtrOutput `pulumi:"publicAccess"`
@@ -105,7 +49,8 @@ type ManagedCluster struct {
 	ResourceProvider pulumi.StringOutput `pulumi:"resourceProvider"`
 	// Server version to provision (find the list of valid values below)
 	ServerVersion pulumi.StringOutput `pulumi:"serverVersion"`
-	// Server version tag to provision (find the list of valid values below). A higher server*version*tag will prompt an upgrade.
+	// Server version tag to provision (find the list of valid values below). A higher server_version_tag will prompt an
+	// upgrade.
 	ServerVersionTag pulumi.StringOutput `pulumi:"serverVersionTag"`
 	// Topology of the managed cluster (`single-node` or `three-node-multi-zone`)
 	Topology pulumi.StringOutput `pulumi:"topology"`
@@ -164,17 +109,18 @@ func GetManagedCluster(ctx *pulumi.Context,
 type managedClusterState struct {
 	// ID of the ACL if using public access
 	AclId *string `pulumi:"aclId"`
-	// Number of IOPS for storage, required if diskType is `gp3`
+	// Number of IOPS for storage, required if disk_type is `gp3`
 	DiskIops *int `pulumi:"diskIops"`
 	// Size of the data disks, in gigabytes
 	DiskSize *int `pulumi:"diskSize"`
-	// Throughput in MB/s for storage, required if diskType is `gp3`
+	// Throughput in MB/s for storage, required if disk_type is `gp3`
 	DiskThroughput *int `pulumi:"diskThroughput"`
 	// Storage class of the data disks (find the list of valid values below)
 	DiskType *string `pulumi:"diskType"`
 	// DNS address of the cluster
 	DnsName *string `pulumi:"dnsName"`
-	// Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
+	// Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a
+	// resize operation.
 	InstanceType *string `pulumi:"instanceType"`
 	// Name of the managed cluster
 	Name *string `pulumi:"name"`
@@ -182,9 +128,10 @@ type managedClusterState struct {
 	NetworkId *string `pulumi:"networkId"`
 	// ID of the project in which the managed cluster exists
 	ProjectId *string `pulumi:"projectId"`
-	// Determines whether to run no projections, system projections only, or system and user projections (find the list of valid values below) Defaults to `off`.
+	// Determines whether to run no projections, system projections only, or system and user projections (find the list of
+	// valid values below)
 	ProjectionLevel *string `pulumi:"projectionLevel"`
-	// Protection from an accidental cluster deletion Defaults to `false`.
+	// Protection from an accidental cluster deletion
 	Protected *bool `pulumi:"protected"`
 	// If true, the cluster is provisioned with a public endpoint
 	PublicAccess *bool `pulumi:"publicAccess"`
@@ -194,7 +141,8 @@ type managedClusterState struct {
 	ResourceProvider *string `pulumi:"resourceProvider"`
 	// Server version to provision (find the list of valid values below)
 	ServerVersion *string `pulumi:"serverVersion"`
-	// Server version tag to provision (find the list of valid values below). A higher server*version*tag will prompt an upgrade.
+	// Server version tag to provision (find the list of valid values below). A higher server_version_tag will prompt an
+	// upgrade.
 	ServerVersionTag *string `pulumi:"serverVersionTag"`
 	// Topology of the managed cluster (`single-node` or `three-node-multi-zone`)
 	Topology *string `pulumi:"topology"`
@@ -203,17 +151,18 @@ type managedClusterState struct {
 type ManagedClusterState struct {
 	// ID of the ACL if using public access
 	AclId pulumi.StringPtrInput
-	// Number of IOPS for storage, required if diskType is `gp3`
+	// Number of IOPS for storage, required if disk_type is `gp3`
 	DiskIops pulumi.IntPtrInput
 	// Size of the data disks, in gigabytes
 	DiskSize pulumi.IntPtrInput
-	// Throughput in MB/s for storage, required if diskType is `gp3`
+	// Throughput in MB/s for storage, required if disk_type is `gp3`
 	DiskThroughput pulumi.IntPtrInput
 	// Storage class of the data disks (find the list of valid values below)
 	DiskType pulumi.StringPtrInput
 	// DNS address of the cluster
 	DnsName pulumi.StringPtrInput
-	// Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
+	// Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a
+	// resize operation.
 	InstanceType pulumi.StringPtrInput
 	// Name of the managed cluster
 	Name pulumi.StringPtrInput
@@ -221,9 +170,10 @@ type ManagedClusterState struct {
 	NetworkId pulumi.StringPtrInput
 	// ID of the project in which the managed cluster exists
 	ProjectId pulumi.StringPtrInput
-	// Determines whether to run no projections, system projections only, or system and user projections (find the list of valid values below) Defaults to `off`.
+	// Determines whether to run no projections, system projections only, or system and user projections (find the list of
+	// valid values below)
 	ProjectionLevel pulumi.StringPtrInput
-	// Protection from an accidental cluster deletion Defaults to `false`.
+	// Protection from an accidental cluster deletion
 	Protected pulumi.BoolPtrInput
 	// If true, the cluster is provisioned with a public endpoint
 	PublicAccess pulumi.BoolPtrInput
@@ -233,7 +183,8 @@ type ManagedClusterState struct {
 	ResourceProvider pulumi.StringPtrInput
 	// Server version to provision (find the list of valid values below)
 	ServerVersion pulumi.StringPtrInput
-	// Server version tag to provision (find the list of valid values below). A higher server*version*tag will prompt an upgrade.
+	// Server version tag to provision (find the list of valid values below). A higher server_version_tag will prompt an
+	// upgrade.
 	ServerVersionTag pulumi.StringPtrInput
 	// Topology of the managed cluster (`single-node` or `three-node-multi-zone`)
 	Topology pulumi.StringPtrInput
@@ -246,15 +197,16 @@ func (ManagedClusterState) ElementType() reflect.Type {
 type managedClusterArgs struct {
 	// ID of the ACL if using public access
 	AclId *string `pulumi:"aclId"`
-	// Number of IOPS for storage, required if diskType is `gp3`
+	// Number of IOPS for storage, required if disk_type is `gp3`
 	DiskIops *int `pulumi:"diskIops"`
 	// Size of the data disks, in gigabytes
 	DiskSize int `pulumi:"diskSize"`
-	// Throughput in MB/s for storage, required if diskType is `gp3`
+	// Throughput in MB/s for storage, required if disk_type is `gp3`
 	DiskThroughput *int `pulumi:"diskThroughput"`
 	// Storage class of the data disks (find the list of valid values below)
 	DiskType string `pulumi:"diskType"`
-	// Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
+	// Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a
+	// resize operation.
 	InstanceType string `pulumi:"instanceType"`
 	// Name of the managed cluster
 	Name *string `pulumi:"name"`
@@ -262,15 +214,17 @@ type managedClusterArgs struct {
 	NetworkId string `pulumi:"networkId"`
 	// ID of the project in which the managed cluster exists
 	ProjectId string `pulumi:"projectId"`
-	// Determines whether to run no projections, system projections only, or system and user projections (find the list of valid values below) Defaults to `off`.
+	// Determines whether to run no projections, system projections only, or system and user projections (find the list of
+	// valid values below)
 	ProjectionLevel *string `pulumi:"projectionLevel"`
-	// Protection from an accidental cluster deletion Defaults to `false`.
+	// Protection from an accidental cluster deletion
 	Protected *bool `pulumi:"protected"`
 	// If true, the cluster is provisioned with a public endpoint
 	PublicAccess *bool `pulumi:"publicAccess"`
 	// Server version to provision (find the list of valid values below)
 	ServerVersion string `pulumi:"serverVersion"`
-	// Server version tag to provision (find the list of valid values below). A higher server*version*tag will prompt an upgrade.
+	// Server version tag to provision (find the list of valid values below). A higher server_version_tag will prompt an
+	// upgrade.
 	ServerVersionTag *string `pulumi:"serverVersionTag"`
 	// Topology of the managed cluster (`single-node` or `three-node-multi-zone`)
 	Topology string `pulumi:"topology"`
@@ -280,15 +234,16 @@ type managedClusterArgs struct {
 type ManagedClusterArgs struct {
 	// ID of the ACL if using public access
 	AclId pulumi.StringPtrInput
-	// Number of IOPS for storage, required if diskType is `gp3`
+	// Number of IOPS for storage, required if disk_type is `gp3`
 	DiskIops pulumi.IntPtrInput
 	// Size of the data disks, in gigabytes
 	DiskSize pulumi.IntInput
-	// Throughput in MB/s for storage, required if diskType is `gp3`
+	// Throughput in MB/s for storage, required if disk_type is `gp3`
 	DiskThroughput pulumi.IntPtrInput
 	// Storage class of the data disks (find the list of valid values below)
 	DiskType pulumi.StringInput
-	// Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
+	// Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a
+	// resize operation.
 	InstanceType pulumi.StringInput
 	// Name of the managed cluster
 	Name pulumi.StringPtrInput
@@ -296,15 +251,17 @@ type ManagedClusterArgs struct {
 	NetworkId pulumi.StringInput
 	// ID of the project in which the managed cluster exists
 	ProjectId pulumi.StringInput
-	// Determines whether to run no projections, system projections only, or system and user projections (find the list of valid values below) Defaults to `off`.
+	// Determines whether to run no projections, system projections only, or system and user projections (find the list of
+	// valid values below)
 	ProjectionLevel pulumi.StringPtrInput
-	// Protection from an accidental cluster deletion Defaults to `false`.
+	// Protection from an accidental cluster deletion
 	Protected pulumi.BoolPtrInput
 	// If true, the cluster is provisioned with a public endpoint
 	PublicAccess pulumi.BoolPtrInput
 	// Server version to provision (find the list of valid values below)
 	ServerVersion pulumi.StringInput
-	// Server version tag to provision (find the list of valid values below). A higher server*version*tag will prompt an upgrade.
+	// Server version tag to provision (find the list of valid values below). A higher server_version_tag will prompt an
+	// upgrade.
 	ServerVersionTag pulumi.StringPtrInput
 	// Topology of the managed cluster (`single-node` or `three-node-multi-zone`)
 	Topology pulumi.StringInput
@@ -402,7 +359,7 @@ func (o ManagedClusterOutput) AclId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ManagedCluster) pulumi.StringPtrOutput { return v.AclId }).(pulumi.StringPtrOutput)
 }
 
-// Number of IOPS for storage, required if diskType is `gp3`
+// Number of IOPS for storage, required if disk_type is `gp3`
 func (o ManagedClusterOutput) DiskIops() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ManagedCluster) pulumi.IntPtrOutput { return v.DiskIops }).(pulumi.IntPtrOutput)
 }
@@ -412,7 +369,7 @@ func (o ManagedClusterOutput) DiskSize() pulumi.IntOutput {
 	return o.ApplyT(func(v *ManagedCluster) pulumi.IntOutput { return v.DiskSize }).(pulumi.IntOutput)
 }
 
-// Throughput in MB/s for storage, required if diskType is `gp3`
+// Throughput in MB/s for storage, required if disk_type is `gp3`
 func (o ManagedClusterOutput) DiskThroughput() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ManagedCluster) pulumi.IntPtrOutput { return v.DiskThroughput }).(pulumi.IntPtrOutput)
 }
@@ -427,7 +384,8 @@ func (o ManagedClusterOutput) DnsName() pulumi.StringOutput {
 	return o.ApplyT(func(v *ManagedCluster) pulumi.StringOutput { return v.DnsName }).(pulumi.StringOutput)
 }
 
-// Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
+// Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a
+// resize operation.
 func (o ManagedClusterOutput) InstanceType() pulumi.StringOutput {
 	return o.ApplyT(func(v *ManagedCluster) pulumi.StringOutput { return v.InstanceType }).(pulumi.StringOutput)
 }
@@ -447,12 +405,13 @@ func (o ManagedClusterOutput) ProjectId() pulumi.StringOutput {
 	return o.ApplyT(func(v *ManagedCluster) pulumi.StringOutput { return v.ProjectId }).(pulumi.StringOutput)
 }
 
-// Determines whether to run no projections, system projections only, or system and user projections (find the list of valid values below) Defaults to `off`.
+// Determines whether to run no projections, system projections only, or system and user projections (find the list of
+// valid values below)
 func (o ManagedClusterOutput) ProjectionLevel() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ManagedCluster) pulumi.StringPtrOutput { return v.ProjectionLevel }).(pulumi.StringPtrOutput)
 }
 
-// Protection from an accidental cluster deletion Defaults to `false`.
+// Protection from an accidental cluster deletion
 func (o ManagedClusterOutput) Protected() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ManagedCluster) pulumi.BoolPtrOutput { return v.Protected }).(pulumi.BoolPtrOutput)
 }
@@ -477,7 +436,8 @@ func (o ManagedClusterOutput) ServerVersion() pulumi.StringOutput {
 	return o.ApplyT(func(v *ManagedCluster) pulumi.StringOutput { return v.ServerVersion }).(pulumi.StringOutput)
 }
 
-// Server version tag to provision (find the list of valid values below). A higher server*version*tag will prompt an upgrade.
+// Server version tag to provision (find the list of valid values below). A higher server_version_tag will prompt an
+// upgrade.
 func (o ManagedClusterOutput) ServerVersionTag() pulumi.StringOutput {
 	return o.ApplyT(func(v *ManagedCluster) pulumi.StringOutput { return v.ServerVersionTag }).(pulumi.StringOutput)
 }

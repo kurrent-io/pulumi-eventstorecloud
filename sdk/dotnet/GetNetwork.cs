@@ -11,69 +11,9 @@ namespace Pulumi.EventStoreCloud
 {
     public static class GetNetwork
     {
-        /// <summary>
-        /// Retrieves data for an existing `Network` resource
-        /// 
-        /// {{% examples %}}
-        /// ## Example Usage
-        /// {{% example %}}
-        /// 
-        /// ```csharp
-        /// using System.Collections.Generic;
-        /// using System.Linq;
-        /// using Pulumi;
-        /// using EventStoreCloud = Pulumi.EventStoreCloud;
-        /// 
-        /// return await Deployment.RunAsync(() =&gt; 
-        /// {
-        ///     var example = EventStoreCloud.GetNetwork.Invoke(new()
-        ///     {
-        ///         Name = "Example Network",
-        ///         ProjectId = @var.Project_id,
-        ///     });
-        /// 
-        ///     return new Dictionary&lt;string, object?&gt;
-        ///     {
-        ///         ["networkCidr"] = example.Apply(getNetworkResult =&gt; getNetworkResult.CidrBlock),
-        ///     };
-        /// });
-        /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
-        /// </summary>
         public static Task<GetNetworkResult> InvokeAsync(GetNetworkArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetNetworkResult>("eventstorecloud:index/getNetwork:getNetwork", args ?? new GetNetworkArgs(), options.WithDefaults());
 
-        /// <summary>
-        /// Retrieves data for an existing `Network` resource
-        /// 
-        /// {{% examples %}}
-        /// ## Example Usage
-        /// {{% example %}}
-        /// 
-        /// ```csharp
-        /// using System.Collections.Generic;
-        /// using System.Linq;
-        /// using Pulumi;
-        /// using EventStoreCloud = Pulumi.EventStoreCloud;
-        /// 
-        /// return await Deployment.RunAsync(() =&gt; 
-        /// {
-        ///     var example = EventStoreCloud.GetNetwork.Invoke(new()
-        ///     {
-        ///         Name = "Example Network",
-        ///         ProjectId = @var.Project_id,
-        ///     });
-        /// 
-        ///     return new Dictionary&lt;string, object?&gt;
-        ///     {
-        ///         ["networkCidr"] = example.Apply(getNetworkResult =&gt; getNetworkResult.CidrBlock),
-        ///     };
-        /// });
-        /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
-        /// </summary>
         public static Output<GetNetworkResult> Invoke(GetNetworkInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetNetworkResult>("eventstorecloud:index/getNetwork:getNetwork", args ?? new GetNetworkInvokeArgs(), options.WithDefaults());
     }
@@ -111,9 +51,6 @@ namespace Pulumi.EventStoreCloud
     [OutputType]
     public sealed class GetNetworkResult
     {
-        /// <summary>
-        /// Address space of the network in CIDR block notation
-        /// </summary>
         public readonly string CidrBlock;
         /// <summary>
         /// The provider-assigned unique ID for this managed resource.
@@ -121,13 +58,7 @@ namespace Pulumi.EventStoreCloud
         public readonly string Id;
         public readonly string Name;
         public readonly string ProjectId;
-        /// <summary>
-        /// Provider region in which to provision the network
-        /// </summary>
         public readonly string Region;
-        /// <summary>
-        /// Cloud Provider in which to provision the network.
-        /// </summary>
         public readonly string ResourceProvider;
 
         [OutputConstructor]

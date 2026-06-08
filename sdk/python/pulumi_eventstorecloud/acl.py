@@ -131,8 +131,7 @@ class Acl(pulumi.CustomResource):
                  project_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Manages IP Access Lists
-
+        Create a Acl resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[Mapping[str, Any]]]] cidr_blocks: CIDR blocks allowed by the IP access list
@@ -146,8 +145,7 @@ class Acl(pulumi.CustomResource):
                  args: AclArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Manages IP Access Lists
-
+        Create a Acl resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param AclArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

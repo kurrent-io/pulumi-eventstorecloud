@@ -9,9 +9,6 @@ using Pulumi.Serialization;
 
 namespace Pulumi.EventStoreCloud
 {
-    /// <summary>
-    /// Manages IP Access Lists
-    /// </summary>
     [EventStoreCloudResourceType("eventstorecloud:index/acl:Acl")]
     public partial class Acl : global::Pulumi.CustomResource
     {

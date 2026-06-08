@@ -12,6 +12,7 @@ from .get_network import *
 from .get_project import *
 from .integration import *
 from .managed_cluster import *
+from .managed_cluster_replicaset import *
 from .network import *
 from .peering import *
 from .project import *
@@ -66,6 +67,14 @@ _utilities.register(
   "fqn": "pulumi_eventstorecloud",
   "classes": {
    "eventstorecloud:index/managedCluster:ManagedCluster": "ManagedCluster"
+  }
+ },
+ {
+  "pkg": "eventstorecloud",
+  "mod": "index/managedClusterReplicaset",
+  "fqn": "pulumi_eventstorecloud",
+  "classes": {
+   "eventstorecloud:index/managedClusterReplicaset:ManagedClusterReplicaset": "ManagedClusterReplicaset"
   }
  },
  {

@@ -12,64 +12,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// Manages peering connections between Event Store Cloud VPCs and customer own VPCs
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/EventStore/pulumi-eventstorecloud/sdk/go/eventstorecloud"
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			exampleProject, err := eventstorecloud.NewProject(ctx, "exampleProject", nil)
-//			if err != nil {
-//				return err
-//			}
-//			exampleNetwork, err := eventstorecloud.NewNetwork(ctx, "exampleNetwork", &eventstorecloud.NetworkArgs{
-//				ProjectId:        exampleProject.ID(),
-//				ResourceProvider: pulumi.String("aws"),
-//				Region:           pulumi.String("us-west-2"),
-//				CidrBlock:        pulumi.String("172.21.0.0/16"),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_, err = eventstorecloud.NewPeering(ctx, "examplePeering", &eventstorecloud.PeeringArgs{
-//				ProjectId:            exampleNetwork.ProjectId,
-//				NetworkId:            exampleNetwork.ID(),
-//				PeerResourceProvider: exampleNetwork.ResourceProvider,
-//				PeerNetworkRegion:    exampleNetwork.Region,
-//				PeerAccountId:        pulumi.String("<Customer AWS Account ID>"),
-//				PeerNetworkId:        pulumi.String("<Customer VPC ID>"),
-//				Routes: pulumi.StringArray{
-//					pulumi.String("<Address space of the customer VPC>"),
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
-//
-// ## Import
-//
-// ```sh
-//
-//	$ pulumi import eventstorecloud:index/peering:Peering example project_id:peering_id
-//
-// ```
-//
-//	~> Keep in mind that additional operations might be required to activate the peering link. Check our [provisioning guidelines](https://developers.eventstore.com/cloud/provision/) for each of the supported cloud providers to know more.
 type Peering struct {
 	pulumi.CustomResourceState
 

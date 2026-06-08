@@ -40,6 +40,11 @@ export type ManagedCluster = import("./managedCluster").ManagedCluster;
 export const ManagedCluster: typeof import("./managedCluster").ManagedCluster = null as any;
 utilities.lazyLoad(exports, ["ManagedCluster"], () => require("./managedCluster"));
 
+export { ManagedClusterReplicasetArgs, ManagedClusterReplicasetState } from "./managedClusterReplicaset";
+export type ManagedClusterReplicaset = import("./managedClusterReplicaset").ManagedClusterReplicaset;
+export const ManagedClusterReplicaset: typeof import("./managedClusterReplicaset").ManagedClusterReplicaset = null as any;
+utilities.lazyLoad(exports, ["ManagedClusterReplicaset"], () => require("./managedClusterReplicaset"));
+
 export { NetworkArgs, NetworkState } from "./network";
 export type Network = import("./network").Network;
 export const Network: typeof import("./network").Network = null as any;
@@ -87,6 +92,8 @@ const _module = {
                 return new Integration(name, <any>undefined, { urn })
             case "eventstorecloud:index/managedCluster:ManagedCluster":
                 return new ManagedCluster(name, <any>undefined, { urn })
+            case "eventstorecloud:index/managedClusterReplicaset:ManagedClusterReplicaset":
+                return new ManagedClusterReplicaset(name, <any>undefined, { urn })
             case "eventstorecloud:index/network:Network":
                 return new Network(name, <any>undefined, { urn })
             case "eventstorecloud:index/peering:Peering":
@@ -105,6 +112,7 @@ pulumi.runtime.registerResourceModule("eventstorecloud", "index/aWSCloudWatchMet
 pulumi.runtime.registerResourceModule("eventstorecloud", "index/acl", _module)
 pulumi.runtime.registerResourceModule("eventstorecloud", "index/integration", _module)
 pulumi.runtime.registerResourceModule("eventstorecloud", "index/managedCluster", _module)
+pulumi.runtime.registerResourceModule("eventstorecloud", "index/managedClusterReplicaset", _module)
 pulumi.runtime.registerResourceModule("eventstorecloud", "index/network", _module)
 pulumi.runtime.registerResourceModule("eventstorecloud", "index/peering", _module)
 pulumi.runtime.registerResourceModule("eventstorecloud", "index/project", _module)
