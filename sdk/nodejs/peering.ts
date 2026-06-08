@@ -19,7 +19,7 @@ export class Peering extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'eventstorecloud:index/peering:Peering';
+    public static readonly __pulumiType = 'kurrentcloud:index/peering:Peering';
 
     /**
      * Returns true if the given object is an instance of Peering.  This is designed to work even
@@ -125,6 +125,8 @@ export class Peering extends pulumi.CustomResource {
             resourceInputs["providerMetadata"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "eventstorecloud:index/peering:Peering" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(Peering.__pulumiType, name, resourceInputs, opts);
     }
 }

@@ -19,7 +19,7 @@ export class ManagedCluster extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'eventstorecloud:index/managedCluster:ManagedCluster';
+    public static readonly __pulumiType = 'kurrentcloud:index/managedCluster:ManagedCluster';
 
     /**
      * Returns true if the given object is an instance of ManagedCluster.  This is designed to work even
@@ -182,6 +182,8 @@ export class ManagedCluster extends pulumi.CustomResource {
             resourceInputs["resourceProvider"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "eventstorecloud:index/managedCluster:ManagedCluster" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(ManagedCluster.__pulumiType, name, resourceInputs, opts);
     }
 }

@@ -19,7 +19,7 @@ export class ScheduledBackup extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'eventstorecloud:index/scheduledBackup:ScheduledBackup';
+    public static readonly __pulumiType = 'kurrentcloud:index/scheduledBackup:ScheduledBackup';
 
     /**
      * Returns true if the given object is an instance of ScheduledBackup.  This is designed to work even
@@ -104,6 +104,8 @@ export class ScheduledBackup extends pulumi.CustomResource {
             resourceInputs["sourceClusterId"] = args ? args.sourceClusterId : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "eventstorecloud:index/scheduledBackup:ScheduledBackup" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(ScheduledBackup.__pulumiType, name, resourceInputs, opts);
     }
 }

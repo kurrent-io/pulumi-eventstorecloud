@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Immutable;
 
-namespace Pulumi.EventStoreCloud
+namespace Pulumi.KurrentCloud
 {
     public static class Config
     {
@@ -30,7 +30,7 @@ namespace Pulumi.EventStoreCloud
             }
         }
 
-        private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("eventstorecloud");
+        private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("kurrentcloud");
 
         private static readonly __Value<string?> _clientId = new __Value<string?>(() => __config.Get("clientId"));
         public static string? ClientId

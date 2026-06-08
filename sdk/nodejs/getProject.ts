@@ -7,7 +7,7 @@ import * as utilities from "./utilities";
 export function getProject(args: GetProjectArgs, opts?: pulumi.InvokeOptions): Promise<GetProjectResult> {
 
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
-    return pulumi.runtime.invoke("eventstorecloud:index/getProject:getProject", {
+    return pulumi.runtime.invoke("kurrentcloud:index/getProject:getProject", {
         "name": args.name,
     }, opts);
 }

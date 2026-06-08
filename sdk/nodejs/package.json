@@ -1,17 +1,20 @@
 {
-    "name": "@eventstore/pulumi-eventstorecloud",
+    "name": "@kurrent-io/pulumi-kurrentcloud",
     "version": "${VERSION}",
-    "description": "A Pulumi package for creating and managing Event Store Cloud resources.",
+    "description": "A Pulumi package for creating and managing Kurrent Cloud resources.",
     "keywords": [
         "pulumi",
+        "kurrentcloud",
+        "kurrent",
+        "eventstore",
         "eventstorecloud"
     ],
-    "homepage": "https://eventstore.com",
-    "repository": "https://github.com/EventStore/pulumi-eventstorecloud",
+    "homepage": "https://www.kurrent.io",
+    "repository": "https://github.com/kurrent-io/pulumi-eventstorecloud",
     "license": "Apache-2.0",
     "scripts": {
         "build": "tsc",
-        "install": "node scripts/install-pulumi-plugin.js resource eventstorecloud ${VERSION}"
+        "install": "node scripts/install-pulumi-plugin.js resource kurrentcloud ${VERSION}"
     },
     "dependencies": {
         "@pulumi/pulumi": "^3.0.0"
@@ -23,7 +26,7 @@
     },
     "pulumi": {
         "resource": true,
-        "name": "eventstorecloud",
-        "server": "github://api.github.com/EventStore"
+        "name": "kurrentcloud",
+        "server": "github://api.github.com/kurrent-io"
     }
 }

@@ -1,0 +1,1443 @@
+{
+    "name": "kurrentcloud",
+    "displayName": "Kurrent Cloud",
+    "description": "A Pulumi package for creating and managing Kurrent Cloud resources.",
+    "keywords": [
+        "pulumi",
+        "kurrentcloud",
+        "kurrent",
+        "eventstore",
+        "eventstorecloud"
+    ],
+    "homepage": "https://www.kurrent.io",
+    "license": "Apache-2.0",
+    "attribution": "This Pulumi package is based on the [`kurrentcloud` Terraform Provider](https://github.com/kurrent-io/terraform-provider-kurrentcloud).",
+    "repository": "https://github.com/kurrent-io/pulumi-eventstorecloud",
+    "pluginDownloadURL": "github://api.github.com/kurrent-io",
+    "publisher": "Kurrent",
+    "meta": {
+        "moduleFormat": "(.*)(?:/[^/]*)"
+    },
+    "language": {
+        "csharp": {
+            "packageReferences": {
+                "Pulumi": "3.*",
+                "System.Collections.Immutable": "5.0.0"
+            },
+            "namespaces": {
+                "index": "index",
+                "kurrentcloud": "KurrentCloud"
+            },
+            "compatibility": "tfbridge20"
+        },
+        "go": {
+            "importBasePath": "github.com/EventStore/pulumi-eventstorecloud/sdk/go/kurrentcloud",
+            "generateResourceContainerTypes": true,
+            "generateExtraInputTypes": true
+        },
+        "nodejs": {
+            "packageName": "@kurrent-io/pulumi-kurrentcloud",
+            "packageDescription": "A Pulumi package for creating and managing Kurrent Cloud resources.",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/kurrent-io/terraform-provider-kurrentcloud)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-kurrentcloud` repo](https://github.com/kurrent-io/pulumi-eventstorecloud/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-kurrentcloud` repo](https://github.com/kurrent-io/terraform-provider-kurrentcloud/issues).",
+            "dependencies": {
+                "@pulumi/pulumi": "^3.0.0"
+            },
+            "devDependencies": {
+                "@types/mime": "^2.0.0",
+                "@types/node": "^10.0.0"
+            },
+            "compatibility": "tfbridge20",
+            "disableUnionOutputTypes": true
+        },
+        "python": {
+            "requires": {
+                "pulumi": "\u003e=3.0.0,\u003c4.0.0"
+            },
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/kurrent-io/terraform-provider-kurrentcloud)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-kurrentcloud` repo](https://github.com/kurrent-io/pulumi-eventstorecloud/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-kurrentcloud` repo](https://github.com/kurrent-io/terraform-provider-kurrentcloud/issues).",
+            "compatibility": "tfbridge20",
+            "pyproject": {}
+        }
+    },
+    "config": {
+        "variables": {
+            "clientId": {
+                "type": "string"
+            },
+            "identityProviderUrl": {
+                "type": "string"
+            },
+            "organizationId": {
+                "type": "string"
+            },
+            "token": {
+                "type": "string",
+                "secret": true
+            },
+            "tokenStore": {
+                "type": "string"
+            },
+            "url": {
+                "type": "string"
+            }
+        },
+        "defaults": [
+            "clientId",
+            "identityProviderUrl",
+            "organizationId",
+            "token",
+            "tokenStore",
+            "url"
+        ]
+    },
+    "provider": {
+        "description": "The provider type for the kurrentcloud package. By default, resources use package-wide configuration\nsettings, however an explicit `Provider` instance may be created and passed during resource\nconstruction to achieve fine-grained programmatic control over provider settings. See the\n[documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.\n",
+        "properties": {
+            "clientId": {
+                "type": "string"
+            },
+            "identityProviderUrl": {
+                "type": "string"
+            },
+            "organizationId": {
+                "type": "string"
+            },
+            "token": {
+                "type": "string",
+                "secret": true
+            },
+            "tokenStore": {
+                "type": "string"
+            },
+            "url": {
+                "type": "string"
+            }
+        },
+        "required": [
+            "clientId",
+            "identityProviderUrl",
+            "organizationId",
+            "token",
+            "tokenStore",
+            "url"
+        ],
+        "inputProperties": {
+            "clientId": {
+                "type": "string"
+            },
+            "identityProviderUrl": {
+                "type": "string"
+            },
+            "organizationId": {
+                "type": "string"
+            },
+            "token": {
+                "type": "string",
+                "secret": true
+            },
+            "tokenStore": {
+                "type": "string"
+            },
+            "url": {
+                "type": "string"
+            }
+        },
+        "requiredInputs": [
+            "clientId",
+            "identityProviderUrl",
+            "organizationId",
+            "token",
+            "tokenStore",
+            "url"
+        ]
+    },
+    "resources": {
+        "kurrentcloud:index/aWSCloudWatchLogsIntegration:AWSCloudWatchLogsIntegration": {
+            "properties": {
+                "accessKeyId": {
+                    "type": "string",
+                    "description": "The access key ID of IAM credentials which have permissions to create and write to the log group\n",
+                    "secret": true
+                },
+                "clusterIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Clusters to be used with this integration\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Human readable description of the integration\n"
+                },
+                "groupName": {
+                    "type": "string",
+                    "description": "Name of the CloudWatch group\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "ID of the project to which the integration applies\n"
+                },
+                "region": {
+                    "type": "string",
+                    "description": "AWS region for group\n"
+                },
+                "secretAccessKey": {
+                    "type": "string",
+                    "description": "The secret access key of IAM credentials which will be used to write to the log groups\n",
+                    "secret": true
+                }
+            },
+            "required": [
+                "clusterIds",
+                "description",
+                "groupName",
+                "projectId",
+                "region"
+            ],
+            "inputProperties": {
+                "accessKeyId": {
+                    "type": "string",
+                    "description": "The access key ID of IAM credentials which have permissions to create and write to the log group\n",
+                    "secret": true
+                },
+                "clusterIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Clusters to be used with this integration\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Human readable description of the integration\n"
+                },
+                "groupName": {
+                    "type": "string",
+                    "description": "Name of the CloudWatch group\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "ID of the project to which the integration applies\n",
+                    "willReplaceOnChanges": true
+                },
+                "region": {
+                    "type": "string",
+                    "description": "AWS region for group\n"
+                },
+                "secretAccessKey": {
+                    "type": "string",
+                    "description": "The secret access key of IAM credentials which will be used to write to the log groups\n",
+                    "secret": true
+                }
+            },
+            "requiredInputs": [
+                "clusterIds",
+                "description",
+                "groupName",
+                "projectId",
+                "region"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering AWSCloudWatchLogsIntegration resources.\n",
+                "properties": {
+                    "accessKeyId": {
+                        "type": "string",
+                        "description": "The access key ID of IAM credentials which have permissions to create and write to the log group\n",
+                        "secret": true
+                    },
+                    "clusterIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Clusters to be used with this integration\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Human readable description of the integration\n"
+                    },
+                    "groupName": {
+                        "type": "string",
+                        "description": "Name of the CloudWatch group\n"
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "ID of the project to which the integration applies\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "region": {
+                        "type": "string",
+                        "description": "AWS region for group\n"
+                    },
+                    "secretAccessKey": {
+                        "type": "string",
+                        "description": "The secret access key of IAM credentials which will be used to write to the log groups\n",
+                        "secret": true
+                    }
+                },
+                "type": "object"
+            },
+            "aliases": [
+                {
+                    "type": "eventstorecloud:index/aWSCloudWatchLogsIntegration:AWSCloudWatchLogsIntegration"
+                }
+            ]
+        },
+        "kurrentcloud:index/aWSCloudWatchMetricsIntegration:AWSCloudWatchMetricsIntegration": {
+            "properties": {
+                "accessKeyId": {
+                    "type": "string",
+                    "description": "AWS IAM access key\n",
+                    "secret": true
+                },
+                "clusterIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Clusters to be used with this integration\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Human readable description of the integration\n"
+                },
+                "namespace": {
+                    "type": "string",
+                    "description": "Name of the CloudWatch namespace\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "ID of the project to which the integration applies\n"
+                },
+                "region": {
+                    "type": "string",
+                    "description": "AWS region for group\n"
+                },
+                "secretAccessKey": {
+                    "type": "string",
+                    "description": "AWS IAM secret access key\n",
+                    "secret": true
+                }
+            },
+            "required": [
+                "clusterIds",
+                "description",
+                "namespace",
+                "projectId",
+                "region"
+            ],
+            "inputProperties": {
+                "accessKeyId": {
+                    "type": "string",
+                    "description": "AWS IAM access key\n",
+                    "secret": true
+                },
+                "clusterIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Clusters to be used with this integration\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Human readable description of the integration\n"
+                },
+                "namespace": {
+                    "type": "string",
+                    "description": "Name of the CloudWatch namespace\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "ID of the project to which the integration applies\n",
+                    "willReplaceOnChanges": true
+                },
+                "region": {
+                    "type": "string",
+                    "description": "AWS region for group\n"
+                },
+                "secretAccessKey": {
+                    "type": "string",
+                    "description": "AWS IAM secret access key\n",
+                    "secret": true
+                }
+            },
+            "requiredInputs": [
+                "clusterIds",
+                "description",
+                "namespace",
+                "projectId",
+                "region"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering AWSCloudWatchMetricsIntegration resources.\n",
+                "properties": {
+                    "accessKeyId": {
+                        "type": "string",
+                        "description": "AWS IAM access key\n",
+                        "secret": true
+                    },
+                    "clusterIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Clusters to be used with this integration\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Human readable description of the integration\n"
+                    },
+                    "namespace": {
+                        "type": "string",
+                        "description": "Name of the CloudWatch namespace\n"
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "ID of the project to which the integration applies\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "region": {
+                        "type": "string",
+                        "description": "AWS region for group\n"
+                    },
+                    "secretAccessKey": {
+                        "type": "string",
+                        "description": "AWS IAM secret access key\n",
+                        "secret": true
+                    }
+                },
+                "type": "object"
+            },
+            "aliases": [
+                {
+                    "type": "eventstorecloud:index/aWSCloudWatchMetricsIntegration:AWSCloudWatchMetricsIntegration"
+                }
+            ]
+        },
+        "kurrentcloud:index/acl:Acl": {
+            "properties": {
+                "cidrBlocks": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "$ref": "pulumi.json#/Any"
+                        }
+                    },
+                    "description": "CIDR blocks allowed by the IP access list\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Human-friendly name for the Acl\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "Project ID\n"
+                }
+            },
+            "required": [
+                "cidrBlocks",
+                "name",
+                "projectId"
+            ],
+            "inputProperties": {
+                "cidrBlocks": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "$ref": "pulumi.json#/Any"
+                        }
+                    },
+                    "description": "CIDR blocks allowed by the IP access list\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Human-friendly name for the Acl\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "Project ID\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "cidrBlocks",
+                "projectId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Acl resources.\n",
+                "properties": {
+                    "cidrBlocks": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "$ref": "pulumi.json#/Any"
+                            }
+                        },
+                        "description": "CIDR blocks allowed by the IP access list\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Human-friendly name for the Acl\n"
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "Project ID\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            },
+            "aliases": [
+                {
+                    "type": "eventstorecloud:index/acl:Acl"
+                }
+            ]
+        },
+        "kurrentcloud:index/integration:Integration": {
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "description": "Data for the integration\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Human readable description of the integration\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "ID of the project to which the integration applies\n"
+                }
+            },
+            "required": [
+                "data",
+                "description",
+                "projectId"
+            ],
+            "inputProperties": {
+                "data": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "description": "Data for the integration\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Human readable description of the integration\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "ID of the project to which the integration applies\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "data",
+                "description",
+                "projectId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Integration resources.\n",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "$ref": "pulumi.json#/Any"
+                        },
+                        "description": "Data for the integration\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Human readable description of the integration\n"
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "ID of the project to which the integration applies\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            },
+            "aliases": [
+                {
+                    "type": "eventstorecloud:index/integration:Integration"
+                }
+            ]
+        },
+        "kurrentcloud:index/managedCluster:ManagedCluster": {
+            "properties": {
+                "aclId": {
+                    "type": "string",
+                    "description": "ID of the ACL if using public access\n"
+                },
+                "diskIops": {
+                    "type": "integer",
+                    "description": "Number of IOPS for storage, required if disk_type is `gp3`\n"
+                },
+                "diskSize": {
+                    "type": "integer",
+                    "description": "Size of the data disks, in gigabytes\n"
+                },
+                "diskThroughput": {
+                    "type": "integer",
+                    "description": "Throughput in MB/s for storage, required if disk_type is `gp3`\n"
+                },
+                "diskType": {
+                    "type": "string",
+                    "description": "Storage class of the data disks (find the list of valid values below)\n"
+                },
+                "dnsName": {
+                    "type": "string",
+                    "description": "DNS address of the cluster\n"
+                },
+                "instanceType": {
+                    "type": "string",
+                    "description": "Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a\nresize operation.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the managed cluster\n"
+                },
+                "networkId": {
+                    "type": "string",
+                    "description": "ID of the network in which the managed cluster exists\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "ID of the project in which the managed cluster exists\n"
+                },
+                "projectionLevel": {
+                    "type": "string",
+                    "description": "Determines whether to run no projections, system projections only, or system and user projections (find the list of\nvalid values below)\n"
+                },
+                "protected": {
+                    "type": "boolean",
+                    "description": "Protection from an accidental cluster deletion\n"
+                },
+                "publicAccess": {
+                    "type": "boolean",
+                    "description": "If true, the cluster is provisioned with a public endpoint\n"
+                },
+                "region": {
+                    "type": "string",
+                    "description": "Region in which the cluster was created. Determined by the region of the Network\n"
+                },
+                "resourceProvider": {
+                    "type": "string",
+                    "description": "Provider in which the cluster was created. Determined by the provider of the Network.\n"
+                },
+                "serverVersion": {
+                    "type": "string",
+                    "description": "Server version to provision (find the list of valid values below)\n"
+                },
+                "serverVersionTag": {
+                    "type": "string",
+                    "description": "Server version tag to provision (find the list of valid values below). A higher server_version_tag will prompt an\nupgrade.\n"
+                },
+                "topology": {
+                    "type": "string",
+                    "description": "Topology of the managed cluster (`single-node` or `three-node-multi-zone`)\n"
+                }
+            },
+            "required": [
+                "diskSize",
+                "diskType",
+                "dnsName",
+                "instanceType",
+                "name",
+                "networkId",
+                "projectId",
+                "region",
+                "resourceProvider",
+                "serverVersion",
+                "serverVersionTag",
+                "topology"
+            ],
+            "inputProperties": {
+                "aclId": {
+                    "type": "string",
+                    "description": "ID of the ACL if using public access\n",
+                    "willReplaceOnChanges": true
+                },
+                "diskIops": {
+                    "type": "integer",
+                    "description": "Number of IOPS for storage, required if disk_type is `gp3`\n"
+                },
+                "diskSize": {
+                    "type": "integer",
+                    "description": "Size of the data disks, in gigabytes\n"
+                },
+                "diskThroughput": {
+                    "type": "integer",
+                    "description": "Throughput in MB/s for storage, required if disk_type is `gp3`\n"
+                },
+                "diskType": {
+                    "type": "string",
+                    "description": "Storage class of the data disks (find the list of valid values below)\n"
+                },
+                "instanceType": {
+                    "type": "string",
+                    "description": "Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a\nresize operation.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the managed cluster\n"
+                },
+                "networkId": {
+                    "type": "string",
+                    "description": "ID of the network in which the managed cluster exists\n",
+                    "willReplaceOnChanges": true
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "ID of the project in which the managed cluster exists\n",
+                    "willReplaceOnChanges": true
+                },
+                "projectionLevel": {
+                    "type": "string",
+                    "description": "Determines whether to run no projections, system projections only, or system and user projections (find the list of\nvalid values below)\n"
+                },
+                "protected": {
+                    "type": "boolean",
+                    "description": "Protection from an accidental cluster deletion\n"
+                },
+                "publicAccess": {
+                    "type": "boolean",
+                    "description": "If true, the cluster is provisioned with a public endpoint\n",
+                    "willReplaceOnChanges": true
+                },
+                "serverVersion": {
+                    "type": "string",
+                    "description": "Server version to provision (find the list of valid values below)\n"
+                },
+                "serverVersionTag": {
+                    "type": "string",
+                    "description": "Server version tag to provision (find the list of valid values below). A higher server_version_tag will prompt an\nupgrade.\n"
+                },
+                "topology": {
+                    "type": "string",
+                    "description": "Topology of the managed cluster (`single-node` or `three-node-multi-zone`)\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "diskSize",
+                "diskType",
+                "instanceType",
+                "networkId",
+                "projectId",
+                "serverVersion",
+                "topology"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering ManagedCluster resources.\n",
+                "properties": {
+                    "aclId": {
+                        "type": "string",
+                        "description": "ID of the ACL if using public access\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "diskIops": {
+                        "type": "integer",
+                        "description": "Number of IOPS for storage, required if disk_type is `gp3`\n"
+                    },
+                    "diskSize": {
+                        "type": "integer",
+                        "description": "Size of the data disks, in gigabytes\n"
+                    },
+                    "diskThroughput": {
+                        "type": "integer",
+                        "description": "Throughput in MB/s for storage, required if disk_type is `gp3`\n"
+                    },
+                    "diskType": {
+                        "type": "string",
+                        "description": "Storage class of the data disks (find the list of valid values below)\n"
+                    },
+                    "dnsName": {
+                        "type": "string",
+                        "description": "DNS address of the cluster\n"
+                    },
+                    "instanceType": {
+                        "type": "string",
+                        "description": "Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a\nresize operation.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the managed cluster\n"
+                    },
+                    "networkId": {
+                        "type": "string",
+                        "description": "ID of the network in which the managed cluster exists\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "ID of the project in which the managed cluster exists\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "projectionLevel": {
+                        "type": "string",
+                        "description": "Determines whether to run no projections, system projections only, or system and user projections (find the list of\nvalid values below)\n"
+                    },
+                    "protected": {
+                        "type": "boolean",
+                        "description": "Protection from an accidental cluster deletion\n"
+                    },
+                    "publicAccess": {
+                        "type": "boolean",
+                        "description": "If true, the cluster is provisioned with a public endpoint\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "region": {
+                        "type": "string",
+                        "description": "Region in which the cluster was created. Determined by the region of the Network\n"
+                    },
+                    "resourceProvider": {
+                        "type": "string",
+                        "description": "Provider in which the cluster was created. Determined by the provider of the Network.\n"
+                    },
+                    "serverVersion": {
+                        "type": "string",
+                        "description": "Server version to provision (find the list of valid values below)\n"
+                    },
+                    "serverVersionTag": {
+                        "type": "string",
+                        "description": "Server version tag to provision (find the list of valid values below). A higher server_version_tag will prompt an\nupgrade.\n"
+                    },
+                    "topology": {
+                        "type": "string",
+                        "description": "Topology of the managed cluster (`single-node` or `three-node-multi-zone`)\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            },
+            "aliases": [
+                {
+                    "type": "eventstorecloud:index/managedCluster:ManagedCluster"
+                }
+            ]
+        },
+        "kurrentcloud:index/managedClusterReplicaset:ManagedClusterReplicaset": {
+            "properties": {
+                "clusterId": {
+                    "type": "string",
+                    "description": "ID of the parent managed cluster. Used as the resource ID since each cluster has at most one read-only replica set.\n"
+                },
+                "createdAt": {
+                    "type": "string",
+                    "description": "Creation timestamp\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "ID of the project that owns the parent managed cluster\n"
+                },
+                "protected": {
+                    "type": "boolean",
+                    "description": "Protection from accidental deletion. Delete is rejected by the API while this is true.\n"
+                },
+                "replicaCount": {
+                    "type": "integer",
+                    "description": "Number of read-only replicas in the set (1 or 2)\n"
+                },
+                "status": {
+                    "type": "string",
+                    "description": "Current status of the read-only replica set\n"
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "description": "Last modification timestamp\n"
+                }
+            },
+            "required": [
+                "clusterId",
+                "createdAt",
+                "projectId",
+                "replicaCount",
+                "status",
+                "updatedAt"
+            ],
+            "inputProperties": {
+                "clusterId": {
+                    "type": "string",
+                    "description": "ID of the parent managed cluster. Used as the resource ID since each cluster has at most one read-only replica set.\n",
+                    "willReplaceOnChanges": true
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "ID of the project that owns the parent managed cluster\n",
+                    "willReplaceOnChanges": true
+                },
+                "protected": {
+                    "type": "boolean",
+                    "description": "Protection from accidental deletion. Delete is rejected by the API while this is true.\n"
+                },
+                "replicaCount": {
+                    "type": "integer",
+                    "description": "Number of read-only replicas in the set (1 or 2)\n"
+                }
+            },
+            "requiredInputs": [
+                "clusterId",
+                "projectId",
+                "replicaCount"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering ManagedClusterReplicaset resources.\n",
+                "properties": {
+                    "clusterId": {
+                        "type": "string",
+                        "description": "ID of the parent managed cluster. Used as the resource ID since each cluster has at most one read-only replica set.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "Creation timestamp\n"
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "ID of the project that owns the parent managed cluster\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "protected": {
+                        "type": "boolean",
+                        "description": "Protection from accidental deletion. Delete is rejected by the API while this is true.\n"
+                    },
+                    "replicaCount": {
+                        "type": "integer",
+                        "description": "Number of read-only replicas in the set (1 or 2)\n"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "Current status of the read-only replica set\n"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "description": "Last modification timestamp\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "kurrentcloud:index/network:Network": {
+            "properties": {
+                "cidrBlock": {
+                    "type": "string",
+                    "description": "Address space of the network in CIDR block notation\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Human-friendly name for the network\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "Project ID\n"
+                },
+                "publicAccess": {
+                    "type": "boolean",
+                    "description": "Whether the network is able to be accessed from the public internet\n"
+                },
+                "region": {
+                    "type": "string",
+                    "description": "Provider region in which to provision the network\n"
+                },
+                "resourceProvider": {
+                    "type": "string",
+                    "description": "Cloud Provider in which to provision the network.\n"
+                }
+            },
+            "required": [
+                "name",
+                "projectId",
+                "region",
+                "resourceProvider"
+            ],
+            "inputProperties": {
+                "cidrBlock": {
+                    "type": "string",
+                    "description": "Address space of the network in CIDR block notation\n",
+                    "willReplaceOnChanges": true
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Human-friendly name for the network\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "Project ID\n",
+                    "willReplaceOnChanges": true
+                },
+                "publicAccess": {
+                    "type": "boolean",
+                    "description": "Whether the network is able to be accessed from the public internet\n",
+                    "willReplaceOnChanges": true
+                },
+                "region": {
+                    "type": "string",
+                    "description": "Provider region in which to provision the network\n",
+                    "willReplaceOnChanges": true
+                },
+                "resourceProvider": {
+                    "type": "string",
+                    "description": "Cloud Provider in which to provision the network.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "projectId",
+                "region",
+                "resourceProvider"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Network resources.\n",
+                "properties": {
+                    "cidrBlock": {
+                        "type": "string",
+                        "description": "Address space of the network in CIDR block notation\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Human-friendly name for the network\n"
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "Project ID\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "publicAccess": {
+                        "type": "boolean",
+                        "description": "Whether the network is able to be accessed from the public internet\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "region": {
+                        "type": "string",
+                        "description": "Provider region in which to provision the network\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "resourceProvider": {
+                        "type": "string",
+                        "description": "Cloud Provider in which to provision the network.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            },
+            "aliases": [
+                {
+                    "type": "eventstorecloud:index/network:Network"
+                }
+            ]
+        },
+        "kurrentcloud:index/peering:Peering": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Human-friendly name for the network\n"
+                },
+                "networkId": {
+                    "type": "string",
+                    "description": "Network ID\n"
+                },
+                "peerAccountId": {
+                    "type": "string",
+                    "description": "Account identifier in which to the peer network exists\n"
+                },
+                "peerNetworkId": {
+                    "type": "string",
+                    "description": "Network identifier of the peer network exists\n"
+                },
+                "peerNetworkRegion": {
+                    "type": "string",
+                    "description": "Provider region in which to the peer network exists\n"
+                },
+                "peerResourceProvider": {
+                    "type": "string",
+                    "description": "Cloud Provider in which the target network exists\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "Project ID\n"
+                },
+                "providerMetadata": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Metadata about the remote end of the peering connection\n"
+                },
+                "routes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Routes to create from the Event Store network to the peer network\n"
+                }
+            },
+            "required": [
+                "name",
+                "networkId",
+                "peerAccountId",
+                "peerNetworkId",
+                "peerNetworkRegion",
+                "peerResourceProvider",
+                "projectId",
+                "providerMetadata",
+                "routes"
+            ],
+            "inputProperties": {
+                "name": {
+                    "type": "string",
+                    "description": "Human-friendly name for the network\n"
+                },
+                "networkId": {
+                    "type": "string",
+                    "description": "Network ID\n",
+                    "willReplaceOnChanges": true
+                },
+                "peerAccountId": {
+                    "type": "string",
+                    "description": "Account identifier in which to the peer network exists\n",
+                    "willReplaceOnChanges": true
+                },
+                "peerNetworkId": {
+                    "type": "string",
+                    "description": "Network identifier of the peer network exists\n",
+                    "willReplaceOnChanges": true
+                },
+                "peerNetworkRegion": {
+                    "type": "string",
+                    "description": "Provider region in which to the peer network exists\n",
+                    "willReplaceOnChanges": true
+                },
+                "peerResourceProvider": {
+                    "type": "string",
+                    "description": "Cloud Provider in which the target network exists\n",
+                    "willReplaceOnChanges": true
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "Project ID\n",
+                    "willReplaceOnChanges": true
+                },
+                "routes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Routes to create from the Event Store network to the peer network\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "networkId",
+                "peerAccountId",
+                "peerNetworkId",
+                "peerNetworkRegion",
+                "peerResourceProvider",
+                "projectId",
+                "routes"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Peering resources.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Human-friendly name for the network\n"
+                    },
+                    "networkId": {
+                        "type": "string",
+                        "description": "Network ID\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "peerAccountId": {
+                        "type": "string",
+                        "description": "Account identifier in which to the peer network exists\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "peerNetworkId": {
+                        "type": "string",
+                        "description": "Network identifier of the peer network exists\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "peerNetworkRegion": {
+                        "type": "string",
+                        "description": "Provider region in which to the peer network exists\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "peerResourceProvider": {
+                        "type": "string",
+                        "description": "Cloud Provider in which the target network exists\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "Project ID\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "providerMetadata": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "Metadata about the remote end of the peering connection\n"
+                    },
+                    "routes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Routes to create from the Event Store network to the peer network\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            },
+            "aliases": [
+                {
+                    "type": "eventstorecloud:index/peering:Peering"
+                }
+            ]
+        },
+        "kurrentcloud:index/project:Project": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Human-friendly name for the project\n"
+                }
+            },
+            "required": [
+                "name"
+            ],
+            "inputProperties": {
+                "name": {
+                    "type": "string",
+                    "description": "Human-friendly name for the project\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Project resources.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Human-friendly name for the project\n"
+                    }
+                },
+                "type": "object"
+            },
+            "aliases": [
+                {
+                    "type": "eventstorecloud:index/project:Project"
+                }
+            ]
+        },
+        "kurrentcloud:index/scheduledBackup:ScheduledBackup": {
+            "properties": {
+                "backupDescription": {
+                    "type": "string",
+                    "description": "backup_description\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Human readable description of the job\n"
+                },
+                "maxBackupCount": {
+                    "type": "integer",
+                    "description": "The maximum number of backups to keep for this job\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "ID of the project in which the backup exists\n"
+                },
+                "schedule": {
+                    "type": "string",
+                    "description": "Schedule for the backup, defined using restricted subset of cron\n"
+                },
+                "sourceClusterId": {
+                    "type": "string",
+                    "description": "the ID of the cluster to back up\n"
+                }
+            },
+            "required": [
+                "backupDescription",
+                "description",
+                "maxBackupCount",
+                "projectId",
+                "schedule",
+                "sourceClusterId"
+            ],
+            "inputProperties": {
+                "backupDescription": {
+                    "type": "string",
+                    "description": "backup_description\n",
+                    "willReplaceOnChanges": true
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Human readable description of the job\n",
+                    "willReplaceOnChanges": true
+                },
+                "maxBackupCount": {
+                    "type": "integer",
+                    "description": "The maximum number of backups to keep for this job\n",
+                    "willReplaceOnChanges": true
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "ID of the project in which the backup exists\n",
+                    "willReplaceOnChanges": true
+                },
+                "schedule": {
+                    "type": "string",
+                    "description": "Schedule for the backup, defined using restricted subset of cron\n",
+                    "willReplaceOnChanges": true
+                },
+                "sourceClusterId": {
+                    "type": "string",
+                    "description": "the ID of the cluster to back up\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "backupDescription",
+                "description",
+                "maxBackupCount",
+                "projectId",
+                "schedule",
+                "sourceClusterId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering ScheduledBackup resources.\n",
+                "properties": {
+                    "backupDescription": {
+                        "type": "string",
+                        "description": "backup_description\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Human readable description of the job\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "maxBackupCount": {
+                        "type": "integer",
+                        "description": "The maximum number of backups to keep for this job\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "ID of the project in which the backup exists\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "schedule": {
+                        "type": "string",
+                        "description": "Schedule for the backup, defined using restricted subset of cron\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "sourceClusterId": {
+                        "type": "string",
+                        "description": "the ID of the cluster to back up\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            },
+            "aliases": [
+                {
+                    "type": "eventstorecloud:index/scheduledBackup:ScheduledBackup"
+                }
+            ]
+        }
+    },
+    "functions": {
+        "kurrentcloud:index/getNetwork:getNetwork": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getNetwork.\n",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "projectId": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "projectId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getNetwork.\n",
+                "properties": {
+                    "cidrBlock": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "projectId": {
+                        "type": "string"
+                    },
+                    "region": {
+                        "type": "string"
+                    },
+                    "resourceProvider": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "cidrBlock",
+                    "name",
+                    "projectId",
+                    "region",
+                    "resourceProvider",
+                    "id"
+                ]
+            }
+        },
+        "kurrentcloud:index/getProject:getProject": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getProject.\n",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getProject.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "id"
+                ]
+            }
+        }
+    }
+}

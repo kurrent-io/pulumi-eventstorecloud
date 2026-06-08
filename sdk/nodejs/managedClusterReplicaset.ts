@@ -19,7 +19,7 @@ export class ManagedClusterReplicaset extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'eventstorecloud:index/managedClusterReplicaset:ManagedClusterReplicaset';
+    public static readonly __pulumiType = 'kurrentcloud:index/managedClusterReplicaset:ManagedClusterReplicaset';
 
     /**
      * Returns true if the given object is an instance of ManagedClusterReplicaset.  This is designed to work even

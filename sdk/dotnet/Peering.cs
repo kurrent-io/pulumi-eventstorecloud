@@ -7,9 +7,9 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.EventStoreCloud
+namespace Pulumi.KurrentCloud
 {
-    [EventStoreCloudResourceType("eventstorecloud:index/peering:Peering")]
+    [KurrentCloudResourceType("kurrentcloud:index/peering:Peering")]
     public partial class Peering : global::Pulumi.CustomResource
     {
         /// <summary>
@@ -75,12 +75,12 @@ namespace Pulumi.EventStoreCloud
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Peering(string name, PeeringArgs args, CustomResourceOptions? options = null)
-            : base("eventstorecloud:index/peering:Peering", name, args ?? new PeeringArgs(), MakeResourceOptions(options, ""))
+            : base("kurrentcloud:index/peering:Peering", name, args ?? new PeeringArgs(), MakeResourceOptions(options, ""))
         {
         }
 
         private Peering(string name, Input<string> id, PeeringState? state = null, CustomResourceOptions? options = null)
-            : base("eventstorecloud:index/peering:Peering", name, state, MakeResourceOptions(options, id))
+            : base("kurrentcloud:index/peering:Peering", name, state, MakeResourceOptions(options, id))
         {
         }
 
@@ -89,7 +89,11 @@ namespace Pulumi.EventStoreCloud
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
-                PluginDownloadURL = "github://api.github.com/EventStore",
+                PluginDownloadURL = "github://api.github.com/kurrent-io",
+                Aliases =
+                {
+                    new global::Pulumi.Alias { Type = "eventstorecloud:index/peering:Peering"},
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.

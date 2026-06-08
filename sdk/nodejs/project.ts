@@ -19,7 +19,7 @@ export class Project extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'eventstorecloud:index/project:Project';
+    public static readonly __pulumiType = 'kurrentcloud:index/project:Project';
 
     /**
      * Returns true if the given object is an instance of Project.  This is designed to work even
@@ -56,6 +56,8 @@ export class Project extends pulumi.CustomResource {
             resourceInputs["name"] = args ? args.name : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "eventstorecloud:index/project:Project" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(Project.__pulumiType, name, resourceInputs, opts);
     }
 }

@@ -7,7 +7,7 @@ import * as utilities from "./utilities";
 export function getNetwork(args: GetNetworkArgs, opts?: pulumi.InvokeOptions): Promise<GetNetworkResult> {
 
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
-    return pulumi.runtime.invoke("eventstorecloud:index/getNetwork:getNetwork", {
+    return pulumi.runtime.invoke("kurrentcloud:index/getNetwork:getNetwork", {
         "name": args.name,
         "projectId": args.projectId,
     }, opts);

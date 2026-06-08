@@ -1,4 +1,4 @@
-// Copyright 2022, Event Store Ltd
+// Copyright 2024, Kurrent, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
 package eventstorecloud
 
 import (
-	"fmt"
 	"path/filepath"
 	"strings"
 	"unicode"
@@ -30,12 +29,12 @@ import (
 )
 
 const (
-	mainPkg = "eventstorecloud"
+	mainPkg = "kurrentcloud"
 	mainMod = "index"
 )
 
 var namespaceMap = map[string]string{
-	"eventstorecloud": "EventStoreCloud",
+	"kurrentcloud": "KurrentCloud",
 }
 
 // makeMember manufactures a type token for the package and the given module and type.
@@ -56,8 +55,6 @@ func makeType(mod string, typ string) tokens.Type {
 // automatically uses the main package and names the file by simply lower casing the data source's
 // first character.
 func makeDataSource(mod string, res string) tokens.ModuleMember {
-	//fn := string(unicode.ToLower(rune(res[0]))) + res[1:]
-	//return makeMember(mod+"/"+fn, res)
 	return makeMember(mod, res)
 }
 
@@ -65,9 +62,17 @@ func makeDataSource(mod string, res string) tokens.ModuleMember {
 // automatically uses the main package and names the file by simply lower casing the resource's
 // first character.
 func makeResource(mod string, res string) tokens.Type {
-	//fn := string(unicode.ToLower(rune(res[0]))) + res[1:]
-	//return makeType(mod+"/"+fn, res)
 	return makeType(mod, res)
+}
+
+// legacyAliases returns the historical eventstorecloud:index token for a resource type.
+// Declaring it as an alias lets existing Pulumi stacks (created with the eventstorecloud
+// package) refresh onto the renamed kurrentcloud token without destroying and recreating
+// the underlying cloud resources.
+func legacyAliases(typ string) []tfbridge.AliasInfo {
+	fn := string(unicode.ToLower(rune(typ[0]))) + typ[1:]
+	tok := "eventstorecloud:" + mainMod + "/" + fn + ":" + typ
+	return []tfbridge.AliasInfo{{Type: &tok}}
 }
 
 // preConfigureCallback is called before the providerConfigure function of the underlying provider.
@@ -86,49 +91,50 @@ func Provider() tfbridge.ProviderInfo {
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
 		P:                    p,
-		Name:                 "eventstorecloud",
-		DisplayName:          "Event Store Cloud",
-		Publisher:            "EventStore",
-		Description:          "A Pulumi package for creating and managing Event Store Cloud resources.",
-		Keywords:             []string{"pulumi", "eventstorecloud"},
+		Name:                 "kurrentcloud",
+		DisplayName:          "Kurrent Cloud",
+		Publisher:            "Kurrent",
+		Description:          "A Pulumi package for creating and managing Kurrent Cloud resources.",
+		Keywords:             []string{"pulumi", "kurrentcloud", "kurrent", "eventstore", "eventstorecloud"},
 		License:              "Apache-2.0",
-		Homepage:             "https://eventstore.com",
-		Repository:           "https://github.com/EventStore/pulumi-eventstorecloud",
-		PluginDownloadURL:    "github://api.github.com/EventStore",
-		GitHubOrg:            "EventStore",
+		Homepage:             "https://www.kurrent.io",
+		Repository:           "https://github.com/kurrent-io/pulumi-eventstorecloud",
+		PluginDownloadURL:    "github://api.github.com/kurrent-io",
+		GitHubOrg:            "kurrent-io",
 		Config:               map[string]*tfbridge.SchemaInfo{},
 		PreConfigureCallback: preConfigureCallback,
 		// The underlying Terraform provider (kurrentcloud v2) registers every resource under
 		// both the preferred kurrentcloud_* name and the deprecated eventstorecloud_* alias.
-		// To keep the existing Pulumi resource tokens stable we map the eventstorecloud_* names
-		// and ignore the duplicate kurrentcloud_* names. The replicaset resource is the sole
-		// exception: it only exists under the kurrentcloud_ name, so it is mapped explicitly below.
+		// We map the kurrentcloud_* names and attach Pulumi aliases back to the historical
+		// eventstorecloud:index:* tokens, so existing Pulumi stacks refresh onto the renamed
+		// tokens without resource replacement. The duplicate eventstorecloud_* TF names are
+		// ignored to keep a single, unambiguous Pulumi resource per concept.
 		IgnoreMappings: []string{
-			"kurrentcloud_project",
-			"kurrentcloud_acl",
-			"kurrentcloud_network",
-			"kurrentcloud_peering",
-			"kurrentcloud_managed_cluster",
-			"kurrentcloud_scheduled_backup",
-			"kurrentcloud_integration",
-			"kurrentcloud_integration_awscloudwatch_logs",
-			"kurrentcloud_integration_awscloudwatch_metrics",
+			"eventstorecloud_project",
+			"eventstorecloud_acl",
+			"eventstorecloud_network",
+			"eventstorecloud_peering",
+			"eventstorecloud_managed_cluster",
+			"eventstorecloud_scheduled_backup",
+			"eventstorecloud_integration",
+			"eventstorecloud_integration_awscloudwatch_logs",
+			"eventstorecloud_integration_awscloudwatch_metrics",
 		},
 		Resources: map[string]*tfbridge.ResourceInfo{
-			"eventstorecloud_project":                           {Tok: makeResource(mainMod, "Project")},
-			"eventstorecloud_network":                           {Tok: makeResource(mainMod, "Network")},
-			"eventstorecloud_peering":                           {Tok: makeResource(mainMod, "Peering")},
-			"eventstorecloud_managed_cluster":                   {Tok: makeResource(mainMod, "ManagedCluster")},
-			"kurrentcloud_managed_cluster_replicaset":           {Tok: makeResource(mainMod, "ManagedClusterReplicaset")},
-			"eventstorecloud_scheduled_backup":                  {Tok: makeResource(mainMod, "ScheduledBackup")},
-			"eventstorecloud_integration":                       {Tok: makeResource(mainMod, "Integration")},
-			"eventstorecloud_integration_awscloudwatch_logs":    {Tok: makeResource(mainMod, "AWSCloudWatchLogsIntegration")},
-			"eventstorecloud_integration_awscloudwatch_metrics": {Tok: makeResource(mainMod, "AWSCloudWatchMetricsIntegration")},
-			"eventstorecloud_acl":                               {Tok: makeResource(mainMod, "Acl")},
+			"kurrentcloud_project":                           {Tok: makeResource(mainMod, "Project"), Aliases: legacyAliases("Project")},
+			"kurrentcloud_acl":                               {Tok: makeResource(mainMod, "Acl"), Aliases: legacyAliases("Acl")},
+			"kurrentcloud_network":                           {Tok: makeResource(mainMod, "Network"), Aliases: legacyAliases("Network")},
+			"kurrentcloud_peering":                           {Tok: makeResource(mainMod, "Peering"), Aliases: legacyAliases("Peering")},
+			"kurrentcloud_managed_cluster":                   {Tok: makeResource(mainMod, "ManagedCluster"), Aliases: legacyAliases("ManagedCluster")},
+			"kurrentcloud_managed_cluster_replicaset":        {Tok: makeResource(mainMod, "ManagedClusterReplicaset")},
+			"kurrentcloud_scheduled_backup":                  {Tok: makeResource(mainMod, "ScheduledBackup"), Aliases: legacyAliases("ScheduledBackup")},
+			"kurrentcloud_integration":                       {Tok: makeResource(mainMod, "Integration"), Aliases: legacyAliases("Integration")},
+			"kurrentcloud_integration_awscloudwatch_logs":    {Tok: makeResource(mainMod, "AWSCloudWatchLogsIntegration"), Aliases: legacyAliases("AWSCloudWatchLogsIntegration")},
+			"kurrentcloud_integration_awscloudwatch_metrics": {Tok: makeResource(mainMod, "AWSCloudWatchMetricsIntegration"), Aliases: legacyAliases("AWSCloudWatchMetricsIntegration")},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
-			"eventstorecloud_project": {Tok: makeDataSource(mainMod, "getProject")},
-			"eventstorecloud_network": {Tok: makeDataSource(mainMod, "getNetwork")},
+			"kurrentcloud_project": {Tok: makeDataSource(mainMod, "getProject")},
+			"kurrentcloud_network": {Tok: makeDataSource(mainMod, "getNetwork")},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			Dependencies: map[string]string{
@@ -138,7 +144,7 @@ func Provider() tfbridge.ProviderInfo {
 				"@types/node": "^10.0.0", // so we can access strongly typed node definitions.
 				"@types/mime": "^2.0.0",
 			},
-			PackageName: "@eventstore/pulumi-eventstorecloud",
+			PackageName: "@kurrent-io/pulumi-kurrentcloud",
 		},
 		Python: &tfbridge.PythonInfo{
 			Requires: map[string]string{
@@ -146,8 +152,11 @@ func Provider() tfbridge.ProviderInfo {
 			},
 		},
 		Golang: &tfbridge.GolangInfo{
+			// NOTE: the SDK Go module path (sdk/go.mod) is still rooted at the historical
+			// EventStore/pulumi-eventstorecloud repository. Only the leaf package is renamed to
+			// kurrentcloud here. Renaming the repository + Go module path is a tracked follow-up.
 			ImportBasePath: filepath.Join(
-				fmt.Sprintf("github.com/EventStore/pulumi-%[1]s/sdk/", mainPkg),
+				"github.com/EventStore/pulumi-eventstorecloud/sdk",
 				tfbridge.GetModuleMajorVersion(version.Version),
 				"go",
 				mainPkg,

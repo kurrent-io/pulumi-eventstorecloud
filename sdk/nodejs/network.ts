@@ -19,7 +19,7 @@ export class Network extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'eventstorecloud:index/network:Network';
+    public static readonly __pulumiType = 'kurrentcloud:index/network:Network';
 
     /**
      * Returns true if the given object is an instance of Network.  This is designed to work even
@@ -95,6 +95,8 @@ export class Network extends pulumi.CustomResource {
             resourceInputs["resourceProvider"] = args ? args.resourceProvider : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "eventstorecloud:index/network:Network" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(Network.__pulumiType, name, resourceInputs, opts);
     }
 }

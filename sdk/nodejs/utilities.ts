@@ -50,7 +50,7 @@ export function getVersion(): string {
 
 /** @internal */
 export function resourceOptsDefaults(): any {
-    return { version: getVersion(), pluginDownloadURL: "github://api.github.com/EventStore" };
+    return { version: getVersion(), pluginDownloadURL: "github://api.github.com/kurrent-io" };
 }
 
 /** @internal */

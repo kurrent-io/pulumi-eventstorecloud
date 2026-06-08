@@ -8,7 +8,7 @@ before:
   - make build_sdks
   - make install_sdks
 builds:
-- binary: pulumi-resource-eventstorecloud
+- binary: pulumi-resource-kurrentcloud
   dir: provider
   env:
   - CGO_ENABLED=0
@@ -22,13 +22,13 @@ builds:
   - linux
   ldflags:
   - -X github.com/EventStore/pulumi-eventstorecloud/provider/pkg/version.Version={{.Tag}}
-  main: ./cmd/pulumi-resource-eventstorecloud/
+  main: ./cmd/pulumi-resource-kurrentcloud/
 changelog:
   disable: true
 release:
   disable: false
   extra_files:
-    - glob: sdk/python/bin/dist/pulumi_eventstorecloud-*.tar.gz
+    - glob: sdk/python/bin/dist/pulumi_kurrentcloud-*.tar.gz
     - glob: nuget/*.nupkg
 snapshot:
   version_template: '{{ .Tag }}-SNAPSHOT'

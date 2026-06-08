@@ -1,5 +1,5 @@
 {
-    "name": "pulumi-eventstorecloud",
+    "name": "pulumi-kurrentcloud",
     "version": "0.2.18",
     "repository": "git@github.com/kurrent-io/pulumi-eventstorecloud",
     "author": "Kurrent Cloud Team <cloud@kurrent.io>",

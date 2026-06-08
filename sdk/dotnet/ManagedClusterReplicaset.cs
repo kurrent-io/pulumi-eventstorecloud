@@ -7,9 +7,9 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.EventStoreCloud
+namespace Pulumi.KurrentCloud
 {
-    [EventStoreCloudResourceType("eventstorecloud:index/managedClusterReplicaset:ManagedClusterReplicaset")]
+    [KurrentCloudResourceType("kurrentcloud:index/managedClusterReplicaset:ManagedClusterReplicaset")]
     public partial class ManagedClusterReplicaset : global::Pulumi.CustomResource
     {
         /// <summary>
@@ -63,12 +63,12 @@ namespace Pulumi.EventStoreCloud
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public ManagedClusterReplicaset(string name, ManagedClusterReplicasetArgs args, CustomResourceOptions? options = null)
-            : base("eventstorecloud:index/managedClusterReplicaset:ManagedClusterReplicaset", name, args ?? new ManagedClusterReplicasetArgs(), MakeResourceOptions(options, ""))
+            : base("kurrentcloud:index/managedClusterReplicaset:ManagedClusterReplicaset", name, args ?? new ManagedClusterReplicasetArgs(), MakeResourceOptions(options, ""))
         {
         }
 
         private ManagedClusterReplicaset(string name, Input<string> id, ManagedClusterReplicasetState? state = null, CustomResourceOptions? options = null)
-            : base("eventstorecloud:index/managedClusterReplicaset:ManagedClusterReplicaset", name, state, MakeResourceOptions(options, id))
+            : base("kurrentcloud:index/managedClusterReplicaset:ManagedClusterReplicaset", name, state, MakeResourceOptions(options, id))
         {
         }
 
@@ -77,7 +77,7 @@ namespace Pulumi.EventStoreCloud
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
-                PluginDownloadURL = "github://api.github.com/EventStore",
+                PluginDownloadURL = "github://api.github.com/kurrent-io",
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.

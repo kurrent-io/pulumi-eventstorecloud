@@ -19,7 +19,7 @@ export class Integration extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'eventstorecloud:index/integration:Integration';
+    public static readonly __pulumiType = 'kurrentcloud:index/integration:Integration';
 
     /**
      * Returns true if the given object is an instance of Integration.  This is designed to work even
@@ -77,6 +77,8 @@ export class Integration extends pulumi.CustomResource {
             resourceInputs["projectId"] = args ? args.projectId : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "eventstorecloud:index/integration:Integration" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(Integration.__pulumiType, name, resourceInputs, opts);
     }
 }

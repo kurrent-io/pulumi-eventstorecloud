@@ -19,7 +19,7 @@ export class AWSCloudWatchLogsIntegration extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'eventstorecloud:index/aWSCloudWatchLogsIntegration:AWSCloudWatchLogsIntegration';
+    public static readonly __pulumiType = 'kurrentcloud:index/aWSCloudWatchLogsIntegration:AWSCloudWatchLogsIntegration';
 
     /**
      * Returns true if the given object is an instance of AWSCloudWatchLogsIntegration.  This is designed to work even
@@ -107,6 +107,8 @@ export class AWSCloudWatchLogsIntegration extends pulumi.CustomResource {
             resourceInputs["secretAccessKey"] = args?.secretAccessKey ? pulumi.secret(args.secretAccessKey) : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "eventstorecloud:index/aWSCloudWatchLogsIntegration:AWSCloudWatchLogsIntegration" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         const secretOpts = { additionalSecretOutputs: ["accessKeyId", "secretAccessKey"] };
         opts = pulumi.mergeOptions(opts, secretOpts);
         super(AWSCloudWatchLogsIntegration.__pulumiType, name, resourceInputs, opts);
