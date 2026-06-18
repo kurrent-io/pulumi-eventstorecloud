@@ -21,3 +21,7 @@ yarn.lock
 pulumi-eventstorecloud.sln
 
 node_modules
+
+# Python (compiled bytecode from SDK build/checks)
+__pycache__/
+*.py[cod]
