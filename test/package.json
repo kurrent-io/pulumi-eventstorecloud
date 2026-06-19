@@ -1,5 +1,5 @@
 {
-    "name": "esc-test",
+    "name": "kurrent-test",
     "main": "index.ts",
     "devDependencies": {
         "@types/node": "^18",

@@ -135,8 +135,7 @@ install_nodejs_sdk::
 
 install_sdks:: install_dotnet_sdk install_python_sdk install_nodejs_sdk
 
-test::
-	cd examples && go test -v -tags=all -parallel ${TESTPARALLELISM} -timeout 2h
+test:: test-aliases # offline checks only (no cloud); use `make test-live` for the full live suite
 
 test-aliases:: # offline alias regression guard (no cloud, no credentials)
 	cd test/live && go test -v -run TestProviderAliasesInSchema ./...

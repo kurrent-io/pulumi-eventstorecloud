@@ -1,5 +1,5 @@
-name: esc-test
-description: esc-test
+name: kurrent-test
+description: kurrent-test
 runtime:
   name: nodejs
   options:

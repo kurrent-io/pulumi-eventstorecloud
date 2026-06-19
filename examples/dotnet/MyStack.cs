@@ -1,4 +1,4 @@
-using esc.Gcp;
+using Kurrent.Gcp;
 using Pulumi;
 using Pulumi.KurrentCloud;
 using Pulumi.Gcp.Compute;
@@ -13,10 +13,10 @@ class MyStack : Stack {
 
         var cloudResources = new CloudResources(gcpRegion, gcpIpRange);
 
-        var escProject = new Project("esc-project", new ProjectArgs {Name = "My ES Cloud Project"});
+        var escProject = new Project("kurrent-project", new ProjectArgs {Name = "My Kurrent Cloud Project"});
 
         var escNetwork = new Network(
-            "esc-network",
+            "kurrent-network",
             new NetworkArgs {
                 Name             = "Test Network",
                 Region           = gcpRegion,
@@ -27,7 +27,7 @@ class MyStack : Stack {
         );
 
         var escPeering = new Peering(
-            "esc-peering",
+            "kurrent-peering",
             new PeeringArgs {
                 Name                 = "Test Peering",
                 ProjectId            = escProject.Id,
@@ -43,7 +43,7 @@ class MyStack : Stack {
         var gcpPeering = new NetworkPeering(
             "gcp-peering",
             new NetworkPeeringArgs {
-                Name               = "esc-peering",
+                Name               = "kurrent-peering",
                 Network            = cloudResources.Network.Id,
                 PeerNetwork        = escPeering.ProviderMetadata.Apply(x => x["gcp_network_id"]),
                 ExportCustomRoutes = true,

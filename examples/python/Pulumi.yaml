@@ -1,0 +1,6 @@
+name: kurrent-python
+description: Kurrent Cloud sample with Python
+runtime:
+  name: python
+  options:
+    virtualenv: venv

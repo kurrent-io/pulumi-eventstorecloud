@@ -1,7 +1,7 @@
 package main
 
 import (
-	esc "github.com/EventStore/pulumi-eventstorecloud/sdk/go/kurrentcloud"
+	kurrent "github.com/EventStore/pulumi-eventstorecloud/sdk/go/kurrentcloud"
 	"github.com/pulumi/pulumi-gcp/sdk/v6/go/gcp/compute"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
@@ -32,12 +32,12 @@ func main() {
 			return err
 		}
 
-		project, err := esc.NewProject(ctx, "sample-project", &esc.ProjectArgs{Name: pulumi.String("sample-project")})
+		project, err := kurrent.NewProject(ctx, "sample-project", &kurrent.ProjectArgs{Name: pulumi.String("sample-project")})
 		if err != nil {
 			return err
 		}
 
-		escNetwork, err := esc.NewNetwork(ctx, "esc-network", &esc.NetworkArgs{
+		escNetwork, err := kurrent.NewNetwork(ctx, "kurrent-network", &kurrent.NetworkArgs{
 			CidrBlock:        pulumi.String("172.22.110.0/24"),
 			Name:             pulumi.String("sample-network"),
 			ProjectId:        project.ID(),
@@ -48,7 +48,7 @@ func main() {
 			return err
 		}
 
-		escPeering, err := esc.NewPeering(ctx, "esc-peering", &esc.PeeringArgs{
+		escPeering, err := kurrent.NewPeering(ctx, "kurrent-peering", &kurrent.PeeringArgs{
 			Name:                 pulumi.String("sample-peering"),
 			NetworkId:            escNetwork.ID(),
 			PeerAccountId:        network.Project,
@@ -66,7 +66,7 @@ func main() {
 		_, err = compute.NewNetworkPeering(ctx, "gcp-peering", &compute.NetworkPeeringArgs{
 			ExportCustomRoutes: pulumi.Bool(true),
 			ImportCustomRoutes: pulumi.Bool(true),
-			Name:               pulumi.String("esc-peering"),
+			Name:               pulumi.String("kurrent-peering"),
 			Network:            network.ID(),
 			PeerNetwork:        escGcpPeeringId,
 		})
@@ -74,7 +74,7 @@ func main() {
 			return err
 		}
 
-		cluster, err := esc.NewManagedCluster(ctx, "sample-cluster", &esc.ManagedClusterArgs{
+		cluster, err := kurrent.NewManagedCluster(ctx, "sample-cluster", &kurrent.ManagedClusterArgs{
 			DiskSize:        pulumi.Int(10),
 			DiskType:        pulumi.String("ssd"),
 			InstanceType:    pulumi.String("F1"),

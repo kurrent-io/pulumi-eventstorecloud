@@ -1,4 +1,4 @@
-name: esc-typescript
+name: kurrent-typescript
 runtime: nodejs
 description: Kurrent Cloud sample with TypeScript
 template:

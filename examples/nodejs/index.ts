@@ -1,5 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
-import * as esc from "@kurrent-io/pulumi-kurrentcloud";
+import * as kurrent from "@kurrent-io/pulumi-kurrentcloud";
 import * as awsx from "@pulumi/awsx";
 import * as aws from "@pulumi/aws";
 
@@ -10,11 +10,11 @@ const vpc = new awsx.ec2.Vpc("example", {
     numberOfAvailabilityZones: 3,
 });
 
-const project = new esc.Project("sample-project", {
+const project = new kurrent.Project("sample-project", {
     name: "Improved Chicken Window",
 });
 
-const network = new esc.Network("sample-network", {
+const network = new kurrent.Network("sample-network", {
     name: "Chicken Window Net",
     projectId: project.id,
     resourceProvider: "aws",
@@ -22,7 +22,7 @@ const network = new esc.Network("sample-network", {
     cidrBlock: "172.21.0.0/16",
 });
 
-const peering = new esc.Peering("sample-peering", {
+const peering = new kurrent.Peering("sample-peering", {
     name: "Sample Peering",
     projectId: project.id,
     networkId: network.id,
@@ -48,7 +48,7 @@ const route = new aws.ec2.Route("route", {
     destinationCidrBlock: network.cidrBlock,
 });
 
-const cluster = new esc.ManagedCluster("wings", {
+const cluster = new kurrent.ManagedCluster("wings", {
     // name: "Wings Cluster",
     projectId: project.id,
     networkId: network.id,

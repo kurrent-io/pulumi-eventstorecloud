@@ -21,7 +21,7 @@ const network = new kurrent.Network("sample-network", {
     name: "Chicken Window Net",
     projectId: project.id,
     resourceProvider: "aws",
-    region: "eu-west1",
+    region: "eu-west-1",
     cidrBlock: "172.21.0.0/16",
 });
 ```

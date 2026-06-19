@@ -1,5 +1,5 @@
 {
-    "name": "esc-typescript",
+    "name": "kurrent-typescript",
     "devDependencies": {
         "@types/node": "^14"
     },

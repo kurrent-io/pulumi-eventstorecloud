@@ -16,14 +16,14 @@ The following configuration points are available for the `kurrentcloud` provider
 ### Install SDK
 
 
-Install the NodeJS SDK using either `npm`:
+Install the Python SDK using `pip`:
 
 ```bash
-$ npm install @kurrent-io/pulumi-kurrentcloud
+$ pip install pulumi_kurrentcloud
 ```
 
-or `yarn`:
+Then import it in your program:
 
-```bash
-$ yarn add @kurrent-io/pulumi-kurrentcloud
+```python
+import pulumi_kurrentcloud as kurrent
 ```
