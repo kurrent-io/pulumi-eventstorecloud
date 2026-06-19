@@ -11,8 +11,7 @@ CHANGELOG
 - Renamed the Pulumi package, resource tokens, namespaces, and SDK packages to `kurrentcloud` /
   `@kurrent-io/pulumi-kurrentcloud` / `pulumi_kurrentcloud` / `Pulumi.KurrentCloud`. Existing stacks
   migrate without resource replacement via Pulumi aliases — see [MIGRATION.md](./MIGRATION.md). (breaking)
-- Inherited upstream behavioral improvements: in-place `projectionLevel` updates and removal of the
-  `gp2` disk type.
+- Inherited the upstream in-place `projectionLevel` update behavior (no longer forces cluster replacement).
 
 ## 0.1.2 (Initial release)
 

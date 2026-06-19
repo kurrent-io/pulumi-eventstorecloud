@@ -61,7 +61,7 @@ class MyStack : Stack {
                 InstanceType    = "F1",
                 DiskSize        = 10,
                 DiskType        = "ssd",
-                ServerVersion   = "20.10",
+                ServerVersion   = "24.10",
                 ProjectionLevel = "user"
             }
         );

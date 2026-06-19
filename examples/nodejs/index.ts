@@ -58,7 +58,7 @@ const cluster = new esc.ManagedCluster("wings", {
     diskType: "gp3",
     diskIops: 3000,
     diskThroughput: 125,
-    serverVersion: "23.10",
+    serverVersion: "24.10",
 });
 
 export let clusterDnsName = cluster.dnsName;

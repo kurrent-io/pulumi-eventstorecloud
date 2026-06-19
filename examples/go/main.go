@@ -82,7 +82,7 @@ func main() {
 			NetworkId:       escNetwork.ID(),
 			ProjectId:       project.ID(),
 			ProjectionLevel: pulumi.String("user"),
-			ServerVersion:   pulumi.String("21.10"),
+			ServerVersion:   pulumi.String("24.10"),
 			Topology:        pulumi.String("single-node"),
 		})
 
