@@ -6,8 +6,9 @@ resources with Pulumi in TypeScript/JavaScript, Python, Go, and .NET. It is gene
 via the Pulumi Terraform Bridge, so its resources track the Terraform provider.
 
 > **Renamed from `eventstorecloud`.** Existing stacks keep working: every resource declares a Pulumi
-> alias to its historical `eventstorecloud:index:*` type, so running `pulumi up` after upgrading
-> refreshes onto the new `kurrentcloud:*` tokens **without replacing** any cloud resources.
+> alias to its historical `eventstorecloud:index/<resource>:<Type>` type, so running `pulumi up`
+> after upgrading refreshes onto the new `kurrentcloud:index/<resource>:<Type>` tokens **without
+> replacing** any cloud resources.
 > See [MIGRATION.md](./MIGRATION.md).
 
 ## Installing

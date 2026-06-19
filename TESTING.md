@@ -4,7 +4,7 @@ This repository has two layers of tests:
 
 | Layer | Location | Needs cloud? | What it covers |
 |---|---|---|---|
-| **Offline alias guard** | `test/live` (`TestProviderAliasesInSchema`) | No | Every renamed resource still declares its `eventstorecloud:index:*` alias (so existing stacks aren't replaced on upgrade). Runs on every PR. |
+| **Offline alias guard** | `test/live` (`TestProviderAliasesInSchema`) | No | Every renamed resource still declares its `eventstorecloud:index/<resource>:<Type>` alias (so existing stacks aren't replaced on upgrade). Runs on every PR. |
 | **Live end-to-end suite** | `test/live` | Yes | create → update → destroy for **every** resource and data source against a real Kurrent Cloud org, using the Pulumi Automation API. |
 | **Live alias migration** | `test/alias-migration/run.sh` | Yes | Empirically proves an `eventstorecloud` stack migrates to `kurrentcloud` with **zero replacements**. |
 

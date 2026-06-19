@@ -36,6 +36,6 @@ pulumi plugin install resource kurrentcloud [version] \
 Example:
 
 ```
-pulumi plugin install resource kurrentcloud v0.2.3 \
-  --server https://github.com/kurrent-io/pulumi-eventstorecloud/releases/download/v0.2.3
+pulumi plugin install resource kurrentcloud v1.0.0 \
+  --server https://github.com/kurrent-io/pulumi-eventstorecloud/releases/download/v1.0.0
 ```
