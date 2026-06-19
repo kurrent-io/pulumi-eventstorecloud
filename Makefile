@@ -1,4 +1,4 @@
-PROJECT_NAME := Event Store Cloud Package
+PROJECT_NAME := Kurrent Cloud Package
 
 SHELL            := /bin/bash
 PACK             := kurrentcloud

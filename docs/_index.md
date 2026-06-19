@@ -1,23 +1,23 @@
 ---
-title: Event Store Cloud
-meta_desc: Learn how you can use Event Store Cloud Provider for Pulumi to provision and manage Event Store Cloud resources.
+title: Kurrent Cloud
+meta_desc: Learn how you can use the Kurrent Cloud Provider for Pulumi to provision and manage Kurrent Cloud resources.
 layout: package
 ---
 
-The Event Store Cloud provider for Pulumi can provision many of the cloud resources available in [Event Store Cloud](https://eventstore.com/cloud/). It uses the Event Store Cloud API to manage and provision resources.
+The Kurrent Cloud provider for Pulumi can provision many of the cloud resources available in [Kurrent Cloud](https://www.kurrent.io/kurrent-cloud). It uses the Kurrent Cloud API to manage and provision resources.
 
-The Event Store Cloud provider must be configured with credentials to deploy and update resources; see [Installation & Configuration](./installation-configuration) for instructions.
+The Kurrent Cloud provider must be configured with credentials to deploy and update resources; see [Installation & Configuration](./installation-configuration) for instructions.
 
 ## Example
 
 ```typescript
-import * as eventstore from "@eventstore/pulumi-eventstorecloud";
+import * as kurrent from "@kurrent-io/pulumi-kurrentcloud";
 
-const project = new eventstore.Project("sample-project", {
+const project = new kurrent.Project("sample-project", {
     name: "Improved Chicken Window",
 });
 
-const network = new eventstore.Network("sample-network", {
+const network = new kurrent.Network("sample-network", {
     name: "Chicken Window Net",
     projectId: project.id,
     resourceProvider: "aws",

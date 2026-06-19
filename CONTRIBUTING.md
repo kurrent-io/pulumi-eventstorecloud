@@ -7,7 +7,7 @@ https://github.com/pulumi/pulumi/blob/master/CONTRIBUTING.md) for details on how
 
 ## Prerequisites
 
-- Go 1.24 or later
+- Go 1.25 or later
 - Node.js 18 or later
 - Python 3.7 or later
 - .NET SDK 6.0 or later
@@ -24,7 +24,7 @@ repository.
 
 ## Building the Provider
 
-The provider is generated from the Event Store Cloud Terraform provider. To build the Pulumi provider
+The provider is generated from the Kurrent Cloud Terraform provider. To build the Pulumi provider
 and generate SDKs:
 
 1. Ensure you're in the development container
@@ -50,7 +50,7 @@ To test your changes before committing them:
 2. Install the provider locally:
 
     ```bash
-    pulumi plugin install resource eventstorecloud --file bin/pulumi-resource-eventstorecloud
+    pulumi plugin install resource kurrentcloud --file bin/pulumi-resource-kurrentcloud
     ```
 
 3. Temporarily set the version in the TypeScript SDKs `package.json`
@@ -74,7 +74,7 @@ To test your changes before committing them:
 6. Install the local version of the TypeScript SDK
 
     ```bash
-    yarn add @eventstore/pulumi-eventstorecloud@file:../sdk/nodejs
+    yarn add @kurrent-io/pulumi-kurrentcloud@file:../sdk/nodejs
     ```
 
 7. Create a new stack
@@ -86,8 +86,8 @@ To test your changes before committing them:
 8. Set config values
 
     ```bash
-    pulumi config set eventstorecloud:organizationId <ORG_ID>
-    pulumi config set eventstorecloud:token <ACCESS_TOKEN> --secret
+    pulumi config set kurrentcloud:organizationId <ORG_ID>
+    pulumi config set kurrentcloud:token <ACCESS_TOKEN> --secret
     ```
 
 9. Create the stack

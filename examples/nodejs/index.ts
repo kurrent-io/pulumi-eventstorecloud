@@ -38,7 +38,7 @@ const peer = new aws.ec2.VpcPeeringConnectionAccepter("sample-accept", {
     autoAccept: true,
     tags: {
         Side: "Accepter",
-        Source: "Event Store",
+        Source: "Kurrent",
     },
 });
 
