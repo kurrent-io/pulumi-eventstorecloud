@@ -368,4 +368,3 @@ class ManagedClusterReplicaset(pulumi.CustomResource):
         Last modification timestamp
         """
         return pulumi.get(self, "updated_at")
-

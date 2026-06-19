@@ -1,6 +1,6 @@
 # Testing the Kurrent Cloud Pulumi provider
 
-This repository has two layers of tests:
+This repository has three layers of tests:
 
 | Layer | Location | Needs cloud? | What it covers |
 |---|---|---|---|
@@ -18,7 +18,7 @@ Tests whose external prerequisites aren't configured **skip themselves** (and sa
 
 ## Prerequisites
 
-- **Go** ≥ 1.24, **Pulumi CLI**, and **pulumictl** (`brew install pulumi pulumi/tap/pulumictl`).
+- **Go** ≥ 1.25, **Pulumi CLI**, and **pulumictl** (`brew install pulumi pulumi/tap/pulumictl`).
 - The **provider plugin built and on `PATH`**:
   ```bash
   make provider                 # builds ./bin/pulumi-resource-kurrentcloud

@@ -110,6 +110,7 @@ Once all changes have been merged to the `main` branch and you're ready to cut a
 that needs to be done is to create a new tag using semver format, e.g. v1.0.0.
 
 Once the tag has been pushed to the Github repo, an action will be triggered. This will create new a
-new Github release with the binary artifacts, as well as publish the release to NPM and Nuget.
+new Github release with the binary artifacts, as well as publish the SDKs to NPM, NuGet, and PyPI.
+The release requires the `NPM_TOKEN`, `PULUMI_NUGET_KEY`, and `PYPI_API_TOKEN` repository secrets.
 
 The provider docs in the Pulumi Package Registry will be updated automatically sometime later.
