@@ -37,7 +37,7 @@ func main() {
 			return err
 		}
 
-		escNetwork, err := kurrent.NewNetwork(ctx, "kurrent-network", &kurrent.NetworkArgs{
+		kurrentNetwork, err := kurrent.NewNetwork(ctx, "kurrent-network", &kurrent.NetworkArgs{
 			CidrBlock:        pulumi.String("172.22.110.0/24"),
 			Name:             pulumi.String("sample-network"),
 			ProjectId:        project.ID(),
@@ -48,9 +48,9 @@ func main() {
 			return err
 		}
 
-		escPeering, err := kurrent.NewPeering(ctx, "kurrent-peering", &kurrent.PeeringArgs{
+		kurrentPeering, err := kurrent.NewPeering(ctx, "kurrent-peering", &kurrent.PeeringArgs{
 			Name:                 pulumi.String("sample-peering"),
-			NetworkId:            escNetwork.ID(),
+			NetworkId:            kurrentNetwork.ID(),
 			PeerAccountId:        network.Project,
 			PeerNetworkId:        network.Name,
 			PeerNetworkRegion:    pulumi.String(gcpRegion),
@@ -62,13 +62,13 @@ func main() {
 			return err
 		}
 
-		escGcpPeeringId := escPeering.ProviderMetadata.MapIndex(pulumi.String("gcp_network_id"))
+		kurrentGcpPeeringId := kurrentPeering.ProviderMetadata.MapIndex(pulumi.String("gcp_network_id"))
 		_, err = compute.NewNetworkPeering(ctx, "gcp-peering", &compute.NetworkPeeringArgs{
 			ExportCustomRoutes: pulumi.Bool(true),
 			ImportCustomRoutes: pulumi.Bool(true),
 			Name:               pulumi.String("kurrent-peering"),
 			Network:            network.ID(),
-			PeerNetwork:        escGcpPeeringId,
+			PeerNetwork:        kurrentGcpPeeringId,
 		})
 		if err != nil {
 			return err
@@ -79,7 +79,7 @@ func main() {
 			DiskType:        pulumi.String("ssd"),
 			InstanceType:    pulumi.String("F1"),
 			Name:            pulumi.String("sample-cluster"),
-			NetworkId:       escNetwork.ID(),
+			NetworkId:       kurrentNetwork.ID(),
 			ProjectId:       project.ID(),
 			ProjectionLevel: pulumi.String("user"),
 			ServerVersion:   pulumi.String("24.10"),
