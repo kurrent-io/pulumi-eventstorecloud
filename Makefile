@@ -137,3 +137,10 @@ install_sdks:: install_dotnet_sdk install_python_sdk install_nodejs_sdk
 
 test::
 	cd examples && go test -v -tags=all -parallel ${TESTPARALLELISM} -timeout 2h
+
+test-aliases:: # offline alias regression guard (no cloud, no credentials)
+	cd test/live && go test -v -run TestProviderAliasesInSchema ./...
+
+test-live:: provider # run the full live suite against a real Kurrent Cloud org (see TESTING.md)
+	@command -v pulumi >/dev/null || { echo "pulumi CLI is required: https://www.pulumi.com/docs/install/"; exit 1; }
+	export PATH="$(WORKING_DIR)/bin:$$PATH" && cd test/live && go test -v -timeout 170m ./...

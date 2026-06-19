@@ -106,6 +106,14 @@ const replica = new kurrent.ManagedClusterReplicaset("replica", {
 export const clusterDnsName = cluster.dnsName;
 ```
 
+## Testing
+
+End-to-end tests exercise every resource and data source against a real Kurrent Cloud
+organization (via the Pulumi Automation API), alongside an offline guard that verifies the
+`eventstorecloud`→`kurrentcloud` migration aliases. See [TESTING.md](./TESTING.md) for the
+harness, the required environment variables (and where their values come from), and how to run
+it locally and in CI.
+
 ## Reference
 
 For detailed reference documentation, please visit [the Pulumi registry](https://www.pulumi.com/registry/packages/kurrentcloud/).
