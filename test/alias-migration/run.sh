@@ -102,9 +102,9 @@ rm -rf node_modules package-lock.json
 npm install --silent
 
 pulumi preview --json -s "$STACK" > preview.json
-python3 - "$OLD_ID" < preview.json <<'PY'
+python3 - preview.json <<'PY'
 import json, sys
-data = json.load(sys.stdin)
+data = json.load(open(sys.argv[1]))
 bad = {"replace", "create-replacement", "delete-replaced", "delete"}
 offending = [s for s in data.get("steps", []) if s.get("op") in bad]
 print("change summary:", data.get("changeSummary", {}))

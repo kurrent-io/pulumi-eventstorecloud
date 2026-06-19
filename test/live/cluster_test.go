@@ -23,16 +23,23 @@ func TestManagedClusterLifecycle(t *testing.T) {
 	}
 	cp := clusterParamsFromEnv()
 	projectionLevel := "off"
+	// Capture randomized names once, outside the program closure. The closure
+	// runs on every up(), so calling resName() inside it would regenerate the
+	// Name inputs on the second up() and cause unrelated diffs/replacements,
+	// defeating the projectionLevel-only update assertion below.
+	projName := resName("tt-cluster-project")
+	netName := resName("tt-cluster-network")
+	clusName := resName("tt-cluster")
 
 	ctx, stack := newStack(t, func(ctx *pulumi.Context) error {
 		p, err := kurrentcloud.NewProject(ctx, "project", &kurrentcloud.ProjectArgs{
-			Name: pulumi.String(resName("tt-cluster-project")),
+			Name: pulumi.String(projName),
 		})
 		if err != nil {
 			return err
 		}
 		net, err := kurrentcloud.NewNetwork(ctx, "network", &kurrentcloud.NetworkArgs{
-			Name:             pulumi.String(resName("tt-cluster-network")),
+			Name:             pulumi.String(netName),
 			ProjectId:        p.ID().ToStringOutput(),
 			ResourceProvider: pulumi.String(cp.ResourceProvider),
 			Region:           pulumi.String(cp.Region),
@@ -42,7 +49,7 @@ func TestManagedClusterLifecycle(t *testing.T) {
 			return err
 		}
 		cluster, err := kurrentcloud.NewManagedCluster(ctx, "cluster", &kurrentcloud.ManagedClusterArgs{
-			Name:            pulumi.String(resName("tt-cluster")),
+			Name:            pulumi.String(clusName),
 			ProjectId:       p.ID().ToStringOutput(),
 			NetworkId:       net.ID().ToStringOutput(),
 			Topology:        pulumi.String(cp.Topology),

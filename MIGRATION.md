@@ -5,7 +5,7 @@ rebranded [Kurrent Cloud Terraform provider](https://github.com/kurrent-io/terra
 that it is generated from. This guide covers upgrading an existing Pulumi program.
 
 > **TL;DR** — Update the package import and run `pulumi up`. Every resource type carries an alias to
-> its old `eventstorecloud:index:*` token, so **no cloud resources are replaced**. Always confirm
+> its old `eventstorecloud:index/<resource>:<Type>` token, so **no cloud resources are replaced**. Always confirm
 > with `pulumi preview` first (expect `0 to replace`).
 
 ## What changed
@@ -13,7 +13,7 @@ that it is generated from. This guide covers upgrading an existing Pulumi progra
 | | Before (`eventstorecloud`) | After (`kurrentcloud`) |
 |---|---|---|
 | Plugin | `eventstorecloud` | `kurrentcloud` |
-| Resource type tokens | `eventstorecloud:index:Project`, … | `kurrentcloud:index:Project`, … |
+| Resource type tokens | `eventstorecloud:index/project:Project`, … | `kurrentcloud:index/project:Project`, … |
 | npm package | `@eventstore/pulumi-eventstorecloud` | `@kurrent-io/pulumi-kurrentcloud` |
 | Python package | `pulumi_eventstorecloud` | `pulumi_kurrentcloud` |
 | Go SDK package | `.../sdk/go/eventstorecloud` | `.../sdk/go/kurrentcloud` |
@@ -27,7 +27,7 @@ available in every language.
 ## Why it is non-destructive
 
 Each renamed resource declares a Pulumi [alias](https://www.pulumi.com/docs/concepts/options/aliases/)
-to its historical `eventstorecloud:index:*` type. When you upgrade and run `pulumi up`, the engine
+to its historical `eventstorecloud:index/<resource>:<Type>` type. When you upgrade and run `pulumi up`, the engine
 recognises the existing state objects as the same resources under their new type and simply updates
 the type in state — it does **not** destroy and recreate the underlying Kurrent Cloud infrastructure.
 
