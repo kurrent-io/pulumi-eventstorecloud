@@ -107,7 +107,7 @@ To test your changes before committing them:
 ## Publishing a New Release
 
 Once all changes have been merged to the `main` branch and you're ready to cut a new release, all
-that needs to be done is to create a new tag using semver format, e.g. v0.2.21.
+that needs to be done is to create a new tag using semver format, e.g. v1.0.0.
 
 Once the tag has been pushed to the Github repo, an action will be triggered. This will create new a
 new Github release with the binary artifacts, as well as publish the release to NPM and Nuget.

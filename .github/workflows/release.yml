@@ -15,7 +15,9 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version-file: sdk/go.mod
+          # GoReleaser runs `make tfgen` / `make build_sdks`, which build the
+          # provider module — pin Go to the provider's requirement, not the SDK's.
+          go-version-file: provider/go.mod
       - name: Set up .NET
         uses: actions/setup-dotnet@v4
         with:
