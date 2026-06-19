@@ -1,9 +1,9 @@
 using esc.Gcp;
 using Pulumi;
-using Pulumi.Eventstorecloud;
+using Pulumi.KurrentCloud;
 using Pulumi.Gcp.Compute;
-using Network = Pulumi.Eventstorecloud.Network;
-using NetworkArgs = Pulumi.Eventstorecloud.NetworkArgs;
+using Network = Pulumi.KurrentCloud.Network;
+using NetworkArgs = Pulumi.KurrentCloud.NetworkArgs;
 
 class MyStack : Stack {
     public MyStack() {
