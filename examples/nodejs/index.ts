@@ -56,6 +56,8 @@ const cluster = new esc.ManagedCluster("wings", {
     instanceType: "F1",
     diskSize: 16,
     diskType: "gp3",
+    diskIops: 3000,
+    diskThroughput: 125,
     serverVersion: "23.10",
 });
 
