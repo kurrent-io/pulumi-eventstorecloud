@@ -85,8 +85,25 @@ func preConfigureCallback(vars resource.PropertyMap, c shim.ResourceConfig) erro
 
 // Provider returns additional overlaid schema and metadata associated with the provider..
 func Provider() tfbridge.ProviderInfo {
-	// Instantiate the Terraform provider
-	p := shimv2.NewProvider(esc.New("")())
+	// Instantiate the upstream Terraform provider. kurrentcloud v2 registers every
+	// resource twice: under the preferred kurrentcloud_* name and a deprecated
+	// eventstorecloud_* alias. The Pulumi Terraform Bridge asserts at runtime that
+	// every Terraform resource in the shim carries the provider's kurrentcloud_
+	// prefix, so the eventstorecloud_* duplicates must be removed before shimming or
+	// the plugin panics on startup. Migration for existing Pulumi users is preserved
+	// via the per-resource Pulumi `Aliases` below, not these Terraform-level aliases.
+	tfProvider := esc.New("")()
+	for name := range tfProvider.ResourcesMap {
+		if strings.HasPrefix(name, "eventstorecloud_") {
+			delete(tfProvider.ResourcesMap, name)
+		}
+	}
+	for name := range tfProvider.DataSourcesMap {
+		if strings.HasPrefix(name, "eventstorecloud_") {
+			delete(tfProvider.DataSourcesMap, name)
+		}
+	}
+	p := shimv2.NewProvider(tfProvider)
 
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
@@ -103,23 +120,9 @@ func Provider() tfbridge.ProviderInfo {
 		GitHubOrg:            "kurrent-io",
 		Config:               map[string]*tfbridge.SchemaInfo{},
 		PreConfigureCallback: preConfigureCallback,
-		// The underlying Terraform provider (kurrentcloud v2) registers every resource under
-		// both the preferred kurrentcloud_* name and the deprecated eventstorecloud_* alias.
-		// We map the kurrentcloud_* names and attach Pulumi aliases back to the historical
-		// eventstorecloud:index:* tokens, so existing Pulumi stacks refresh onto the renamed
-		// tokens without resource replacement. The duplicate eventstorecloud_* TF names are
-		// ignored to keep a single, unambiguous Pulumi resource per concept.
-		IgnoreMappings: []string{
-			"eventstorecloud_project",
-			"eventstorecloud_acl",
-			"eventstorecloud_network",
-			"eventstorecloud_peering",
-			"eventstorecloud_managed_cluster",
-			"eventstorecloud_scheduled_backup",
-			"eventstorecloud_integration",
-			"eventstorecloud_integration_awscloudwatch_logs",
-			"eventstorecloud_integration_awscloudwatch_metrics",
-		},
+		// Pulumi resources map to the kurrentcloud_* Terraform names. Each carries a
+		// Pulumi alias to its historical eventstorecloud:index:* token so existing
+		// stacks refresh onto the renamed tokens without replacement.
 		Resources: map[string]*tfbridge.ResourceInfo{
 			"kurrentcloud_project":                           {Tok: makeResource(mainMod, "Project"), Aliases: legacyAliases("Project")},
 			"kurrentcloud_acl":                               {Tok: makeResource(mainMod, "Acl"), Aliases: legacyAliases("Acl")},
