@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/auto"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/optdestroy"
@@ -155,8 +156,22 @@ func newStack(t *testing.T, deploy pulumi.RunFunc) (context.Context, auto.Stack)
 		t.Fatalf("create stack %q: %v", name, err)
 	}
 	t.Cleanup(func() {
-		if _, err := stack.Destroy(ctx, optdestroy.ProgressStreams(os.Stderr)); err != nil {
-			t.Logf("WARNING: destroy failed for stack %q: %v (manual cleanup may be required in Kurrent Cloud)", name, err)
+		// Destroy with retries: a cluster mutation immediately before teardown can
+		// leave the cluster briefly locked ("failed to obtain lock on cluster") or
+		// otherwise busy, which a single destroy attempt would hit. Retry a few
+		// times before giving up so we don't leak billable resources.
+		var derr error
+		for attempt := 1; attempt <= 4; attempt++ {
+			if _, derr = stack.Destroy(ctx, optdestroy.ProgressStreams(os.Stderr)); derr == nil {
+				break
+			}
+			t.Logf("destroy attempt %d/4 for stack %q failed: %v", attempt, name, derr)
+			if attempt < 4 {
+				time.Sleep(90 * time.Second)
+			}
+		}
+		if derr != nil {
+			t.Logf("WARNING: destroy failed for stack %q after retries: %v (manual cleanup may be required in Kurrent Cloud)", name, derr)
 		}
 		if err := stack.Workspace().RemoveStack(ctx, name); err != nil {
 			t.Logf("WARNING: remove stack %q: %v", name, err)
