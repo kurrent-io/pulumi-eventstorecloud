@@ -52,9 +52,12 @@ func TestManagedClusterLifecycle(t *testing.T) {
 			Name:            pulumi.String(clusName),
 			ProjectId:       p.ID().ToStringOutput(),
 			NetworkId:       net.ID().ToStringOutput(),
-			Topology:        pulumi.String(cp.Topology),
+			// Read-only replica sets require a multi-node topology (per the upstream
+			// kurrentcloud_managed_cluster_replicaset example). A single-node cluster
+			// rejects replica creation with "operation cannot be performed in the current state".
+			Topology:        pulumi.String("three-node-multi-zone"),
 			InstanceType:    pulumi.String(cp.InstanceType),
-			DiskSize:        pulumi.Int(cp.DiskSize),
+			DiskSize:        pulumi.Int(24),
 			DiskType:        pulumi.String(cp.DiskType),
 			DiskIops:        pulumi.Int(cp.DiskIops),
 			DiskThroughput:  pulumi.Int(cp.DiskThroughput),
@@ -79,7 +82,9 @@ func TestManagedClusterLifecycle(t *testing.T) {
 			MaxBackupCount:    pulumi.Int(3),
 			Description:       pulumi.String("kurrentcloud live test backup"),
 			BackupDescription: pulumi.String("automated test backup"),
-		})
+			// Create the backup after the replica so the two cluster mutations are
+			// serialized rather than racing (defensive: cluster -> replica -> backup).
+		}, pulumi.DependsOn([]pulumi.Resource{replica}))
 		if err != nil {
 			return err
 		}

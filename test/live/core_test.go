@@ -95,7 +95,8 @@ func TestAcl(t *testing.T) {
 			ProjectId: p.ID().ToStringOutput(),
 			CidrBlocks: pulumi.MapArray{
 				pulumi.Map{
-					"address": pulumi.String("10.10.0.0/16"),
+					// The ACL API requires a public IPv4 range (rejects RFC1918 private space).
+					"address": pulumi.String("8.8.8.0/24"),
 					"comment": pulumi.String("kurrentcloud live test"),
 				},
 			},
