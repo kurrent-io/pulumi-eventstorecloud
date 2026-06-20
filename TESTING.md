@@ -71,6 +71,30 @@ Each group is **all-or-nothing**: set every variable in a group to run its test,
 | `KURRENT_TEST_PEER_REGION` | Region of the peer network. |
 | `KURRENT_TEST_PEER_ROUTES` | Comma-separated CIDR routes to the peer (e.g. `10.2.0.0/16`). |
 
+**`TestPeeringAWS`** — the self-provisioning peering test: it stands up a throwaway AWS VPC (via Pulumi's AWS provider), peers the Kurrent network with it, **accepts** the connection on the AWS side, asserts it reaches `active`, and tears it all down. Prefer this over `TestPeering` when you don't already have a peer VPC — you only supply AWS credentials and it derives the account id / VPC / CIDR itself. A VPC and a peering connection are free, so the AWS cost is ≈ $0.
+
+| Variable | Where it comes from |
+|---|---|
+| `KURRENT_TEST_AWS_ACCESS_KEY_ID` | IAM access key (see the policy below). Same var the CloudWatch tests use. |
+| `KURRENT_TEST_AWS_SECRET_ACCESS_KEY` | The matching IAM secret. |
+| `KURRENT_TEST_AWS_REGION` | Region for both the peer VPC and the Kurrent network (same-region peering), e.g. `us-west-2`. |
+| `KURRENT_TEST_AWS_SESSION_TOKEN` | _(optional)_ only for temporary/STS credentials. |
+| `KURRENT_TEST_PEER_ACCOUNT_ID` | _(optional)_ overrides the account id otherwise derived via `sts:GetCallerIdentity`. |
+
+Minimal IAM policy for that key (a test user; `Resource: "*"` is fine):
+
+```json
+{ "Version": "2012-10-17", "Statement": [{ "Effect": "Allow", "Resource": "*", "Action": [
+  "sts:GetCallerIdentity",
+  "ec2:CreateVpc", "ec2:DeleteVpc", "ec2:DescribeVpcs", "ec2:DescribeVpcAttribute", "ec2:ModifyVpcAttribute",
+  "ec2:CreateTags", "ec2:DeleteTags",
+  "ec2:DescribeVpcPeeringConnections", "ec2:AcceptVpcPeeringConnection",
+  "ec2:DeleteVpcPeeringConnection", "ec2:ModifyVpcPeeringConnectionOptions"
+]}]}
+```
+
+> Uses Pulumi's AWS provider, which is added to the `test/live` Go module only — it does not affect the shipped provider or SDKs. Pulumi fetches the `aws` plugin automatically on first run.
+
 **`TestIntegration`** — generic integration sink:
 
 | Variable | Where it comes from |
