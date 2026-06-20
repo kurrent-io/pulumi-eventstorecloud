@@ -43,8 +43,11 @@ export PULUMI_CONFIG_PASSPHRASE="${PULUMI_CONFIG_PASSPHRASE:-}"
 
 cleanup() {
   echo "--- cleanup ---"
-  ( cd "$WORKDIR" 2>/dev/null && pulumi destroy -y -s "$STACK" >/dev/null 2>&1 || true
-    cd "$WORKDIR" 2>/dev/null && pulumi stack rm -y -s "$STACK" >/dev/null 2>&1 || true )
+  if [ -d "$WORKDIR" ]; then
+    ( cd "$WORKDIR" && pulumi destroy -y -s "$STACK" ) \
+      || echo "WARNING: cleanup destroy failed; check Kurrent Cloud for a leaked 'alias-migration-test' project and delete it."
+    ( cd "$WORKDIR" && pulumi stack rm -y -s "$STACK" >/dev/null 2>&1 ) || true
+  fi
   rm -rf "$WORKDIR"
 }
 trap cleanup EXIT
