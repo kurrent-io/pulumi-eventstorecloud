@@ -37,6 +37,7 @@ LOCAL_SDK="$REPO_ROOT/sdk/nodejs/bin"
 OLD_PKG_VERSION="${OLD_PKG_VERSION:-latest}"
 WORKDIR="$(mktemp -d)"
 STACK="alias-migration-$$"
+mkdir -p "$WORKDIR/state"
 export PULUMI_BACKEND_URL="file://$WORKDIR/state"
 export PULUMI_CONFIG_PASSPHRASE="${PULUMI_CONFIG_PASSPHRASE:-}"
 
