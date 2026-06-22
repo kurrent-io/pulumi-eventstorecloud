@@ -40,6 +40,11 @@ export type ManagedCluster = import("./managedCluster").ManagedCluster;
 export const ManagedCluster: typeof import("./managedCluster").ManagedCluster = null as any;
 utilities.lazyLoad(exports, ["ManagedCluster"], () => require("./managedCluster"));
 
+export { ManagedClusterReplicasetArgs, ManagedClusterReplicasetState } from "./managedClusterReplicaset";
+export type ManagedClusterReplicaset = import("./managedClusterReplicaset").ManagedClusterReplicaset;
+export const ManagedClusterReplicaset: typeof import("./managedClusterReplicaset").ManagedClusterReplicaset = null as any;
+utilities.lazyLoad(exports, ["ManagedClusterReplicaset"], () => require("./managedClusterReplicaset"));
+
 export { NetworkArgs, NetworkState } from "./network";
 export type Network = import("./network").Network;
 export const Network: typeof import("./network").Network = null as any;
@@ -77,42 +82,45 @@ const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
-            case "eventstorecloud:index/aWSCloudWatchLogsIntegration:AWSCloudWatchLogsIntegration":
+            case "kurrentcloud:index/aWSCloudWatchLogsIntegration:AWSCloudWatchLogsIntegration":
                 return new AWSCloudWatchLogsIntegration(name, <any>undefined, { urn })
-            case "eventstorecloud:index/aWSCloudWatchMetricsIntegration:AWSCloudWatchMetricsIntegration":
+            case "kurrentcloud:index/aWSCloudWatchMetricsIntegration:AWSCloudWatchMetricsIntegration":
                 return new AWSCloudWatchMetricsIntegration(name, <any>undefined, { urn })
-            case "eventstorecloud:index/acl:Acl":
+            case "kurrentcloud:index/acl:Acl":
                 return new Acl(name, <any>undefined, { urn })
-            case "eventstorecloud:index/integration:Integration":
+            case "kurrentcloud:index/integration:Integration":
                 return new Integration(name, <any>undefined, { urn })
-            case "eventstorecloud:index/managedCluster:ManagedCluster":
+            case "kurrentcloud:index/managedCluster:ManagedCluster":
                 return new ManagedCluster(name, <any>undefined, { urn })
-            case "eventstorecloud:index/network:Network":
+            case "kurrentcloud:index/managedClusterReplicaset:ManagedClusterReplicaset":
+                return new ManagedClusterReplicaset(name, <any>undefined, { urn })
+            case "kurrentcloud:index/network:Network":
                 return new Network(name, <any>undefined, { urn })
-            case "eventstorecloud:index/peering:Peering":
+            case "kurrentcloud:index/peering:Peering":
                 return new Peering(name, <any>undefined, { urn })
-            case "eventstorecloud:index/project:Project":
+            case "kurrentcloud:index/project:Project":
                 return new Project(name, <any>undefined, { urn })
-            case "eventstorecloud:index/scheduledBackup:ScheduledBackup":
+            case "kurrentcloud:index/scheduledBackup:ScheduledBackup":
                 return new ScheduledBackup(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
     },
 };
-pulumi.runtime.registerResourceModule("eventstorecloud", "index/aWSCloudWatchLogsIntegration", _module)
-pulumi.runtime.registerResourceModule("eventstorecloud", "index/aWSCloudWatchMetricsIntegration", _module)
-pulumi.runtime.registerResourceModule("eventstorecloud", "index/acl", _module)
-pulumi.runtime.registerResourceModule("eventstorecloud", "index/integration", _module)
-pulumi.runtime.registerResourceModule("eventstorecloud", "index/managedCluster", _module)
-pulumi.runtime.registerResourceModule("eventstorecloud", "index/network", _module)
-pulumi.runtime.registerResourceModule("eventstorecloud", "index/peering", _module)
-pulumi.runtime.registerResourceModule("eventstorecloud", "index/project", _module)
-pulumi.runtime.registerResourceModule("eventstorecloud", "index/scheduledBackup", _module)
-pulumi.runtime.registerResourcePackage("eventstorecloud", {
+pulumi.runtime.registerResourceModule("kurrentcloud", "index/aWSCloudWatchLogsIntegration", _module)
+pulumi.runtime.registerResourceModule("kurrentcloud", "index/aWSCloudWatchMetricsIntegration", _module)
+pulumi.runtime.registerResourceModule("kurrentcloud", "index/acl", _module)
+pulumi.runtime.registerResourceModule("kurrentcloud", "index/integration", _module)
+pulumi.runtime.registerResourceModule("kurrentcloud", "index/managedCluster", _module)
+pulumi.runtime.registerResourceModule("kurrentcloud", "index/managedClusterReplicaset", _module)
+pulumi.runtime.registerResourceModule("kurrentcloud", "index/network", _module)
+pulumi.runtime.registerResourceModule("kurrentcloud", "index/peering", _module)
+pulumi.runtime.registerResourceModule("kurrentcloud", "index/project", _module)
+pulumi.runtime.registerResourceModule("kurrentcloud", "index/scheduledBackup", _module)
+pulumi.runtime.registerResourcePackage("kurrentcloud", {
     version: utilities.getVersion(),
     constructProvider: (name: string, type: string, urn: string): pulumi.ProviderResource => {
-        if (type !== "pulumi:providers:eventstorecloud") {
+        if (type !== "pulumi:providers:kurrentcloud") {
             throw new Error(`unknown provider type ${type}`);
         }
         return new Provider(name, <any>undefined, { urn });

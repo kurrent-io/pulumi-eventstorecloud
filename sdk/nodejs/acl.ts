@@ -4,9 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * Manages IP Access Lists
- */
 export class Acl extends pulumi.CustomResource {
     /**
      * Get an existing Acl resource's state with the given name, ID, and optional extra
@@ -22,7 +19,7 @@ export class Acl extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'eventstorecloud:index/acl:Acl';
+    public static readonly __pulumiType = 'kurrentcloud:index/acl:Acl';
 
     /**
      * Returns true if the given object is an instance of Acl.  This is designed to work even
@@ -77,6 +74,8 @@ export class Acl extends pulumi.CustomResource {
             resourceInputs["projectId"] = args ? args.projectId : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "eventstorecloud:index/acl:Acl" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(Acl.__pulumiType, name, resourceInputs, opts);
     }
 }

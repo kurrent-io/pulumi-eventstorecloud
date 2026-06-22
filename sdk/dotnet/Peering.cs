@@ -7,58 +7,9 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.EventStoreCloud
+namespace Pulumi.KurrentCloud
 {
-    /// <summary>
-    /// Manages peering connections between Event Store Cloud VPCs and customer own VPCs
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using EventStoreCloud = Pulumi.EventStoreCloud;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     // Example for AWS
-    ///     var exampleProject = new EventStoreCloud.Project("exampleProject");
-    /// 
-    ///     var exampleNetwork = new EventStoreCloud.Network("exampleNetwork", new()
-    ///     {
-    ///         ProjectId = exampleProject.Id,
-    ///         ResourceProvider = "aws",
-    ///         Region = "us-west-2",
-    ///         CidrBlock = "172.21.0.0/16",
-    ///     });
-    /// 
-    ///     var examplePeering = new EventStoreCloud.Peering("examplePeering", new()
-    ///     {
-    ///         ProjectId = exampleNetwork.ProjectId,
-    ///         NetworkId = exampleNetwork.Id,
-    ///         PeerResourceProvider = exampleNetwork.ResourceProvider,
-    ///         PeerNetworkRegion = exampleNetwork.Region,
-    ///         PeerAccountId = "&lt;Customer AWS Account ID&gt;",
-    ///         PeerNetworkId = "&lt;Customer VPC ID&gt;",
-    ///         Routes = new[]
-    ///         {
-    ///             "&lt;Address space of the customer VPC&gt;",
-    ///         },
-    ///     });
-    /// 
-    /// });
-    /// ```
-    /// 
-    /// ## Import
-    /// 
-    /// ```sh
-    ///  $ pulumi import eventstorecloud:index/peering:Peering example project_id:peering_id
-    /// ```
-    /// 
-    ///  ~&gt; Keep in mind that additional operations might be required to activate the peering link. Check our [provisioning guidelines](https://developers.eventstore.com/cloud/provision/) for each of the supported cloud providers to know more.
-    /// </summary>
-    [EventStoreCloudResourceType("eventstorecloud:index/peering:Peering")]
+    [KurrentCloudResourceType("kurrentcloud:index/peering:Peering")]
     public partial class Peering : global::Pulumi.CustomResource
     {
         /// <summary>
@@ -124,12 +75,12 @@ namespace Pulumi.EventStoreCloud
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Peering(string name, PeeringArgs args, CustomResourceOptions? options = null)
-            : base("eventstorecloud:index/peering:Peering", name, args ?? new PeeringArgs(), MakeResourceOptions(options, ""))
+            : base("kurrentcloud:index/peering:Peering", name, args ?? new PeeringArgs(), MakeResourceOptions(options, ""))
         {
         }
 
         private Peering(string name, Input<string> id, PeeringState? state = null, CustomResourceOptions? options = null)
-            : base("eventstorecloud:index/peering:Peering", name, state, MakeResourceOptions(options, id))
+            : base("kurrentcloud:index/peering:Peering", name, state, MakeResourceOptions(options, id))
         {
         }
 
@@ -138,7 +89,11 @@ namespace Pulumi.EventStoreCloud
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
-                PluginDownloadURL = "github://api.github.com/EventStore",
+                PluginDownloadURL = "github://api.github.com/kurrent-io",
+                Aliases =
+                {
+                    new global::Pulumi.Alias { Type = "eventstorecloud:index/peering:Peering"},
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.

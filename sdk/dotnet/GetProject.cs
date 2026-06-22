@@ -7,73 +7,15 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.EventStoreCloud
+namespace Pulumi.KurrentCloud
 {
     public static class GetProject
     {
-        /// <summary>
-        /// Retrieves data for an existing `Project` resource
-        /// 
-        /// {{% examples %}}
-        /// ## Example Usage
-        /// {{% example %}}
-        /// 
-        /// ```csharp
-        /// using System.Collections.Generic;
-        /// using System.Linq;
-        /// using Pulumi;
-        /// using EventStoreCloud = Pulumi.EventStoreCloud;
-        /// 
-        /// return await Deployment.RunAsync(() =&gt; 
-        /// {
-        ///     var example = EventStoreCloud.GetProject.Invoke(new()
-        ///     {
-        ///         Name = "Example Project",
-        ///     });
-        /// 
-        ///     return new Dictionary&lt;string, object?&gt;
-        ///     {
-        ///         ["projectId"] = example.Apply(getProjectResult =&gt; getProjectResult.Id),
-        ///     };
-        /// });
-        /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
-        /// </summary>
         public static Task<GetProjectResult> InvokeAsync(GetProjectArgs args, InvokeOptions? options = null)
-            => global::Pulumi.Deployment.Instance.InvokeAsync<GetProjectResult>("eventstorecloud:index/getProject:getProject", args ?? new GetProjectArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetProjectResult>("kurrentcloud:index/getProject:getProject", args ?? new GetProjectArgs(), options.WithDefaults());
 
-        /// <summary>
-        /// Retrieves data for an existing `Project` resource
-        /// 
-        /// {{% examples %}}
-        /// ## Example Usage
-        /// {{% example %}}
-        /// 
-        /// ```csharp
-        /// using System.Collections.Generic;
-        /// using System.Linq;
-        /// using Pulumi;
-        /// using EventStoreCloud = Pulumi.EventStoreCloud;
-        /// 
-        /// return await Deployment.RunAsync(() =&gt; 
-        /// {
-        ///     var example = EventStoreCloud.GetProject.Invoke(new()
-        ///     {
-        ///         Name = "Example Project",
-        ///     });
-        /// 
-        ///     return new Dictionary&lt;string, object?&gt;
-        ///     {
-        ///         ["projectId"] = example.Apply(getProjectResult =&gt; getProjectResult.Id),
-        ///     };
-        /// });
-        /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
-        /// </summary>
         public static Output<GetProjectResult> Invoke(GetProjectInvokeArgs args, InvokeOptions? options = null)
-            => global::Pulumi.Deployment.Instance.Invoke<GetProjectResult>("eventstorecloud:index/getProject:getProject", args ?? new GetProjectInvokeArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.Invoke<GetProjectResult>("kurrentcloud:index/getProject:getProject", args ?? new GetProjectInvokeArgs(), options.WithDefaults());
     }
 
 

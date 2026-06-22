@@ -7,33 +7,9 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.EventStoreCloud
+namespace Pulumi.KurrentCloud
 {
-    /// <summary>
-    /// Manages projects within an organization in Event Store Cloud
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using EventStoreCloud = Pulumi.EventStoreCloud;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     var chickenWindow = new EventStoreCloud.Project("chickenWindow");
-    /// 
-    /// });
-    /// ```
-    /// 
-    /// ## Import
-    /// 
-    /// ```sh
-    ///  $ pulumi import eventstorecloud:index/project:Project chicken_window project_id
-    /// ```
-    /// </summary>
-    [EventStoreCloudResourceType("eventstorecloud:index/project:Project")]
+    [KurrentCloudResourceType("kurrentcloud:index/project:Project")]
     public partial class Project : global::Pulumi.CustomResource
     {
         /// <summary>
@@ -51,12 +27,12 @@ namespace Pulumi.EventStoreCloud
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Project(string name, ProjectArgs? args = null, CustomResourceOptions? options = null)
-            : base("eventstorecloud:index/project:Project", name, args ?? new ProjectArgs(), MakeResourceOptions(options, ""))
+            : base("kurrentcloud:index/project:Project", name, args ?? new ProjectArgs(), MakeResourceOptions(options, ""))
         {
         }
 
         private Project(string name, Input<string> id, ProjectState? state = null, CustomResourceOptions? options = null)
-            : base("eventstorecloud:index/project:Project", name, state, MakeResourceOptions(options, id))
+            : base("kurrentcloud:index/project:Project", name, state, MakeResourceOptions(options, id))
         {
         }
 
@@ -65,7 +41,11 @@ namespace Pulumi.EventStoreCloud
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
-                PluginDownloadURL = "github://api.github.com/EventStore",
+                PluginDownloadURL = "github://api.github.com/kurrent-io",
+                Aliases =
+                {
+                    new global::Pulumi.Alias { Type = "eventstorecloud:index/project:Project"},
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.

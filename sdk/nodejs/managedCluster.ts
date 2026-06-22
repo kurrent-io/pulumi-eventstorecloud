@@ -4,44 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * Manages EventStoreDB instances and clusters in Event Store Cloud
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as eventstorecloud from "@eventstore/pulumi-eventstorecloud";
- * import * as eventstorecloud from "@pulumi/eventstorecloud";
- *
- * const exampleProject = eventstorecloud.getProject({
- *     name: "Example Project",
- * });
- * const exampleNetwork = new eventstorecloud.Network("exampleNetwork", {
- *     projectId: eventstorecloud_project.example.id,
- *     resourceProvider: "aws",
- *     region: "us-west-2",
- *     cidrBlock: "172.21.0.0/16",
- * });
- * const exampleManagedCluster = new eventstorecloud.ManagedCluster("exampleManagedCluster", {
- *     projectId: exampleNetwork.projectId,
- *     networkId: exampleNetwork.id,
- *     topology: "three-node-multi-zone",
- *     instanceType: "F1",
- *     diskSize: 24,
- *     diskType: "gp3",
- *     diskIops: 3000,
- *     diskThroughput: 125,
- *     serverVersion: "23.10",
- * });
- * ```
- *
- * ## Import
- *
- * ```sh
- *  $ pulumi import eventstorecloud:index/managedCluster:ManagedCluster example project_id:cluster_id
- * ```
- */
 export class ManagedCluster extends pulumi.CustomResource {
     /**
      * Get an existing ManagedCluster resource's state with the given name, ID, and optional extra
@@ -57,7 +19,7 @@ export class ManagedCluster extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'eventstorecloud:index/managedCluster:ManagedCluster';
+    public static readonly __pulumiType = 'kurrentcloud:index/managedCluster:ManagedCluster';
 
     /**
      * Returns true if the given object is an instance of ManagedCluster.  This is designed to work even
@@ -75,7 +37,7 @@ export class ManagedCluster extends pulumi.CustomResource {
      */
     public readonly aclId!: pulumi.Output<string | undefined>;
     /**
-     * Number of IOPS for storage, required if diskType is `gp3`
+     * Number of IOPS for storage, required if disk_type is `gp3`
      */
     public readonly diskIops!: pulumi.Output<number | undefined>;
     /**
@@ -83,7 +45,7 @@ export class ManagedCluster extends pulumi.CustomResource {
      */
     public readonly diskSize!: pulumi.Output<number>;
     /**
-     * Throughput in MB/s for storage, required if diskType is `gp3`
+     * Throughput in MB/s for storage, required if disk_type is `gp3`
      */
     public readonly diskThroughput!: pulumi.Output<number | undefined>;
     /**
@@ -95,7 +57,8 @@ export class ManagedCluster extends pulumi.CustomResource {
      */
     public /*out*/ readonly dnsName!: pulumi.Output<string>;
     /**
-     * Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
+     * Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a
+     * resize operation.
      */
     public readonly instanceType!: pulumi.Output<string>;
     /**
@@ -111,11 +74,12 @@ export class ManagedCluster extends pulumi.CustomResource {
      */
     public readonly projectId!: pulumi.Output<string>;
     /**
-     * Determines whether to run no projections, system projections only, or system and user projections (find the list of valid values below) Defaults to `off`.
+     * Determines whether to run no projections, system projections only, or system and user projections (find the list of
+     * valid values below)
      */
     public readonly projectionLevel!: pulumi.Output<string | undefined>;
     /**
-     * Protection from an accidental cluster deletion Defaults to `false`.
+     * Protection from an accidental cluster deletion
      */
     public readonly protected!: pulumi.Output<boolean | undefined>;
     /**
@@ -135,7 +99,8 @@ export class ManagedCluster extends pulumi.CustomResource {
      */
     public readonly serverVersion!: pulumi.Output<string>;
     /**
-     * Server version tag to provision (find the list of valid values below). A higher server*version*tag will prompt an upgrade.
+     * Server version tag to provision (find the list of valid values below). A higher server_version_tag will prompt an
+     * upgrade.
      */
     public readonly serverVersionTag!: pulumi.Output<string>;
     /**
@@ -217,6 +182,8 @@ export class ManagedCluster extends pulumi.CustomResource {
             resourceInputs["resourceProvider"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "eventstorecloud:index/managedCluster:ManagedCluster" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(ManagedCluster.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -230,7 +197,7 @@ export interface ManagedClusterState {
      */
     aclId?: pulumi.Input<string>;
     /**
-     * Number of IOPS for storage, required if diskType is `gp3`
+     * Number of IOPS for storage, required if disk_type is `gp3`
      */
     diskIops?: pulumi.Input<number>;
     /**
@@ -238,7 +205,7 @@ export interface ManagedClusterState {
      */
     diskSize?: pulumi.Input<number>;
     /**
-     * Throughput in MB/s for storage, required if diskType is `gp3`
+     * Throughput in MB/s for storage, required if disk_type is `gp3`
      */
     diskThroughput?: pulumi.Input<number>;
     /**
@@ -250,7 +217,8 @@ export interface ManagedClusterState {
      */
     dnsName?: pulumi.Input<string>;
     /**
-     * Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
+     * Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a
+     * resize operation.
      */
     instanceType?: pulumi.Input<string>;
     /**
@@ -266,11 +234,12 @@ export interface ManagedClusterState {
      */
     projectId?: pulumi.Input<string>;
     /**
-     * Determines whether to run no projections, system projections only, or system and user projections (find the list of valid values below) Defaults to `off`.
+     * Determines whether to run no projections, system projections only, or system and user projections (find the list of
+     * valid values below)
      */
     projectionLevel?: pulumi.Input<string>;
     /**
-     * Protection from an accidental cluster deletion Defaults to `false`.
+     * Protection from an accidental cluster deletion
      */
     protected?: pulumi.Input<boolean>;
     /**
@@ -290,7 +259,8 @@ export interface ManagedClusterState {
      */
     serverVersion?: pulumi.Input<string>;
     /**
-     * Server version tag to provision (find the list of valid values below). A higher server*version*tag will prompt an upgrade.
+     * Server version tag to provision (find the list of valid values below). A higher server_version_tag will prompt an
+     * upgrade.
      */
     serverVersionTag?: pulumi.Input<string>;
     /**
@@ -308,7 +278,7 @@ export interface ManagedClusterArgs {
      */
     aclId?: pulumi.Input<string>;
     /**
-     * Number of IOPS for storage, required if diskType is `gp3`
+     * Number of IOPS for storage, required if disk_type is `gp3`
      */
     diskIops?: pulumi.Input<number>;
     /**
@@ -316,7 +286,7 @@ export interface ManagedClusterArgs {
      */
     diskSize: pulumi.Input<number>;
     /**
-     * Throughput in MB/s for storage, required if diskType is `gp3`
+     * Throughput in MB/s for storage, required if disk_type is `gp3`
      */
     diskThroughput?: pulumi.Input<number>;
     /**
@@ -324,7 +294,8 @@ export interface ManagedClusterArgs {
      */
     diskType: pulumi.Input<string>;
     /**
-     * Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a resize operation.
+     * Instance type of the managed cluster (find the list of valid values below). A different instance type will trigger a
+     * resize operation.
      */
     instanceType: pulumi.Input<string>;
     /**
@@ -340,11 +311,12 @@ export interface ManagedClusterArgs {
      */
     projectId: pulumi.Input<string>;
     /**
-     * Determines whether to run no projections, system projections only, or system and user projections (find the list of valid values below) Defaults to `off`.
+     * Determines whether to run no projections, system projections only, or system and user projections (find the list of
+     * valid values below)
      */
     projectionLevel?: pulumi.Input<string>;
     /**
-     * Protection from an accidental cluster deletion Defaults to `false`.
+     * Protection from an accidental cluster deletion
      */
     protected?: pulumi.Input<boolean>;
     /**
@@ -356,7 +328,8 @@ export interface ManagedClusterArgs {
      */
     serverVersion: pulumi.Input<string>;
     /**
-     * Server version tag to provision (find the list of valid values below). A higher server*version*tag will prompt an upgrade.
+     * Server version tag to provision (find the list of valid values below). A higher server_version_tag will prompt an
+     * upgrade.
      */
     serverVersionTag?: pulumi.Input<string>;
     /**

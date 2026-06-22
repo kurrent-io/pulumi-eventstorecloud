@@ -4,30 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * Manages VPC (network) resources in Event Store Cloud
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as eventstorecloud from "@eventstore/pulumi-eventstorecloud";
- *
- * const exampleProject = new eventstorecloud.Project("exampleProject", {});
- * const exampleNetwork = new eventstorecloud.Network("exampleNetwork", {
- *     projectId: exampleProject.id,
- *     resourceProvider: "aws",
- *     region: "us-west-2",
- *     cidrBlock: "172.21.0.0/16",
- * });
- * ```
- *
- * ## Import
- *
- * ```sh
- *  $ pulumi import eventstorecloud:index/network:Network example project_id:network_id
- * ```
- */
 export class Network extends pulumi.CustomResource {
     /**
      * Get an existing Network resource's state with the given name, ID, and optional extra
@@ -43,7 +19,7 @@ export class Network extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'eventstorecloud:index/network:Network';
+    public static readonly __pulumiType = 'kurrentcloud:index/network:Network';
 
     /**
      * Returns true if the given object is an instance of Network.  This is designed to work even
@@ -119,6 +95,8 @@ export class Network extends pulumi.CustomResource {
             resourceInputs["resourceProvider"] = args ? args.resourceProvider : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "eventstorecloud:index/network:Network" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(Network.__pulumiType, name, resourceInputs, opts);
     }
 }

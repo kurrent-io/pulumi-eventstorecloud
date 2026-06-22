@@ -1,0 +1,102 @@
+name: Live tests
+
+on:
+  pull_request:
+    paths:
+      - "provider/**"
+      - "sdk/**"
+      - "test/**"
+      - ".github/workflows/live-tests.yml"
+  workflow_dispatch:
+    inputs:
+      skip_cluster:
+        description: "Skip the billable managed-cluster test"
+        type: boolean
+        default: false
+  schedule:
+    # Weekly: the managed-cluster test provisions billable infrastructure.
+    - cron: "0 6 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  # Cheap, credential-free guard that runs on every PR: asserts the rename
+  # aliases are present (so existing stacks won't be replaced) and that the
+  # whole live harness still compiles against the SDK.
+  offline:
+    name: Offline checks (no cloud)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.25"
+      - name: Alias regression guard + harness compiles
+        working-directory: test/live
+        run: |
+          go vet ./...
+          go test -v -run TestProviderAliasesInSchema ./...
+
+  # Full live suite against a real Kurrent Cloud org. Only runs on manual
+  # dispatch or the weekly schedule (never on PRs, where secrets are absent).
+  # Tests whose external prerequisites are not configured skip themselves.
+  live:
+    name: Live suite (Kurrent Cloud)
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      # Kurrent Cloud credentials (required for any live test).
+      ESC_TOKEN: ${{ secrets.ESC_TOKEN }}
+      ESC_ORG_ID: ${{ secrets.ESC_ORG_ID }}
+      ESC_URL: ${{ vars.ESC_URL }}
+      # Cluster shape (optional overrides; sensible cost-contained defaults apply).
+      KURRENT_TEST_RESOURCE_PROVIDER: ${{ vars.KURRENT_TEST_RESOURCE_PROVIDER }}
+      KURRENT_TEST_REGION: ${{ vars.KURRENT_TEST_REGION }}
+      KURRENT_TEST_INSTANCE_TYPE: ${{ vars.KURRENT_TEST_INSTANCE_TYPE }}
+      KURRENT_TEST_TOPOLOGY: ${{ vars.KURRENT_TEST_TOPOLOGY }}
+      KURRENT_TEST_DISK_TYPE: ${{ vars.KURRENT_TEST_DISK_TYPE }}
+      KURRENT_TEST_DISK_SIZE: ${{ vars.KURRENT_TEST_DISK_SIZE }}
+      KURRENT_TEST_DISK_IOPS: ${{ vars.KURRENT_TEST_DISK_IOPS }}
+      KURRENT_TEST_DISK_THROUGHPUT: ${{ vars.KURRENT_TEST_DISK_THROUGHPUT }}
+      KURRENT_TEST_SERVER_VERSION: ${{ vars.KURRENT_TEST_SERVER_VERSION }}
+      KURRENT_TEST_CIDR: ${{ vars.KURRENT_TEST_CIDR }}
+      # Peering test (skips unless all set).
+      KURRENT_TEST_PEER_ACCOUNT_ID: ${{ vars.KURRENT_TEST_PEER_ACCOUNT_ID }}
+      KURRENT_TEST_PEER_NETWORK_ID: ${{ vars.KURRENT_TEST_PEER_NETWORK_ID }}
+      KURRENT_TEST_PEER_REGION: ${{ vars.KURRENT_TEST_PEER_REGION }}
+      KURRENT_TEST_PEER_ROUTES: ${{ vars.KURRENT_TEST_PEER_ROUTES }}
+      # Integration test (skips unless set).
+      KURRENT_TEST_INTEGRATION_DATA_JSON: ${{ secrets.KURRENT_TEST_INTEGRATION_DATA_JSON }}
+      # AWS CloudWatch tests (skip unless all set); target an existing cluster.
+      KURRENT_TEST_AWS_ACCESS_KEY_ID: ${{ secrets.KURRENT_TEST_AWS_ACCESS_KEY_ID }}
+      KURRENT_TEST_AWS_SECRET_ACCESS_KEY: ${{ secrets.KURRENT_TEST_AWS_SECRET_ACCESS_KEY }}
+      KURRENT_TEST_AWS_SESSION_TOKEN: ${{ secrets.KURRENT_TEST_AWS_SESSION_TOKEN }}
+      KURRENT_TEST_AWS_REGION: ${{ vars.KURRENT_TEST_AWS_REGION }}
+      KURRENT_TEST_CW_PROJECT_ID: ${{ vars.KURRENT_TEST_CW_PROJECT_ID }}
+      KURRENT_TEST_CW_CLUSTER_ID: ${{ vars.KURRENT_TEST_CW_CLUSTER_ID }}
+      KURRENT_TEST_CW_LOG_GROUP: ${{ vars.KURRENT_TEST_CW_LOG_GROUP }}
+      KURRENT_TEST_CW_NAMESPACE: ${{ vars.KURRENT_TEST_CW_NAMESPACE }}
+      # Skip the billable cluster test on demand.
+      KURRENT_TEST_SKIP_CLUSTER: ${{ inputs.skip_cluster && '1' || '' }}
+      # Self-contained local Pulumi backend.
+      PULUMI_CONFIG_PASSPHRASE: ""
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.25"
+      - name: Install Pulumi CLI
+        uses: pulumi/actions@v6
+      - name: Install pulumictl
+        run: |
+          curl -L https://github.com/pulumi/pulumictl/releases/download/v0.0.50/pulumictl-v0.0.50-linux-amd64.tar.gz \
+            | sudo tar zxv -C /usr/bin -f- pulumictl
+      - name: Build provider plugin
+        run: make provider
+      - name: Put the local plugin on PATH
+        run: echo "$PWD/bin" >> "$GITHUB_PATH"
+      - name: Run live suite
+        working-directory: test/live
+        run: go test -v -timeout 170m ./...

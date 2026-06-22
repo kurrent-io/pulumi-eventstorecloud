@@ -1,37 +1,37 @@
-using esc.Gcp;
+using Kurrent.Gcp;
 using Pulumi;
-using Pulumi.Eventstorecloud;
+using Pulumi.KurrentCloud;
 using Pulumi.Gcp.Compute;
-using Network = Pulumi.Eventstorecloud.Network;
-using NetworkArgs = Pulumi.Eventstorecloud.NetworkArgs;
+using Network = Pulumi.KurrentCloud.Network;
+using NetworkArgs = Pulumi.KurrentCloud.NetworkArgs;
 
 class MyStack : Stack {
     public MyStack() {
         const string gcpRegion  = "europe-west2";
         const string gcpIpRange = "172.30.0.0/16";
-        const string escIpRange = "172.22.110.0/24";
+        const string kurrentIpRange = "172.22.110.0/24";
 
         var cloudResources = new CloudResources(gcpRegion, gcpIpRange);
 
-        var escProject = new Project("esc-project", new ProjectArgs {Name = "My ES Cloud Project"});
+        var kurrentProject = new Project("kurrent-project", new ProjectArgs {Name = "My Kurrent Cloud Project"});
 
-        var escNetwork = new Network(
-            "esc-network",
+        var kurrentNetwork = new Network(
+            "kurrent-network",
             new NetworkArgs {
                 Name             = "Test Network",
                 Region           = gcpRegion,
-                CidrBlock        = escIpRange,
-                ProjectId        = escProject.Id,
+                CidrBlock        = kurrentIpRange,
+                ProjectId        = kurrentProject.Id,
                 ResourceProvider = "gcp"
             }
         );
 
-        var escPeering = new Peering(
-            "esc-peering",
+        var kurrentPeering = new Peering(
+            "kurrent-peering",
             new PeeringArgs {
                 Name                 = "Test Peering",
-                ProjectId            = escProject.Id,
-                NetworkId            = escNetwork.Id,
+                ProjectId            = kurrentProject.Id,
+                NetworkId            = kurrentNetwork.Id,
                 PeerAccountId        = cloudResources.Network.Project,
                 PeerNetworkId        = cloudResources.Network.Name,
                 PeerNetworkRegion    = cloudResources.Subnet.Region,
@@ -43,9 +43,9 @@ class MyStack : Stack {
         var gcpPeering = new NetworkPeering(
             "gcp-peering",
             new NetworkPeeringArgs {
-                Name               = "esc-peering",
+                Name               = "kurrent-peering",
                 Network            = cloudResources.Network.Id,
-                PeerNetwork        = escPeering.ProviderMetadata.Apply(x => x["gcp_network_id"]),
+                PeerNetwork        = kurrentPeering.ProviderMetadata.Apply(x => x["gcp_network_id"]),
                 ExportCustomRoutes = true,
                 ImportCustomRoutes = true
             }
@@ -55,13 +55,13 @@ class MyStack : Stack {
             "myCluster",
             new ManagedClusterArgs {
                 Name            = "Test Cluster",
-                ProjectId       = escProject.Id,
-                NetworkId       = escNetwork.Id,
+                ProjectId       = kurrentProject.Id,
+                NetworkId       = kurrentNetwork.Id,
                 Topology        = "single-node",
                 InstanceType    = "F1",
                 DiskSize        = 10,
                 DiskType        = "ssd",
-                ServerVersion   = "20.10",
+                ServerVersion   = "24.10",
                 ProjectionLevel = "user"
             }
         );

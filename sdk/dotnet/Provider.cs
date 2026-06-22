@@ -7,15 +7,15 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.EventStoreCloud
+namespace Pulumi.KurrentCloud
 {
     /// <summary>
-    /// The provider type for the eventstorecloud package. By default, resources use package-wide configuration
+    /// The provider type for the kurrentcloud package. By default, resources use package-wide configuration
     /// settings, however an explicit `Provider` instance may be created and passed during resource
     /// construction to achieve fine-grained programmatic control over provider settings. See the
     /// [documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.
     /// </summary>
-    [EventStoreCloudResourceType("pulumi:providers:eventstorecloud")]
+    [KurrentCloudResourceType("pulumi:providers:kurrentcloud")]
     public partial class Provider : global::Pulumi.ProviderResource
     {
         [Output("clientId")]
@@ -45,7 +45,7 @@ namespace Pulumi.EventStoreCloud
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Provider(string name, ProviderArgs args, CustomResourceOptions? options = null)
-            : base("eventstorecloud", name, args ?? new ProviderArgs(), MakeResourceOptions(options, ""))
+            : base("kurrentcloud", name, args ?? new ProviderArgs(), MakeResourceOptions(options, ""))
         {
         }
 
@@ -54,7 +54,7 @@ namespace Pulumi.EventStoreCloud
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
-                PluginDownloadURL = "github://api.github.com/EventStore",
+                PluginDownloadURL = "github://api.github.com/kurrent-io",
                 AdditionalSecretOutputs =
                 {
                     "token",

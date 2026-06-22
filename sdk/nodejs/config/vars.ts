@@ -5,7 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 declare var exports: any;
-const __config = new pulumi.Config("eventstorecloud");
+const __config = new pulumi.Config("kurrentcloud");
 
 export declare const clientId: string | undefined;
 Object.defineProperty(exports, "clientId", {

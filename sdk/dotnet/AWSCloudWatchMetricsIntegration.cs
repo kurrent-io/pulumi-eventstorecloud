@@ -7,9 +7,9 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.EventStoreCloud
+namespace Pulumi.KurrentCloud
 {
-    [EventStoreCloudResourceType("eventstorecloud:index/aWSCloudWatchMetricsIntegration:AWSCloudWatchMetricsIntegration")]
+    [KurrentCloudResourceType("kurrentcloud:index/aWSCloudWatchMetricsIntegration:AWSCloudWatchMetricsIntegration")]
     public partial class AWSCloudWatchMetricsIntegration : global::Pulumi.CustomResource
     {
         /// <summary>
@@ -63,12 +63,12 @@ namespace Pulumi.EventStoreCloud
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public AWSCloudWatchMetricsIntegration(string name, AWSCloudWatchMetricsIntegrationArgs args, CustomResourceOptions? options = null)
-            : base("eventstorecloud:index/aWSCloudWatchMetricsIntegration:AWSCloudWatchMetricsIntegration", name, args ?? new AWSCloudWatchMetricsIntegrationArgs(), MakeResourceOptions(options, ""))
+            : base("kurrentcloud:index/aWSCloudWatchMetricsIntegration:AWSCloudWatchMetricsIntegration", name, args ?? new AWSCloudWatchMetricsIntegrationArgs(), MakeResourceOptions(options, ""))
         {
         }
 
         private AWSCloudWatchMetricsIntegration(string name, Input<string> id, AWSCloudWatchMetricsIntegrationState? state = null, CustomResourceOptions? options = null)
-            : base("eventstorecloud:index/aWSCloudWatchMetricsIntegration:AWSCloudWatchMetricsIntegration", name, state, MakeResourceOptions(options, id))
+            : base("kurrentcloud:index/aWSCloudWatchMetricsIntegration:AWSCloudWatchMetricsIntegration", name, state, MakeResourceOptions(options, id))
         {
         }
 
@@ -77,7 +77,11 @@ namespace Pulumi.EventStoreCloud
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
-                PluginDownloadURL = "github://api.github.com/EventStore",
+                PluginDownloadURL = "github://api.github.com/kurrent-io",
+                Aliases =
+                {
+                    new global::Pulumi.Alias { Type = "eventstorecloud:index/aWSCloudWatchMetricsIntegration:AWSCloudWatchMetricsIntegration"},
+                },
                 AdditionalSecretOutputs =
                 {
                     "accessKeyId",

@@ -4,31 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * Creates a new scheduled backup.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as eventstorecloud from "@eventstore/pulumi-eventstorecloud";
- *
- * const daily = new eventstorecloud.ScheduledBackup("daily", {
- *     projectId: eventstorecloud_project.example.id,
- *     schedule: "0 12 * * *&#47;1",
- *     description: "Creates a backup once a day at 12:00",
- *     sourceClusterId: eventstorecloud_managed_cluster.example.id,
- *     backupDescription: "{cluster} Daily Backup {datetime:RFC3339}",
- *     maxBackupCount: 3,
- * });
- * ```
- *
- * ## Import
- *
- * ```sh
- *  $ pulumi import eventstorecloud:index/scheduledBackup:ScheduledBackup daily project_id:backup_id
- * ```
- */
 export class ScheduledBackup extends pulumi.CustomResource {
     /**
      * Get an existing ScheduledBackup resource's state with the given name, ID, and optional extra
@@ -44,7 +19,7 @@ export class ScheduledBackup extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'eventstorecloud:index/scheduledBackup:ScheduledBackup';
+    public static readonly __pulumiType = 'kurrentcloud:index/scheduledBackup:ScheduledBackup';
 
     /**
      * Returns true if the given object is an instance of ScheduledBackup.  This is designed to work even
@@ -129,6 +104,8 @@ export class ScheduledBackup extends pulumi.CustomResource {
             resourceInputs["sourceClusterId"] = args ? args.sourceClusterId : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "eventstorecloud:index/scheduledBackup:ScheduledBackup" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(ScheduledBackup.__pulumiType, name, resourceInputs, opts);
     }
 }

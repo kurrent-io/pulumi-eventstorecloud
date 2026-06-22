@@ -7,41 +7,9 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.EventStoreCloud
+namespace Pulumi.KurrentCloud
 {
-    /// <summary>
-    /// Manages VPC (network) resources in Event Store Cloud
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using EventStoreCloud = Pulumi.EventStoreCloud;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     var exampleProject = new EventStoreCloud.Project("exampleProject");
-    /// 
-    ///     var exampleNetwork = new EventStoreCloud.Network("exampleNetwork", new()
-    ///     {
-    ///         ProjectId = exampleProject.Id,
-    ///         ResourceProvider = "aws",
-    ///         Region = "us-west-2",
-    ///         CidrBlock = "172.21.0.0/16",
-    ///     });
-    /// 
-    /// });
-    /// ```
-    /// 
-    /// ## Import
-    /// 
-    /// ```sh
-    ///  $ pulumi import eventstorecloud:index/network:Network example project_id:network_id
-    /// ```
-    /// </summary>
-    [EventStoreCloudResourceType("eventstorecloud:index/network:Network")]
+    [KurrentCloudResourceType("kurrentcloud:index/network:Network")]
     public partial class Network : global::Pulumi.CustomResource
     {
         /// <summary>
@@ -89,12 +57,12 @@ namespace Pulumi.EventStoreCloud
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Network(string name, NetworkArgs args, CustomResourceOptions? options = null)
-            : base("eventstorecloud:index/network:Network", name, args ?? new NetworkArgs(), MakeResourceOptions(options, ""))
+            : base("kurrentcloud:index/network:Network", name, args ?? new NetworkArgs(), MakeResourceOptions(options, ""))
         {
         }
 
         private Network(string name, Input<string> id, NetworkState? state = null, CustomResourceOptions? options = null)
-            : base("eventstorecloud:index/network:Network", name, state, MakeResourceOptions(options, id))
+            : base("kurrentcloud:index/network:Network", name, state, MakeResourceOptions(options, id))
         {
         }
 
@@ -103,7 +71,11 @@ namespace Pulumi.EventStoreCloud
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
-                PluginDownloadURL = "github://api.github.com/EventStore",
+                PluginDownloadURL = "github://api.github.com/kurrent-io",
+                Aliases =
+                {
+                    new global::Pulumi.Alias { Type = "eventstorecloud:index/network:Network"},
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.

@@ -4,42 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * Manages integration resources, for example Slack or OpsGenie.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as eventstorecloud from "@eventstore/pulumi-eventstorecloud";
- *
- * const opsgenieIssues = new eventstorecloud.Integration("opsgenieIssues", {
- *     projectId: _var.project_id,
- *     description: "create OpsGenie alerts from issues",
- *     data: {
- *         sink: "opsGenie",
- *         api_key: "<secret OpsGenie key here>",
- *         source: "issues",
- *     },
- * });
- * const slackNotifications = new eventstorecloud.Integration("slackNotifications", {
- *     projectId: _var.project_id,
- *     description: "send Slack a message when a notification happens",
- *     data: {
- *         sink: "slack",
- *         token: "<secret token here>",
- *         channel_id: "#esc-cluster-notifications",
- *         source: "notifications",
- *     },
- * });
- * ```
- *
- * ## Import
- *
- * ```sh
- *  $ pulumi import eventstorecloud:index/integration:Integration opsgenie_issues project_id:integration_id
- * ```
- */
 export class Integration extends pulumi.CustomResource {
     /**
      * Get an existing Integration resource's state with the given name, ID, and optional extra
@@ -55,7 +19,7 @@ export class Integration extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'eventstorecloud:index/integration:Integration';
+    public static readonly __pulumiType = 'kurrentcloud:index/integration:Integration';
 
     /**
      * Returns true if the given object is an instance of Integration.  This is designed to work even
@@ -113,6 +77,8 @@ export class Integration extends pulumi.CustomResource {
             resourceInputs["projectId"] = args ? args.projectId : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "eventstorecloud:index/integration:Integration" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(Integration.__pulumiType, name, resourceInputs, opts);
     }
 }

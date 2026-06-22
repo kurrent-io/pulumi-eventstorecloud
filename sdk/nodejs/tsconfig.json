@@ -23,6 +23,7 @@
         "index.ts",
         "integration.ts",
         "managedCluster.ts",
+        "managedClusterReplicaset.ts",
         "network.ts",
         "peering.ts",
         "project.ts",

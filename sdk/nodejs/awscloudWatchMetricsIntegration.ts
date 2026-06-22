@@ -19,7 +19,7 @@ export class AWSCloudWatchMetricsIntegration extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'eventstorecloud:index/aWSCloudWatchMetricsIntegration:AWSCloudWatchMetricsIntegration';
+    public static readonly __pulumiType = 'kurrentcloud:index/aWSCloudWatchMetricsIntegration:AWSCloudWatchMetricsIntegration';
 
     /**
      * Returns true if the given object is an instance of AWSCloudWatchMetricsIntegration.  This is designed to work even
@@ -107,6 +107,8 @@ export class AWSCloudWatchMetricsIntegration extends pulumi.CustomResource {
             resourceInputs["secretAccessKey"] = args?.secretAccessKey ? pulumi.secret(args.secretAccessKey) : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "eventstorecloud:index/aWSCloudWatchMetricsIntegration:AWSCloudWatchMetricsIntegration" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         const secretOpts = { additionalSecretOutputs: ["accessKeyId", "secretAccessKey"] };
         opts = pulumi.mergeOptions(opts, secretOpts);
         super(AWSCloudWatchMetricsIntegration.__pulumiType, name, resourceInputs, opts);

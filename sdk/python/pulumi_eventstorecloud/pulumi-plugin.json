@@ -1,5 +1,0 @@
-{
-  "resource": true,
-  "name": "eventstorecloud",
-  "server": "github://api.github.com/EventStore"
-}

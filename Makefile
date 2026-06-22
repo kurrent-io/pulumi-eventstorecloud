@@ -1,10 +1,12 @@
-PROJECT_NAME := Event Store Cloud Package
+PROJECT_NAME := Kurrent Cloud Package
 
 SHELL            := /bin/bash
-PACK             := eventstorecloud
-ORG              := EventStore
-PROJECT          := github.com/${ORG}/pulumi-${PACK}
-NODE_MODULE_NAME := @eventstore/pulumi-${PACK}
+PACK             := kurrentcloud
+# PROJECT is the Go module path of the provider. It is intentionally kept at the
+# historical EventStore/pulumi-eventstorecloud path (the repository has not been
+# renamed) even though the Pulumi package (PACK) is now "kurrentcloud".
+PROJECT          := github.com/EventStore/pulumi-eventstorecloud
+NODE_MODULE_NAME := @kurrent-io/pulumi-${PACK}
 TF_NAME          := ${PACK}
 PROVIDER_PATH    := provider
 VERSION_PATH     := ${PROVIDER_PATH}/pkg/version.Version
@@ -18,30 +20,10 @@ TESTPARALLELISM := 4
 WORKING_DIR     := $(shell pwd)
 
 OS := $(shell uname)
-EMPTY_TO_AVOID_SED := ""
 
 .PHONY: lint
 lint:
 	./scripts/lint.sh
-
-prepare::
-	@if test -z "${NAME}"; then echo "NAME not set"; exit 1; fi
-	@if test -z "${REPOSITORY}"; then echo "REPOSITORY not set"; exit 1; fi
-	@if test ! -d "provider/cmd/pulumi-tfgen-e${EMPTY_TO_AVOID_SED}ventstorecloud"; then "Project already prepared"; exit 1; fi
-
-	mv "provider/cmd/pulumi-tfgen-e${EMPTY_TO_AVOID_SED}ventstorecloud" provider/cmd/pulumi-tfgen-${NAME}
-	mv "provider/cmd/pulumi-resource-e${EMPTY_TO_AVOID_SED}ventstorecloud" provider/cmd/pulumi-resource-${NAME}
-
-	if [[ "${OS}" != "Darwin" ]]; then \
-		sed -i 's,github.com/EventStore/pulumi-eventstorecloud,${REPOSITORY},g' provider/go.mod; \
-		find ./ ! -path './.git/*' -type f -exec sed -i 's/[x]yz/${NAME}/g' {} \; &> /dev/null; \
-	fi
-
-	# In MacOS the -i parameter needs an empty string to execute in place.
-	if [[ "${OS}" == "Darwin" ]]; then \
-		sed -i '' 's,github.com/EventStore/pulumi-eventstorecloud,${REPOSITORY},g' provider/go.mod; \
-		find ./ ! -path './.git/*' -type f -exec sed -i '' 's/[x]yz/${NAME}/g' {} \; &> /dev/null; \
-	fi
 
 .PHONY: development provider build_sdks build_nodejs build_dotnet build_go build_python cleanup
 
@@ -65,6 +47,7 @@ build_nodejs:: VERSION := $(shell pulumictl get version --language javascript)
 build_nodejs:: install_plugins tfgen # build the node sdk
 	$(WORKING_DIR)/bin/$(TFGEN) nodejs --overlays provider/overlays/nodejs --out sdk/nodejs/
 	cd sdk/nodejs/ && \
+        sed -i.bak -e 's#from "\./utilities"#from "../utilities"#' config/vars.ts && rm -f config/vars.ts.bak && \
         yarn install && \
         yarn run tsc && \
         cat ../../readme/README.md ../../readme/nodejs.md > ./bin/README.md && \
@@ -131,5 +114,11 @@ install_nodejs_sdk::
 
 install_sdks:: install_dotnet_sdk install_python_sdk install_nodejs_sdk
 
-test::
-	cd examples && go test -v -tags=all -parallel ${TESTPARALLELISM} -timeout 2h
+test:: test-aliases # offline checks only (no cloud); use `make test-live` for the full live suite
+
+test-aliases:: # offline alias regression guard (no cloud, no credentials)
+	cd test/live && go test -v -run TestProviderAliasesInSchema ./...
+
+test-live:: provider # run the full live suite against a real Kurrent Cloud org (see TESTING.md)
+	@command -v pulumi >/dev/null || { echo "pulumi CLI is required: https://www.pulumi.com/docs/install/"; exit 1; }
+	export PATH="$(WORKING_DIR)/bin:$$PATH" && cd test/live && go test -v -timeout 170m ./...

@@ -1,11 +1,11 @@
 Install the NodeJS SDK using either `npm`:
 
 ```bash
-$ npm install @eventstore/pulumi-eventstorecloud
+$ npm install @kurrent-io/pulumi-kurrentcloud
 ```
 
 or `yarn`:
 
 ```bash
-$ yarn add @eventstore/pulumi-eventstorecloud
+$ yarn add @kurrent-io/pulumi-kurrentcloud
 ```

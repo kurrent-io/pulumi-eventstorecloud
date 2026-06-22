@@ -15,15 +15,15 @@ class InstallPluginCommand(install):
     def run(self):
         install.run(self)
         try:
-            check_call(['pulumi', 'plugin', 'install', 'resource', 'eventstorecloud', PLUGIN_VERSION, '--server', 'github://api.github.com/EventStore'])
+            check_call(['pulumi', 'plugin', 'install', 'resource', 'kurrentcloud', PLUGIN_VERSION, '--server', 'github://api.github.com/kurrent-io'])
         except OSError as error:
             if error.errno == errno.ENOENT:
                 print(f"""
-                There was an error installing the eventstorecloud resource provider plugin.
+                There was an error installing the kurrentcloud resource provider plugin.
                 It looks like `pulumi` is not installed on your system.
                 Please visit https://pulumi.com/ to install the Pulumi CLI.
                 You may try manually installing the plugin by running
-                `pulumi plugin install resource eventstorecloud {PLUGIN_VERSION}`
+                `pulumi plugin install resource kurrentcloud {PLUGIN_VERSION}`
                 """)
             else:
                 raise
@@ -34,27 +34,27 @@ def readme():
         with open('README.md', encoding='utf-8') as f:
             return f.read()
     except FileNotFoundError:
-        return "eventstorecloud Pulumi Package - Development Version"
+        return "kurrentcloud Pulumi Package - Development Version"
 
 
-setup(name='pulumi_eventstorecloud',
+setup(name='pulumi_kurrentcloud',
       python_requires='>=3.7',
       version=VERSION,
-      description="A Pulumi package for creating and managing Event Store Cloud resources.",
+      description="A Pulumi package for creating and managing Kurrent Cloud resources.",
       long_description=readme(),
       long_description_content_type='text/markdown',
       cmdclass={
           'install': InstallPluginCommand,
       },
-      keywords='pulumi eventstorecloud',
-      url='https://eventstore.com',
+      keywords='pulumi kurrentcloud kurrent eventstore eventstorecloud',
+      url='https://www.kurrent.io',
       project_urls={
-          'Repository': 'https://github.com/EventStore/pulumi-eventstorecloud'
+          'Repository': 'https://github.com/kurrent-io/pulumi-eventstorecloud'
       },
       license='Apache-2.0',
       packages=find_packages(),
       package_data={
-          'pulumi_eventstorecloud': [
+          'pulumi_kurrentcloud': [
               'py.typed',
               'pulumi-plugin.json',
           ]

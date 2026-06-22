@@ -1,6 +1,6 @@
-# Pulumi provider for Event Store Cloud
+# Pulumi provider for Kurrent Cloud
 
-The Event Store Cloud provider allows you to manage resources in [Event Store Cloud](https://eventstore.com/cloud).
+The Kurrent Cloud provider allows you to manage resources in [Kurrent Cloud](https://www.kurrent.io/kurrent-cloud).
 
 ## Installation
 
@@ -8,10 +8,10 @@ This package is available in many languages in the standard packaging formats.
 
 ### Configure the provider
 
-The following configuration points are available for the `eventstorecloud` provider:
+The following configuration points are available for the `kurrentcloud` provider:
 
-- `eventstorecloud:organizationId` - the organization ID for an existing organization in Event Store Cloud
-- `eventstorecloud:token` - a valid refresh token for an Event Store Cloud account with admin access to the organization
+- `kurrentcloud:organizationId` - the organization ID for an existing organization in Kurrent Cloud
+- `kurrentcloud:token` - a valid refresh token for an Kurrent Cloud account with admin access to the organization
 
 ### Install SDK
 
@@ -19,7 +19,7 @@ The following configuration points are available for the `eventstorecloud` provi
 Use `go get` to grab the latest version of the library
 
 ```bash
-$ go get github.com/EventStore/pulumi-eventstorecloud/sdk/go/eventstorecloud
+$ go get github.com/EventStore/pulumi-eventstorecloud/sdk/go/kurrentcloud
 ```
 
 ### Get the plugin
@@ -29,13 +29,13 @@ For projects that use .NET and Go Pulumi SDK you have to install the provider be
 Use the following command to add the plugin to your environment:
 
 ```
-pulumi plugin install resource eventstorecloud [version] \
-  --server https://github.com/EventStore/pulumi-eventstorecloud/releases/download/[version]
+pulumi plugin install resource kurrentcloud [version] \
+  --server https://github.com/kurrent-io/pulumi-eventstorecloud/releases/download/[version]
 ```
 
 Example:
 
 ```
-pulumi plugin install resource eventstorecloud v0.2.3 \
-  --server https://github.com/EventStore/pulumi-eventstorecloud/releases/download/v0.2.3
+pulumi plugin install resource kurrentcloud v1.0.0 \
+  --server https://github.com/kurrent-io/pulumi-eventstorecloud/releases/download/v1.0.0
 ```

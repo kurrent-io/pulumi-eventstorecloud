@@ -7,56 +7,9 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.EventStoreCloud
+namespace Pulumi.KurrentCloud
 {
-    /// <summary>
-    /// Manages integration resources, for example Slack or OpsGenie.
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using EventStoreCloud = Pulumi.EventStoreCloud;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     var opsgenieIssues = new EventStoreCloud.Integration("opsgenieIssues", new()
-    ///     {
-    ///         ProjectId = @var.Project_id,
-    ///         Description = "create OpsGenie alerts from issues",
-    ///         Data = 
-    ///         {
-    ///             { "sink", "opsGenie" },
-    ///             { "api_key", "&lt;secret OpsGenie key here&gt;" },
-    ///             { "source", "issues" },
-    ///         },
-    ///     });
-    /// 
-    ///     var slackNotifications = new EventStoreCloud.Integration("slackNotifications", new()
-    ///     {
-    ///         ProjectId = @var.Project_id,
-    ///         Description = "send Slack a message when a notification happens",
-    ///         Data = 
-    ///         {
-    ///             { "sink", "slack" },
-    ///             { "token", "&lt;secret token here&gt;" },
-    ///             { "channel_id", "#esc-cluster-notifications" },
-    ///             { "source", "notifications" },
-    ///         },
-    ///     });
-    /// 
-    /// });
-    /// ```
-    /// 
-    /// ## Import
-    /// 
-    /// ```sh
-    ///  $ pulumi import eventstorecloud:index/integration:Integration opsgenie_issues project_id:integration_id
-    /// ```
-    /// </summary>
-    [EventStoreCloudResourceType("eventstorecloud:index/integration:Integration")]
+    [KurrentCloudResourceType("kurrentcloud:index/integration:Integration")]
     public partial class Integration : global::Pulumi.CustomResource
     {
         /// <summary>
@@ -86,12 +39,12 @@ namespace Pulumi.EventStoreCloud
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Integration(string name, IntegrationArgs args, CustomResourceOptions? options = null)
-            : base("eventstorecloud:index/integration:Integration", name, args ?? new IntegrationArgs(), MakeResourceOptions(options, ""))
+            : base("kurrentcloud:index/integration:Integration", name, args ?? new IntegrationArgs(), MakeResourceOptions(options, ""))
         {
         }
 
         private Integration(string name, Input<string> id, IntegrationState? state = null, CustomResourceOptions? options = null)
-            : base("eventstorecloud:index/integration:Integration", name, state, MakeResourceOptions(options, id))
+            : base("kurrentcloud:index/integration:Integration", name, state, MakeResourceOptions(options, id))
         {
         }
 
@@ -100,7 +53,11 @@ namespace Pulumi.EventStoreCloud
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
-                PluginDownloadURL = "github://api.github.com/EventStore",
+                PluginDownloadURL = "github://api.github.com/kurrent-io",
+                Aliases =
+                {
+                    new global::Pulumi.Alias { Type = "eventstorecloud:index/integration:Integration"},
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.

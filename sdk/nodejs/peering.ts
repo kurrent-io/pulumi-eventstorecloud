@@ -4,42 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * Manages peering connections between Event Store Cloud VPCs and customer own VPCs
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as eventstorecloud from "@eventstore/pulumi-eventstorecloud";
- *
- * // Example for AWS
- * const exampleProject = new eventstorecloud.Project("exampleProject", {});
- * const exampleNetwork = new eventstorecloud.Network("exampleNetwork", {
- *     projectId: exampleProject.id,
- *     resourceProvider: "aws",
- *     region: "us-west-2",
- *     cidrBlock: "172.21.0.0/16",
- * });
- * const examplePeering = new eventstorecloud.Peering("examplePeering", {
- *     projectId: exampleNetwork.projectId,
- *     networkId: exampleNetwork.id,
- *     peerResourceProvider: exampleNetwork.resourceProvider,
- *     peerNetworkRegion: exampleNetwork.region,
- *     peerAccountId: "<Customer AWS Account ID>",
- *     peerNetworkId: "<Customer VPC ID>",
- *     routes: ["<Address space of the customer VPC>"],
- * });
- * ```
- *
- * ## Import
- *
- * ```sh
- *  $ pulumi import eventstorecloud:index/peering:Peering example project_id:peering_id
- * ```
- *
- *  ~> Keep in mind that additional operations might be required to activate the peering link. Check our [provisioning guidelines](https://developers.eventstore.com/cloud/provision/) for each of the supported cloud providers to know more.
- */
 export class Peering extends pulumi.CustomResource {
     /**
      * Get an existing Peering resource's state with the given name, ID, and optional extra
@@ -55,7 +19,7 @@ export class Peering extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'eventstorecloud:index/peering:Peering';
+    public static readonly __pulumiType = 'kurrentcloud:index/peering:Peering';
 
     /**
      * Returns true if the given object is an instance of Peering.  This is designed to work even
@@ -161,6 +125,8 @@ export class Peering extends pulumi.CustomResource {
             resourceInputs["providerMetadata"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "eventstorecloud:index/peering:Peering" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(Peering.__pulumiType, name, resourceInputs, opts);
     }
 }

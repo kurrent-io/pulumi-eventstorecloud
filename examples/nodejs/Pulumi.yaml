@@ -1,6 +1,6 @@
-name: esc-typescript
+name: kurrent-typescript
 runtime: nodejs
-description: Event Store Cloud sample with TypeScript
+description: Kurrent Cloud sample with TypeScript
 template:
   config:
     aws:region:

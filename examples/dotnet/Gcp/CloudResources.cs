@@ -1,6 +1,6 @@
 using Pulumi.Gcp.Compute;
 
-namespace esc.Gcp {
+namespace Kurrent.Gcp {
     public class CloudResources {
         public CloudResources(string region, string ipRange) {
             Network = new Network(
