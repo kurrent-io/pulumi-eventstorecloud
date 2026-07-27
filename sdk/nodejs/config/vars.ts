@@ -15,6 +15,22 @@ Object.defineProperty(exports, "clientId", {
     enumerable: true,
 });
 
+export declare const clientSecret: string | undefined;
+Object.defineProperty(exports, "clientSecret", {
+    get() {
+        return __config.get("clientSecret");
+    },
+    enumerable: true,
+});
+
+export declare const identityKitUrl: string | undefined;
+Object.defineProperty(exports, "identityKitUrl", {
+    get() {
+        return __config.get("identityKitUrl");
+    },
+    enumerable: true,
+});
+
 export declare const identityProviderUrl: string | undefined;
 Object.defineProperty(exports, "identityProviderUrl", {
     get() {

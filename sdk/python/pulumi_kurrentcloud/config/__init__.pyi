@@ -11,6 +11,10 @@ from . import _utilities
 
 clientId: Optional[str]
 
+clientSecret: Optional[str]
+
+identityKitUrl: Optional[str]
+
 identityProviderUrl: Optional[str]
 
 organizationId: Optional[str]

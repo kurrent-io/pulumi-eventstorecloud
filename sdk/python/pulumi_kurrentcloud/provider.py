@@ -19,7 +19,9 @@ class ProviderArgs:
                  organization_id: pulumi.Input[str],
                  token: pulumi.Input[str],
                  token_store: pulumi.Input[str],
-                 url: pulumi.Input[str]):
+                 url: pulumi.Input[str],
+                 client_secret: Optional[pulumi.Input[str]] = None,
+                 identity_kit_url: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Provider resource.
         """
@@ -29,6 +31,10 @@ class ProviderArgs:
         pulumi.set(__self__, "token", token)
         pulumi.set(__self__, "token_store", token_store)
         pulumi.set(__self__, "url", url)
+        if client_secret is not None:
+            pulumi.set(__self__, "client_secret", client_secret)
+        if identity_kit_url is not None:
+            pulumi.set(__self__, "identity_kit_url", identity_kit_url)
 
     @property
     @pulumi.getter(name="clientId")
@@ -84,6 +90,24 @@ class ProviderArgs:
     def url(self, value: pulumi.Input[str]):
         pulumi.set(self, "url", value)
 
+    @property
+    @pulumi.getter(name="clientSecret")
+    def client_secret(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "client_secret")
+
+    @client_secret.setter
+    def client_secret(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "client_secret", value)
+
+    @property
+    @pulumi.getter(name="identityKitUrl")
+    def identity_kit_url(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "identity_kit_url")
+
+    @identity_kit_url.setter
+    def identity_kit_url(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "identity_kit_url", value)
+
 
 class Provider(pulumi.ProviderResource):
     @overload
@@ -91,6 +115,8 @@ class Provider(pulumi.ProviderResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  client_id: Optional[pulumi.Input[str]] = None,
+                 client_secret: Optional[pulumi.Input[str]] = None,
+                 identity_kit_url: Optional[pulumi.Input[str]] = None,
                  identity_provider_url: Optional[pulumi.Input[str]] = None,
                  organization_id: Optional[pulumi.Input[str]] = None,
                  token: Optional[pulumi.Input[str]] = None,
@@ -134,6 +160,8 @@ class Provider(pulumi.ProviderResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  client_id: Optional[pulumi.Input[str]] = None,
+                 client_secret: Optional[pulumi.Input[str]] = None,
+                 identity_kit_url: Optional[pulumi.Input[str]] = None,
                  identity_provider_url: Optional[pulumi.Input[str]] = None,
                  organization_id: Optional[pulumi.Input[str]] = None,
                  token: Optional[pulumi.Input[str]] = None,
@@ -151,6 +179,8 @@ class Provider(pulumi.ProviderResource):
             if client_id is None and not opts.urn:
                 raise TypeError("Missing required property 'client_id'")
             __props__.__dict__["client_id"] = client_id
+            __props__.__dict__["client_secret"] = None if client_secret is None else pulumi.Output.secret(client_secret)
+            __props__.__dict__["identity_kit_url"] = identity_kit_url
             if identity_provider_url is None and not opts.urn:
                 raise TypeError("Missing required property 'identity_provider_url'")
             __props__.__dict__["identity_provider_url"] = identity_provider_url
@@ -166,7 +196,7 @@ class Provider(pulumi.ProviderResource):
             if url is None and not opts.urn:
                 raise TypeError("Missing required property 'url'")
             __props__.__dict__["url"] = url
-        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["token"])
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["clientSecret", "token"])
         opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(Provider, __self__).__init__(
             'kurrentcloud',
@@ -178,6 +208,16 @@ class Provider(pulumi.ProviderResource):
     @pulumi.getter(name="clientId")
     def client_id(self) -> pulumi.Output[str]:
         return pulumi.get(self, "client_id")
+
+    @property
+    @pulumi.getter(name="clientSecret")
+    def client_secret(self) -> pulumi.Output[Optional[str]]:
+        return pulumi.get(self, "client_secret")
+
+    @property
+    @pulumi.getter(name="identityKitUrl")
+    def identity_kit_url(self) -> pulumi.Output[Optional[str]]:
+        return pulumi.get(self, "identity_kit_url")
 
     @property
     @pulumi.getter(name="identityProviderUrl")

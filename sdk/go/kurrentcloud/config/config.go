@@ -14,6 +14,12 @@ var _ = internal.GetEnvOrDefault
 func GetClientId(ctx *pulumi.Context) string {
 	return config.Get(ctx, "kurrentcloud:clientId")
 }
+func GetClientSecret(ctx *pulumi.Context) string {
+	return config.Get(ctx, "kurrentcloud:clientSecret")
+}
+func GetIdentityKitUrl(ctx *pulumi.Context) string {
+	return config.Get(ctx, "kurrentcloud:identityKitUrl")
+}
 func GetIdentityProviderUrl(ctx *pulumi.Context) string {
 	return config.Get(ctx, "kurrentcloud:identityProviderUrl")
 }
