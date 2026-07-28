@@ -39,6 +39,20 @@ namespace Pulumi.KurrentCloud
             set => _clientId.Set(value);
         }
 
+        private static readonly __Value<string?> _clientSecret = new __Value<string?>(() => __config.Get("clientSecret"));
+        public static string? ClientSecret
+        {
+            get => _clientSecret.Get();
+            set => _clientSecret.Set(value);
+        }
+
+        private static readonly __Value<string?> _identityKitUrl = new __Value<string?>(() => __config.Get("identityKitUrl"));
+        public static string? IdentityKitUrl
+        {
+            get => _identityKitUrl.Get();
+            set => _identityKitUrl.Set(value);
+        }
+
         private static readonly __Value<string?> _identityProviderUrl = new __Value<string?>(() => __config.Get("identityProviderUrl"));
         public static string? IdentityProviderUrl
         {

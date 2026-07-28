@@ -20,6 +20,14 @@ class _ExportableConfig(types.ModuleType):
         return __config__.get('clientId')
 
     @property
+    def client_secret(self) -> Optional[str]:
+        return __config__.get('clientSecret')
+
+    @property
+    def identity_kit_url(self) -> Optional[str]:
+        return __config__.get('identityKitUrl')
+
+    @property
     def identity_provider_url(self) -> Optional[str]:
         return __config__.get('identityProviderUrl')
 

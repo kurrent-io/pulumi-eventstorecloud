@@ -6,6 +6,11 @@ replace github.com/hashicorp/go-getter => github.com/hashicorp/go-getter v1.4.0
 
 replace github.com/hashicorp/terraform-plugin-sdk/v2 => github.com/pulumi/terraform-plugin-sdk/v2 v2.0.0-20240520223432-0c0bf0d65f10
 
+// Local override until terraform-provider-kurrentcloud with Service Account
+// authentication (features/pkce-and-sa-auth) is released; drop this replace
+// and bump the require once v2.2.0 is tagged.
+replace github.com/kurrent-io/terraform-provider-kurrentcloud/v2 => ../../terraform-provider-kurrentcloud
+
 require (
 	github.com/kurrent-io/terraform-provider-kurrentcloud/v2 v2.1.1
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.57.0

@@ -5,6 +5,11 @@ CHANGELOG
 
 **Rebranded from `eventstorecloud` to `kurrentcloud`** to match the Kurrent Cloud Terraform provider.
 
+- **Service Account authentication**: new optional `clientSecret` (secret) and `identityKitUrl`
+  provider config. When both `clientId` and `clientSecret` are set (or `ESC_CLIENT_ID` /
+  `ESC_CLIENT_SECRET` via the environment), the provider authenticates with the OAuth2
+  client-credentials grant instead of the `token` refresh-token flow. Inherited from the upstream
+  Terraform provider (`features/pkce-and-sa-auth`).
 - Re-pointed the Terraform bridge to `kurrent-io/terraform-provider-kurrentcloud` v2.1.1 (was
   `EventStore/terraform-provider-eventstorecloud` v1.6.0).
 - **New resource:** `ManagedClusterReplicaset` — read-only replica sets attached to a managed cluster.

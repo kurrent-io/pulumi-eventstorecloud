@@ -26,6 +26,8 @@ export class Provider extends pulumi.ProviderResource {
     }
 
     public readonly clientId!: pulumi.Output<string>;
+    public readonly clientSecret!: pulumi.Output<string | undefined>;
+    public readonly identityKitUrl!: pulumi.Output<string | undefined>;
     public readonly identityProviderUrl!: pulumi.Output<string>;
     public readonly organizationId!: pulumi.Output<string>;
     public readonly token!: pulumi.Output<string>;
@@ -62,6 +64,8 @@ export class Provider extends pulumi.ProviderResource {
                 throw new Error("Missing required property 'url'");
             }
             resourceInputs["clientId"] = args ? args.clientId : undefined;
+            resourceInputs["clientSecret"] = args?.clientSecret ? pulumi.secret(args.clientSecret) : undefined;
+            resourceInputs["identityKitUrl"] = args ? args.identityKitUrl : undefined;
             resourceInputs["identityProviderUrl"] = args ? args.identityProviderUrl : undefined;
             resourceInputs["organizationId"] = args ? args.organizationId : undefined;
             resourceInputs["token"] = args?.token ? pulumi.secret(args.token) : undefined;
@@ -69,7 +73,7 @@ export class Provider extends pulumi.ProviderResource {
             resourceInputs["url"] = args ? args.url : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const secretOpts = { additionalSecretOutputs: ["token"] };
+        const secretOpts = { additionalSecretOutputs: ["clientSecret", "token"] };
         opts = pulumi.mergeOptions(opts, secretOpts);
         super(Provider.__pulumiType, name, resourceInputs, opts);
     }
@@ -80,6 +84,8 @@ export class Provider extends pulumi.ProviderResource {
  */
 export interface ProviderArgs {
     clientId: pulumi.Input<string>;
+    clientSecret?: pulumi.Input<string>;
+    identityKitUrl?: pulumi.Input<string>;
     identityProviderUrl: pulumi.Input<string>;
     organizationId: pulumi.Input<string>;
     token: pulumi.Input<string>;

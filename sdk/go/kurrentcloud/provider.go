@@ -19,12 +19,14 @@ import (
 type Provider struct {
 	pulumi.ProviderResourceState
 
-	ClientId            pulumi.StringOutput `pulumi:"clientId"`
-	IdentityProviderUrl pulumi.StringOutput `pulumi:"identityProviderUrl"`
-	OrganizationId      pulumi.StringOutput `pulumi:"organizationId"`
-	Token               pulumi.StringOutput `pulumi:"token"`
-	TokenStore          pulumi.StringOutput `pulumi:"tokenStore"`
-	Url                 pulumi.StringOutput `pulumi:"url"`
+	ClientId            pulumi.StringOutput    `pulumi:"clientId"`
+	ClientSecret        pulumi.StringPtrOutput `pulumi:"clientSecret"`
+	IdentityKitUrl      pulumi.StringPtrOutput `pulumi:"identityKitUrl"`
+	IdentityProviderUrl pulumi.StringOutput    `pulumi:"identityProviderUrl"`
+	OrganizationId      pulumi.StringOutput    `pulumi:"organizationId"`
+	Token               pulumi.StringOutput    `pulumi:"token"`
+	TokenStore          pulumi.StringOutput    `pulumi:"tokenStore"`
+	Url                 pulumi.StringOutput    `pulumi:"url"`
 }
 
 // NewProvider registers a new resource with the given unique name, arguments, and options.
@@ -52,10 +54,14 @@ func NewProvider(ctx *pulumi.Context,
 	if args.Url == nil {
 		return nil, errors.New("invalid value for required argument 'Url'")
 	}
+	if args.ClientSecret != nil {
+		args.ClientSecret = pulumi.ToSecret(args.ClientSecret).(pulumi.StringPtrInput)
+	}
 	if args.Token != nil {
 		args.Token = pulumi.ToSecret(args.Token).(pulumi.StringInput)
 	}
 	secrets := pulumi.AdditionalSecretOutputs([]string{
+		"clientSecret",
 		"token",
 	})
 	opts = append(opts, secrets)
@@ -69,17 +75,21 @@ func NewProvider(ctx *pulumi.Context,
 }
 
 type providerArgs struct {
-	ClientId            string `pulumi:"clientId"`
-	IdentityProviderUrl string `pulumi:"identityProviderUrl"`
-	OrganizationId      string `pulumi:"organizationId"`
-	Token               string `pulumi:"token"`
-	TokenStore          string `pulumi:"tokenStore"`
-	Url                 string `pulumi:"url"`
+	ClientId            string  `pulumi:"clientId"`
+	ClientSecret        *string `pulumi:"clientSecret"`
+	IdentityKitUrl      *string `pulumi:"identityKitUrl"`
+	IdentityProviderUrl string  `pulumi:"identityProviderUrl"`
+	OrganizationId      string  `pulumi:"organizationId"`
+	Token               string  `pulumi:"token"`
+	TokenStore          string  `pulumi:"tokenStore"`
+	Url                 string  `pulumi:"url"`
 }
 
 // The set of arguments for constructing a Provider resource.
 type ProviderArgs struct {
 	ClientId            pulumi.StringInput
+	ClientSecret        pulumi.StringPtrInput
+	IdentityKitUrl      pulumi.StringPtrInput
 	IdentityProviderUrl pulumi.StringInput
 	OrganizationId      pulumi.StringInput
 	Token               pulumi.StringInput
@@ -126,6 +136,14 @@ func (o ProviderOutput) ToProviderOutputWithContext(ctx context.Context) Provide
 
 func (o ProviderOutput) ClientId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Provider) pulumi.StringOutput { return v.ClientId }).(pulumi.StringOutput)
+}
+
+func (o ProviderOutput) ClientSecret() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.ClientSecret }).(pulumi.StringPtrOutput)
+}
+
+func (o ProviderOutput) IdentityKitUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.IdentityKitUrl }).(pulumi.StringPtrOutput)
 }
 
 func (o ProviderOutput) IdentityProviderUrl() pulumi.StringOutput {

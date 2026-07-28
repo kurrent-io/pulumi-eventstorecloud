@@ -30,9 +30,30 @@ pulumi plugin install resource kurrentcloud --server github://api.github.com/kur
 The Pulumi provider needs credentials to authenticate requests from your computer to Kurrent Cloud. Your credentials are never sent
 to pulumi.com. The provider needs to be configured with Kurrent Cloud credentials before it can be used to create resources.
 
-First, you need an access token for your user, which you can obtain from the Kurrent Cloud console.
+The provider supports two authentication methods:
 
-Then, go to the list of organizations you have access to in the Kurrent Cloud console, choose the organization that you will be provisioning resources for, and find the organization id in the settings.
+- **Service Account credentials (recommended for automation)** - configure `clientId` and `clientSecret` with the credentials of a Kurrent Cloud Service Account. The provider then obtains short-lived access tokens via the OAuth2 client-credentials grant, and `token` is not used.
+- **Refresh token** - configure `token` with a personal refresh token. This is the legacy method; the token is bound to a user account.
+
+In both cases you also need the organization id: go to the list of organizations you have access to in the Kurrent Cloud console, choose the organization that you will be provisioning resources for, and find the organization id in the settings.
+
+**Service Account credentials** can be provided via environment variables:
+
+```bash
+$ export ESC_CLIENT_ID=<YOUR_CLIENT_ID>
+$ export ESC_CLIENT_SECRET=<YOUR_CLIENT_SECRET>
+$ export ESC_ORG_ID=<YOUR_ORGANIZATION_ID>
+```
+
+or via stack configuration:
+
+```bash
+pulumi config set kurrentcloud:clientId <YOUR_CLIENT_ID>
+pulumi config set kurrentcloud:clientSecret <YOUR_CLIENT_SECRET> --secret
+pulumi config set kurrentcloud:organizationId <YOUR_ORGANIZATION_ID> --secret
+```
+
+**Refresh token** authentication works the same way. First, you need an access token for your user, which you can obtain from the Kurrent Cloud console.
 
 - `<YOUR_ACCESS_TOKEN>`: your access token
 - `<YOUR_ORGANIZATION_ID>`: the Kurrent Cloud organization id
@@ -59,7 +80,10 @@ Required options can be omitted if you configure them using environment variable
 
 | Option           | Required/Optional | Description                                                                                       |
 | ---------------- | ----------------- | ------------------------------------------------------------------------------------------------- |
-| `token`          | Required          | Access token. You can retrieve this from the ‘Access Tokens’ section of the Kurrent Cloud console. |
+| `token`          | Required unless Service Account credentials are set | Refresh token. You can retrieve this from the ‘Access Tokens’ section of the Kurrent Cloud console. |
 | `organizationId` | Required          | The organization id. You can find it in the organization settings page of the Kurrent Cloud console. |
+| `clientId`       | Optional          | Service Account client id. Must be set together with `clientSecret`.                              |
+| `clientSecret`   | Optional          | Service Account client secret. When both `clientId` and `clientSecret` are set, Service Account authentication is used and takes priority over `token`. |
 | `url`            | Optional          | The URL of the Kurrent Cloud API. This defaults to the public cloud instance of Kurrent Cloud.    |
-| `tokenStore`     | Optional          | The location on the local filesystem of the token cache. This is shared with the Kurrent CLI.     |
+| `tokenStore`     | Optional          | The location on the local filesystem of the token cache. This is shared with the Kurrent CLI. Only used with refresh token authentication. |
+| `identityKitUrl` | Optional          | The base URL of the token endpoint used for Service Account authentication. You would normally not need to set it. |
